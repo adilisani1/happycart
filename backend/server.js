@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/products', productRouter);
+app.use("/images", express.static("uploads"));
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
