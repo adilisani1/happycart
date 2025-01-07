@@ -1,0 +1,49 @@
+.hero-card {
+    /* background: radial-gradient(var(--card-color-one), var(--card-color-two)); */
+    color: #fff;
+
+    
+    /* border: 1px solid #ccc; */
+}
+
+.slick-slider {
+    position: relative;
+    padding-top: 10px;
+}
+
+.slick-slide {
+    display: none;
+    transition: background-color 0.5s ease;
+}
+
+
+
+
+.slick-dots {
+    position: relative;
+    
+}
+
+/* .slick-dots li button:before {
+    font-size: 16px;
+    color: rgb(252, 247, 247);
+
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: .75;
+    color: #ff3f14;
+} */
+
+.slick-list {
+    overflow: visible !important;
+
+}
+
+.slick-dots li {
+    margin: 0 8px;
+}
+
+.slick-slide {
+    padding: 0px 1px !important;
+}

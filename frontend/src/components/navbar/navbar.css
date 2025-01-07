@@ -1,0 +1,5 @@
+.header {
+    background: linear-gradient(to left, var(--card-color-one), var(--card-color-two));
+    z-index: 10000;
+    position: relative;
+}

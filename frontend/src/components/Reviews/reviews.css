@@ -1,0 +1,15 @@
+.slick-list {
+    overflow: hidden !important;
+}
+.slick-slider .slick-slide {
+  padding: 0 10px !important;
+}
+
+@media (max-width: 1024px) {
+  .slick-slider  .slick-prev {
+ display: none !important;
+}
+.slick-slider .slick-next {
+  display: none !important;
+}
+}

@@ -1,0 +1,113 @@
+/* Section one */
+    .top{
+            background: radial-gradient(var(--card-color-one), var(--card-color-two));
+    }
+.max-w-sm {
+    max-width: 24rem; /* Tailwind's default value */
+}
+    .top .left{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 20rem;
+
+    }
+
+
+    .top .left h1{
+        color: white;
+        font-size: 3rem;
+
+    }
+    .top .left span{
+        color:orange;
+    }
+    .top .left p{
+        color: white;
+        font-size: 10px;
+    }
+
+    .top .right{
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        width: 50%;
+        overflow: hidden;
+    }
+
+    .top .right img{
+        width : 50%;
+        height: 100%;
+    }
+
+    /* Section Two */
+    .two{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-left: auto;
+    }
+
+    .two .left{
+        width:100%;
+
+    }
+
+    .two .right p{
+        text-align: justify;
+    }
+
+    /* section three */
+
+    .three{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .three h1{
+        text-align: center;
+        font-size: 2em;
+    }
+    
+    .three .orange{
+        color: orange;
+    }
+    
+    .three img{
+        border-radius: 25px;
+        width: 80%;
+        padding-top: 10px;
+        margin: 0 auto;
+    }
+    
+    .carddd{
+        margin: 0 auto;
+        max-width: 1500px;
+        display :flex;
+        justify-content: space-evenly;
+    }
+
+    .four h1{
+        margin-top: 20px;
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .colorcard{
+        background: linear-gradient(to left, var(--card-color-one), var(--card-color-two));
+    }
+
+
+
+
+
+    @media(max-width: 768px) {
+         .top{
+            background: none;
+    }
+    }
