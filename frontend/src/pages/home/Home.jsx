@@ -6,12 +6,11 @@ import { PiKeyReturn } from "react-icons/pi";
 import { BsCreditCard2Front } from "react-icons/bs";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import Products from '../../components/products/Products';
-import Trendings from './../../components/Trendings';
 
 const Home = () => {
     return (
         <div className='shade-parent'>
-            <div className='shade'>
+            <div className='shade pt-20'>
                 <Hero />
                 {/* OUR PROMISE */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-screen-2xl mt-8 md:mt-20 mb-32 rounded-xl px-5 md:px-10 md:pb-12 md:pt-5  mx-auto">
@@ -48,10 +47,8 @@ const Home = () => {
                     </div>
                 </div>
 
-
                 {/* MAIN PRODUCTS */}
                 <Products />
-
 
             </div>
         </div >

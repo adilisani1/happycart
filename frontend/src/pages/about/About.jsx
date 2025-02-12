@@ -38,7 +38,7 @@ const About = () => {
     return (
         <div>
             {/* Section 1 */}
-            <div className="top">
+            <div className="top pt-20">
                 <div className=" md:mb-20 mb-0  max-w-screen-2xl mx-auto md:h-[540px] hero-card grid rounded-xl md:px-10 md:pt-2  sm:px-20 lg:gap-8 xl:gap-0 lg:grid-cols-12">
                     <div className="mr-auto  place-self-center lg:col-span-8 lg:order-none order-1 md:text-left text-center md:px-0 px-5 md:py-0 py-12 pb-14">
                         <p className="text-sm text-gray-400 mb-4">

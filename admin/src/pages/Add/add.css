@@ -1,0 +1,82 @@
+.add-product {
+  width: 70%;
+  margin-left: max(5vw, 25px);
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+.add-product form {
+gap: 20px;
+}
+.flex-col {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+}
+.add-product h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-product-form label {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.img-upload {
+    width: 150px;
+    cursor: pointer;
+}
+
+.check-box {
+    margin-left: 10px;
+}
+form input,
+form textarea,
+form button {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.add-product-name, .add-product-description, .add-product-price, .add-category {
+    width: max(40%, 280px);
+}
+
+.add-trend {
+    display: flex;
+    gap: 30px;
+}
+.add-trend .trend, .featured {
+    display: flex;
+    align-items: center;
+}
+.add-category select {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #fff;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  max-width: 200px;
+  
+  margin-top: 15px;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}

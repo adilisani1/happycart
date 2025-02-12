@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Unbounded&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Outfit;
+}
+
+:root {
+  --white-color: #fff;
+  --bg-color: #000000;
+  --primary-color: #7824f6;
+  --card-color-one: #352c72;
+  --card-color-two: #150d2b;
+  --body-bg-shade: radial-gradient(72.04% 72.04% at 50% 3.99%, #7824F6 0%, rgba(166, 151, 255, 0) 100%);
+  --shadow-color-one: #6a0cf8;
+  --transition: 0.3s ease-in-out;
+  --font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #fcfcfc;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+hr {
+  border: none;
+  background-color: #a9a9a9;
+  height: 1px;
+}
+
+.app-content {
+  display: flex;
+}

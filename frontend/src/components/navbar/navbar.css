@@ -1,5 +1,58 @@
 .header {
-    background: linear-gradient(to left, var(--card-color-one), var(--card-color-two));
-    z-index: 10000;
-    position: relative;
+  background: linear-gradient(
+    to left,
+    var(--card-color-one),
+    var(--card-color-two)
+  );
+  z-index: 9997;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.navbar-profile {
+  position: relative;
+}
+
+.navbar-profile-list {
+  position: absolute;
+  display: none;
+  right: 0;
+  z-index: 1222;
+}
+
+.navbar-profile:hover .navbar-profile-list {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 12px 25px;
+  border: 1px solid #332a6d;
+
+  color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  outline: 2px solid #fff;
+}
+
+.navbar-profile-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #332a6d;
+}
+
+.bag-icon,
+.exit-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 18px;
+  color: #332a6d;
+}
+
+@media screen and (max-width: 600px) {
 }

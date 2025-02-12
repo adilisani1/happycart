@@ -16,8 +16,9 @@ const productSchema = new mongoose.Schema(
     },
     ratings: {
       type: Number,
-      required: true,
+      default: 0,
     },
+
     trendy: {
       type: Boolean,
       default: false,
@@ -31,12 +32,12 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: [String], 
+      type: [String],
       required: true,
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 

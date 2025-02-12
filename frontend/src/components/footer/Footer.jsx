@@ -3,7 +3,7 @@ import logoCart from '/assets/images/logo/happy-cart-logo2.png';
 import { NavLink } from 'react-router-dom';
 import { menuLinks, quickLinks } from './../../utils/menuLinks';
 
-const Footer = () => {
+const Footer = ({ setShowLogin }) => {
     return (
         <footer className="bg-card-color-two text-white" >
             <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8 mt-10">
@@ -42,11 +42,21 @@ const Footer = () => {
                     <ul className="mt-4 space-y-2 text-sm">
                         {menuLinks.map((link, index) => (
                             <li key={index}>
-                                <NavLink to={link.path} className="hover:text-primary-color">
-                                    {link.name}
-                                </NavLink>
+                                {link.name === "Login" ? (
+                                    <button
+                                        onClick={() => setShowLogin(true)}
+                                        className="hover:text-primary-color text-left"
+                                    >
+                                        {link.name}
+                                    </button>
+                                ) : (
+                                        <NavLink to={link.path} className="hover:text-primary-color">
+                                            {link.name}
+                                        </NavLink>
+                                )}
                             </li>
                         ))}
+
                     </ul>
                 </div>
 

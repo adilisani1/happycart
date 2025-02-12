@@ -1,0 +1,53 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 64px;
+  background: linear-gradient(to left, var(--card-color-one), var(--card-color-two));
+  height: 90px;
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-logo {
+  width: 40px;
+  margin-bottom: 5px;
+}
+
+.navbar-admin-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .navbar-logo {
+    width: 35px;
+  }
+
+  .navbar-admin-text {
+    font-size: 12px;
+
+  }
+}
