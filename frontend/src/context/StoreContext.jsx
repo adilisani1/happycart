@@ -8,7 +8,7 @@ export const StoreProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState({});
     const [token, setToken] = useState("")
-    const url = "http://localhost:4000";
+    const url = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
 
     const fetchProducts = async () => {
         const response = await axios.get(`${url}/api/products/all`)
