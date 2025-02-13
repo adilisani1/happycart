@@ -8,8 +8,20 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
+      "src": "/api/products",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/user",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/cart",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/order",
+      "dest": "/server.js"
     }
   ]
 }
