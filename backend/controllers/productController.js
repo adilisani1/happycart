@@ -1,7 +1,7 @@
 const Product = require("../models/productModel");
 const fs = require("fs");
 const addProducts = async (req, res) => {
-  let image_filename = `${req.file.filename}`;
+  // let image_filename = `${req.file.filename}`;
 
   const product = new Product({
     title: req.body.title,
@@ -20,6 +20,7 @@ const addProducts = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Product added successfully",
+      imageUrl: req.file.path,
     });
   } catch (error) {
     res.status(400).send({ message: "Failed to add product" });
