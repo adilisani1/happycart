@@ -11,7 +11,8 @@ const addProducts = async (req, res) => {
     trendy: req.body.trendy,
     featured: req.body.featured,
     description: req.body.description,
-    image: image_filename,
+    // image: image_filename,
+    image: req.file.path, // Cloudinary URL
   });
 
   try {
