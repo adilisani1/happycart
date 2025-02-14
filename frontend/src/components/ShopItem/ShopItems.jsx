@@ -27,7 +27,8 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                                             sm:max-w-[200px] sm:h-[150px] 
                                             h-[200px]
                                             overflow-visible object-cover"
-                            src={url + '/images/' + image}
+                            // src={url + '/images/' + image}
+                            src={image[0]?.startsWith("http") ? image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${image[0]}`}
                             alt={title}
                         />
                     </div>

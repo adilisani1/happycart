@@ -23,7 +23,8 @@ const Products = () => {
                 transform hover:scale-105 
                 rounded-2xl relative h-full w-full  cursor-pointer">
                         <div className="flex items-center justify-center pt-6">
-                            <img className=" md:max-w-[400px] -mt-24 object-cover max-w-72" src={url + '/images/' + product.image} alt="iphone" />
+                            <img className=" md:max-w-[400px] -mt-24 object-cover max-w-72" src={product.image[0]?.startsWith("http") ? product.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
+                                alt="iphone" />
                         </div>
                         <div className=' flex items-center justify-center text-center flex-col mx-auto pt-4 pb-10'>
                             <h3>{product.title}</h3>

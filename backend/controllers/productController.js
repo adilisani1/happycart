@@ -2,6 +2,7 @@ const Product = require("../models/productModel");
 const fs = require("fs");
 const addProducts = async (req, res) => {
   // let image_filename = `${req.file.filename}`;
+  let image_url = req.file.path;
 
   const product = new Product({
     title: req.body.title,
@@ -12,7 +13,7 @@ const addProducts = async (req, res) => {
     featured: req.body.featured,
     description: req.body.description,
     // image: image_filename,
-    image: req.file.path, // Cloudinary URL
+    image: image_url, // Cloudinary URL
   });
 
   try {

@@ -17,8 +17,9 @@ const Trendings = () => {
                 transform hover:scale-95 shadow-[0px_4px_6px_0px_rgba(236,_72,_153,_0.5)] cursor-pointer hover:shadow-[0px_4px_6px_0px_rgba(34,_197,_94,_0.5)] h-full text-center">
                         <img
                             className="md:max-w-[300px] sm:w-[250px] w-[200px]"
-                            src={`${url}/images/${product.image}`}
-                            alt="PlayStation 5" />
+                            src={product.image[0]?.startsWith("http") ? product.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
+
+                            alt="Wireless Headphones" />
 
                         <div className="mt-5 sm:mt-0 sm:mb-0 sm:ml-5 mb-10">
                             <p className="price text-cyan-500">{`${product.category}`}</p>

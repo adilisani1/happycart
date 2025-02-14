@@ -4,7 +4,6 @@ import ShopItems from '../../components/ShopItem/ShopItems';
 
 const Shop = () => {
     const { products, url } = useContext(StoreContext);
-
     return (
         <div className="shade-parent min-h-screen pt-20">
             {/* Banner Section */}
