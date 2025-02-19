@@ -6,7 +6,7 @@ module.exports = {
         "card-color-one": "#352c72",
         "card-color-two": "#150d2b",
         "primary-color": "#7824f6",
-        "price-color": "#7da0eb",
+        "price-color": "#95a5f0",
       },
       backgroundImage: {
         "blue-gradient":

@@ -4,6 +4,7 @@ import { BsCartXFill } from "react-icons/bs";
 import { IoMdClose } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
+import './cart.css';
 
 export const Cart = () => {
     const navigate = useNavigate();
@@ -58,30 +59,30 @@ export const Cart = () => {
                                 return (
                                     <div
                                         key={item._id}
-                                        className="md:grid grid-cols-5 gap-4 p-4 items-center text-gray-200"
+                                        className="cart-items gap-4 p-4 items-center text-gray-200"
                                     >
                                         {/* Product Info */}
                                         <div className="col-span-2 flex items-center gap-4">
                                             <img
                                                 src={item.image[0]?.startsWith("http") ? item.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
                                                 alt={item.title}
-                                                className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-lg"
+                                                className="w-14 h-14 sm:w-20 sm:h-20 object-contain rounded-lg"
                                             />
                                             <div>
-                                                <h2 className="sm:text-lg text-[15px] font-bold">{item.title}</h2>
+                                                <h2 className="sm:text-lg text-[12px] font-bold">{item.title}</h2>
                                             </div>
                                         </div>
 
                                         {/* Price */}
-                                        <div>${item.price}</div>
+                                        <div className='sm:text-[16px] text-[12px]'>${item.price}</div>
 
                                         {/* Quantity Controls */}
                                         <div className="flex items-center gap-2">
-                                            <button onClick={() => handleQuantityChange(item._id, -1)}>
+                                            <button className='sm:text-[16px] text-[12px]' onClick={() => handleQuantityChange(item._id, -1)}>
                                                 <AiOutlineMinus />
                                             </button>
-                                            <span>{cartItems[item._id]}</span>
-                                            <button onClick={() => handleQuantityChange(item._id, 1)}>
+                                            <span className='sm:text-[16px] text-[12px]'>{cartItems[item._id]}</span>
+                                            <button className='sm:text-[16px] text-[12px]' onClick={() => handleQuantityChange(item._id, 1)}>
                                                 <AiOutlinePlus />
                                             </button>
                                         </div>
@@ -90,7 +91,7 @@ export const Cart = () => {
                                         <div>
                                             <IoMdClose
                                                 onClick={() => removeFromCart(item._id)}
-                                                className="cursor-pointer"
+                                                className="cursor-pointer sm:text-[16px] text-[12px]"
                                             />
                                         </div>
                                     </div>
@@ -103,11 +104,11 @@ export const Cart = () => {
                     {/* Cart Total - Now hides when cart is empty */}
                     {Object.values(cartItems).some(quantity => quantity > 0) ? (
                         <div className="mt-8 text-right">
-                            <h2 className="text-xl sm:text-2xl font-normal">
-                                Grand Total: <span className="text-xl sm:text-2xl font-bold">${getTotalCartAmount()}</span>
+                            <h2 className="text-md sm:text-2xl font-normal">
+                                Grand Total: <span className="text-md sm:text-2xl font-bold text-price-color">${getTotalCartAmount()}</span>
                             </h2>
                             <button
-                                className="mt-4 py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient hover:bg-light-gradient outline-none   text-white  rounded-lg"
+                                className="mt-4 py-4 px-6 font-poppins font-medium sm:text-[18px] text-[14px] text-primary bg-blue-gradient hover:bg-light-gradient outline-none   text-white  rounded-lg"
                                 onClick={handleCheckout}
                             >
                                 Proceed to Checkout
