@@ -33,13 +33,17 @@ const ProductDetails = () => {
 
                     {/* ---------- Product Details Section ---------- */}
                     <div className="flex flex-col justify-center text-left">
-                        <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
-                        <p className="text-xl text-price-color font-semibold mb-4">${product.price}</p>
-                        <p className="text-gray-700 mb-4">{product.category}</p>
-                        <p className="text-sm text-gray-500 mb-4">Rating: {product.ratings} / 5</p>
-                        <p className="text-gray-600 mb-6">Trendy: {product.trendy ? 'Yes' : 'No'}</p>
+                        <div className='md:block flex justify-between items-center'>
+                            <h1 className="sm:text-3xl text-[16px] font-bold mb-4 ">{product.title}</h1>
+                            <p className="md:text-xl text-price-color font-semibold mb-4">${product.price}</p>
+                        </div>
+                        <div className='md:block flex justify-between items-center'>
+                            <p className="text-gray-400 mb-4">{product.category}</p>
+                            <p className="text-sm text-gray-500 mb-4">Rating: {product.ratings} / 5</p>
+                        </div>
+                        <p className="text-gray-500 ">Trendy: {product.trendy ? 'Yes' : 'No'}</p>
                         <button
-                            className="py-4 px-6 font-poppins font-medium md:text-[18px] text-[16px] text-primary bg-blue-gradient hover:bg-light-gradient rounded-[10px] outline-none mt-10 text-white w-[200px]"
+                            className="md:py-4 md:px-6 py-3 px-4 font-poppins font-medium md:text-[18px] text-[15px] text-primary bg-blue-gradient hover:bg-light-gradient rounded-[10px] outline-none mt-10 text-white w-[200px]"
                             onClick={() => addToCart(product._id)}
                         >
                             Add to Cart

@@ -38,7 +38,7 @@ export const Cart = () => {
                 <div className="absolute z-[0] w-[45%] h-[100%] -left-[40%] rounded-full blue__gradient top-[-30%]"></div>
                 <div className="absolute z-[1] w-[30%] h-[50%] left-0 rounded-full white__gradient  bottom-40"></div>
 
-                <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+                <h1 className="text-2xl sm:text-4xl font-bold mb-8 text-center">
                     {Object.values(cartItems).some(quantity => quantity > 0) ? "Your Cart" : "Your Cart is Empty"}
                 </h1>
 
