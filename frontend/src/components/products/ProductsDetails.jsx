@@ -18,13 +18,15 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className="max-w-screen-2xl flex flex-col mx-auto">
+        <div className="max-w-screen-2xl flex flex-col mx-auto pt-12">
             <main className="flex-grow px-4 sm:px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative" >
+                    <div className="absolute z-[0] w-[60%] h-[70%] -right-[40%] rounded-full blue__gradient top-[-10%]"></div>
+
                     <div className="flex justify-start">
                         <img
                             className="w-full max-w-[400px] md:max-w-2xl object-cover rounded-lg"
-                            src={url + '/images/' + product.image}
+                            src={product.image[0]?.startsWith("http") ? product.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
                             alt={product.title}
                         />
                     </div>
@@ -32,12 +34,12 @@ const ProductDetails = () => {
                     {/* ---------- Product Details Section ---------- */}
                     <div className="flex flex-col justify-center text-left">
                         <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
-                        <p className="text-xl text-cyan-600 font-semibold mb-4">${product.price}</p>
+                        <p className="text-xl text-price-color font-semibold mb-4">${product.price}</p>
                         <p className="text-gray-700 mb-4">{product.category}</p>
                         <p className="text-sm text-gray-500 mb-4">Rating: {product.ratings} / 5</p>
                         <p className="text-gray-600 mb-6">Trendy: {product.trendy ? 'Yes' : 'No'}</p>
                         <button
-                            className="bg-card-color-one hover:opacity-80 text-white px-4 w-[200px] h-[55px] py-2 rounded-lg"
+                            className="py-4 px-6 font-poppins font-medium md:text-[18px] text-[16px] text-primary bg-blue-gradient hover:bg-light-gradient rounded-[10px] outline-none mt-10 text-white w-[200px]"
                             onClick={() => addToCart(product._id)}
                         >
                             Add to Cart

@@ -32,15 +32,18 @@ export const Cart = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1f] text-white pt-20">
-            <main className="flex-grow px-4 sm:px-8 py-16">
+        <div className="min-h-screen flex flex-col  text-white pt-20 ">
+            <main className="flex-grow px-4 sm:px-8 py-16 relative z-[2]">
+                <div className="absolute z-[0] w-[45%] h-[100%] -left-[40%] rounded-full blue__gradient top-[-30%]"></div>
+                <div className="absolute z-[1] w-[30%] h-[50%] left-0 rounded-full white__gradient  bottom-40"></div>
+
                 <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
                     {Object.values(cartItems).some(quantity => quantity > 0) ? "Your Cart" : "Your Cart is Empty"}
                 </h1>
 
-                <div className="max-w-5xl mx-auto">
+                <div className="max-w-5xl mx-auto ">
                     {Object.values(cartItems).some(quantity => quantity > 0) && (
-                        <div className="hidden md:grid grid-cols-5 gap-4 bg-slate-800 text-gray-300 p-4 rounded-t-lg font-bold">
+                        <div className="hidden md:grid grid-cols-5 gap-4 mb-4 pb-4 border-[1px] border-[#3F3E45] text-gray-300 p-4 rounded-t-lg font-bold">
                             <div className="col-span-2">Product</div>
                             <div>Price</div>
                             <div>Quantity</div>
@@ -49,7 +52,7 @@ export const Cart = () => {
                     )}
 
                     {/* Table Body */}
-                    <div className="bg-card-color-one rounded-lg divide-y divide-gray-700">
+                    <div className="nav-bg-gradient rounded-lg divide-y divide-gray-700">
                         {products.map((item) => {
                             if (cartItems[item._id] > 0) {
                                 return (
@@ -60,7 +63,7 @@ export const Cart = () => {
                                         {/* Product Info */}
                                         <div className="col-span-2 flex items-center gap-4">
                                             <img
-                                                src={url + '/images/' + item.image}
+                                                src={item.image[0]?.startsWith("http") ? item.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
                                                 alt={item.title}
                                                 className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-lg"
                                             />
@@ -104,7 +107,7 @@ export const Cart = () => {
                                 Grand Total: <span className="text-xl sm:text-2xl font-bold">${getTotalCartAmount()}</span>
                             </h2>
                             <button
-                                className="mt-4 bg-card-color-one hover:opacity-80 text-white px-6 py-4 rounded-lg"
+                                className="mt-4 py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient hover:bg-light-gradient outline-none   text-white  rounded-lg"
                                 onClick={handleCheckout}
                             >
                                 Proceed to Checkout

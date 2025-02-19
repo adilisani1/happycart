@@ -21,7 +21,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <>
+    <div className="bg-primary w-full overflow-hidden">
       <ToastContainer />
 
       <MenuProvider>
@@ -30,7 +30,7 @@ function App() {
           <ScrollToTop />
           {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
           <Navbar setShowLogin={setShowLogin} />
-            <div className="  min-h-screen">
+          <div className=" min-h-screen">
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/cart" element={<Cart />}></Route>
@@ -61,7 +61,7 @@ function App() {
         </StoreProvider>
 
       </MenuProvider>
-    </>
+    </div>
   );
 }
 

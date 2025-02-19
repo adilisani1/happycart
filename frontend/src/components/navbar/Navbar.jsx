@@ -4,6 +4,7 @@ import logoCart from '/assets/images/logo/happy-cart-logo2.png';
 import { BsFillHandbagFill } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 import { RxExit } from "react-icons/rx";
+import { IoMdExit } from "react-icons/io";
 
 import './navbar.css';
 import { Menu } from '../menu/Menu';
@@ -13,6 +14,14 @@ import { StoreContext } from './../../context/StoreContext';
 const Navbar = ({ setShowLogin }) => {
     const navigate = useNavigate();
     const { cartItems, token, setToken } = useContext(StoreContext);
+    const [scroll, setScroll] = React.useState(0);
+
+    React.useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScroll(window.scrollY);
+        });
+    }, []);
+
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -31,7 +40,9 @@ const Navbar = ({ setShowLogin }) => {
     };
 
     return (
-        <header className=' h-20 py-3 md:py-4 px-2 md:px-8 lg:px-16 xl-32 2xl:px-64 shadow-sm header'>
+        <header className={`h-20 pt-4 md:py-4 px-2 md:px-8 lg:px-16 xl-32 2xl:px-64 shadow-sm header ${scroll > 40 ? 'nav-bg-gradient shadow-2xl' : ''}`}
+
+        >
             {/* SMALL SCREENS */}
             <div className='flex xl:hidden items-center justify-between'>
                 <div className='flex-1' >
@@ -39,7 +50,7 @@ const Navbar = ({ setShowLogin }) => {
                 </div>
                 <div className='flex-1 flex justify-center'>
                     <NavLink to='/' className='flex items-center gap-1'>
-                        <img className='md:w-[43px] w-[38px]' src={logoCart} alt='happy-cart-logo' />
+                        <img className='md:w-[43px] w-[32px]' src={logoCart} alt='happy-cart-logo' />
                         <div className='pt-2.5'>
                             <h4 className='md:text-[20px] text-md font-extrabold'>happycart</h4>
                         </div>
@@ -55,7 +66,7 @@ const Navbar = ({ setShowLogin }) => {
                                 <div className="absolute sm:top-[12px] sm:right-[12px] top-[11px] right-[11px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
                             ) : null}
                         </NavLink>
-                        {!token ? <button className='text-[14px] md:text-2xl' onClick={setShowLogin}>Sign in</button>
+                        {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium text-sm' onClick={setShowLogin}>Sign in</button>
                             :
                             <div className='navbar-profile '>
                                 <img
@@ -66,12 +77,12 @@ const Navbar = ({ setShowLogin }) => {
                                 <ul className='navbar-profile-list '>
                                     <li className='mb-2' onClick={() => navigate('/myorders')}>
                                         <span className='bag-icon'><BsFillHandbagFill /></span>
-                                        <p>Orders</p>
+                                        <p className='text-black'>Orders</p>
                                     </li>
                                     <hr />
                                     <li className=''>
                                         <span className='exit-icon'>
-                                            <RxExit />
+                                            <IoMdExit />
                                         </span>
                                         <button onClick={handleLogout}>
                                             Logout
@@ -116,14 +127,14 @@ const Navbar = ({ setShowLogin }) => {
                         </form>
                         <div className='flex items-center gap-4 xl:gap-6'>
                             <Link to="/cart" className='relative'>
-                                <span className=' text-lg  md:text-2xl' >
+                                <span className=' text-lg  md:text-2xl ' >
                                     <BsFillHandbagFill />
                                 </span>
                                 {Object.keys(cartItems).some((item) => cartItems[item]) > 0 && (
                                     <div className="absolute top-[-2px] right-[-3px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
                                 )}
                             </Link>
-                            {!token ? <button onClick={setShowLogin}>Sign in</button>
+                            {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium' onClick={setShowLogin}>Sign in</button>
                                 :
                                 <div className='navbar-profile '>
                                     <img
@@ -133,12 +144,12 @@ const Navbar = ({ setShowLogin }) => {
                                     />
                                     <ul className='navbar-profile-list '>
                                         <li className='mb-2' onClick={() => navigate('/myorders')}>
-                                            <span className='bag-icon'><BsFillHandbagFill /></span>
-                                            <p>Orders</p></li>
+                                            <span className='bag-icon '><BsFillHandbagFill /></span>
+                                            <p className='text-black'>Orders</p></li>
                                         <hr />
                                         <li className=''>
                                             <span className='exit-icon'>
-                                                <RxExit />
+                                                <IoMdExit />
                                             </span>
                                             <button onClick={handleLogout}>
                                                 Logout

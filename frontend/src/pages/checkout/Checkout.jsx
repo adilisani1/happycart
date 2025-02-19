@@ -67,9 +67,11 @@ const Checkout = () => {
     }, [token])
     return (
         <div className="pt-20">
-            <div className="min-h-screen  text-white py-16 px-4 sm:px-8">
+            <div className="min-h-screen  text-white py-16 px-4 sm:px-8 relative" >
+                <div className="absolute z-[0] w-[60%] h-[100%] -left-[50%] rounded-full blue__gradient top-[-25%]"></div>
+
                 <div className="max-w-screen-2xl mx-auto xl:px-10">
-                    <form className="grid grid-cols-1 lg:grid-cols-3 gap-8" onSubmit={handleSubmit}>
+                    <form className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-[1]" onSubmit={handleSubmit}>
                         {/* -----------------Delivery Information ---------------------- */}
                         <div className="lg:col-span-2 p-8 rounded-lg shadow-lg">
                             <h2 className="text-2xl font-bold mb-6">Delivery Information</h2>
@@ -170,7 +172,7 @@ const Checkout = () => {
                                             >
                                                 <div className="flex items-center gap-4">
                                                     <img
-                                                        src={url + '/images/' + item.image}
+                                                        src={item.image[0]?.startsWith("http") ? item.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
                                                         alt={item.title}
                                                         className="w-16 h-16 object-cover rounded-lg"
                                                     />
@@ -194,7 +196,7 @@ const Checkout = () => {
                                             Grand Total: ${getTotalCartAmount()}
                                         </h3>
                                         <div className="lg:col-span-3 text-center mt-8">
-                                            <button className="w-full bg-card-color-one hover:opacity-90 text-white px-6 py-3 rounded-lg font-semibold"
+                                            <button className="w-full  bg-blue-gradient hover:bg-light-gradient  text-white px-6 py-3 rounded-lg font-semibold"
                                                 type="submit">
                                                 Place Order
                                             </button>

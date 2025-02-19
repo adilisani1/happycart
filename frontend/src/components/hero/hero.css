@@ -1,8 +1,6 @@
 .hero-card {
-    /* background: radial-gradient(var(--card-color-one), var(--card-color-two)); */
     color: #fff;
     
-    /* border: 1px solid #ccc; */
 }
 
 .slick-slider {
@@ -34,10 +32,12 @@
     color: #ff3f14;
 } */
 
-.slick-list {
-    overflow: visible !important;
+/* .slick-list {
+    overflow:  !important;
 
-}
+} */
+.slick-next {
+display: none !important;}
 
 .slick-dots li {
     margin: 0 8px;

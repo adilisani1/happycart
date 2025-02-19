@@ -12,7 +12,7 @@ const FollowUs = () => {
     ];
 
     return (
-        <div className="w-full bg-card-color-two text-white py-14 mt-10 mb-20">
+        <div className="w-full text-white py-14 mt-10 mb-20">
             <div className="text-center mb-8">
                 <FaInstagram className="text-4xl text-pink-500 mx-auto mb-4" />
                 <h2 className="md:text-3xl text-xl font-semibold mb-2">Follow Us on Instagram</h2>

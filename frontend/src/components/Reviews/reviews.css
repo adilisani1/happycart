@@ -4,7 +4,12 @@
 .slick-slider .slick-slide {
   padding: 0 10px !important;
 }
-
+.slick-prev {
+    display: none !important;
+}
+.slick-next {
+    display: none !important;
+}
 @media (max-width: 1024px) {
   .slick-slider  .slick-prev {
  display: none !important;

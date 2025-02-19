@@ -16,7 +16,7 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                                     hover:shadow-lg
                                     transition-all duration-300 ease-in-out
                                     transform hover:scale-105
-                                    rounded-2xl relative h-full w-full cursor-pointer bg-gradient-to-b from-[#412291] to-[#150d2b]"
+                                    rounded-2xl relative h-full w-full cursor-pointer bg-black-gradient"
                 >
                     <div className="flex items-center justify-center pt-12">
                         <img
@@ -34,7 +34,7 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                     </div>
                     <div className="flex items-center justify-center text-center flex-col mx-auto py-6 px-4 rounded-b-2xl">
                         <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-                        <p className="text-cyan-500 text-xl font-bold mb-2">
+                        <p className="text-price-color text-xl font-bold mb-2">
                             {`$${price}`}
                         </p>
                         <p className="text-gray-400 text-sm pb-4">Rating: {ratings} / 5</p>

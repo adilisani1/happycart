@@ -17,14 +17,39 @@ const LoginPopup = ({ setShowLogin }) => {
         password: "",
     });
 
+    const [passwordError, setPasswordError] = useState("");
+
+    const isValidPassword = (password) => {
+        const passwordRegex = /^[A-Z][A-Za-z\d@$!%*?&]{5,}$/;
+        return passwordRegex.test(password);
+    };
+
     const onChangeHandler = (event) => {
+        const { name, value } = event.target;
+
         setData((data) => ({
             ...data,
-            [event.target.name]: event.target.value,
+            [name]: value,
         }));
+
+        if (name === "password") {
+            if (!isValidPassword(value)) {
+                setPasswordError("Password must start with a capital letter & include at least 1 special character.");
+            } else {
+                setPasswordError("");
+            }
+        }
     };
+
+
+
     const onLogin = async (e) => {
         e.preventDefault();
+
+        if (!isValidPassword(data.password)) {
+            toast.error("Password must start with a capital letter and include at least one special character.");
+            return;
+        }
 
         const endpoint =
             currentState === "Login" ? "/api/user/login" : "/api/user/register";
@@ -55,8 +80,8 @@ const LoginPopup = ({ setShowLogin }) => {
 
 
     return (
-        <div className="login-popup pt-20">
-            <form className="login-popup-container" onSubmit={onLogin}>
+        <div className="login-popup pt-20 ">
+            <form className="login-popup-container bg-black-gradient border shadow-2xl" onSubmit={onLogin} >
                 <div className=" flex items-center justify-between mb-2 mt-2">
                     <h2 className="login-popup-title">{currentState}</h2>
 
@@ -95,9 +120,20 @@ const LoginPopup = ({ setShowLogin }) => {
                         onChange={onChangeHandler}
                         value={data.password}
                     />
+
+                    {currentState === "Sign up" && (
+                        <p className="text-price-color opacity-55 text-xs mt-1">
+                            Must start with a capital & include 1 special character.
+                        </p>
+
+                    )}
+                    {passwordError && (
+                        <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+                    )}
+
                 </div>
                 <button
-                    className="w-full mb-4 mt-2 md:text-lg text-sm bg-blue-500 hover:bg-blue-700 text-white py-2.5 rounded-md"
+                    className="w-full mb-4 mt-2 md:text-lg text-sm bg-blue-gradient hover:bg-light-gradient text-white py-2.5 rounded-md"
                     type="submit"
                 >
                     {currentState === "Sign up" ? "Create account" : "Login"}
@@ -107,7 +143,7 @@ const LoginPopup = ({ setShowLogin }) => {
                     <p className="text-gray-500 font-normal md:text-lg text-[14px]">
                         Create a new account?{" "}
                         <span
-                            className="cursor-pointer font-semibold text-blue-500"
+                            className="cursor-pointer font-semibold  text-bg-blue-gradient "
                             onClick={() => setCurrentState("Sign up")}
                         >
                             Sign up
@@ -117,7 +153,7 @@ const LoginPopup = ({ setShowLogin }) => {
                     <p className="text-gray-500 font-normal  md:text-lg text-[14px]">
                         Already have an account?{" "}
                         <span
-                            className="cursor-pointer font-semibold text-blue-500"
+                                className="cursor-pointer font-semibold"
                             onClick={() => setCurrentState("Login")}
                         >
                             Login

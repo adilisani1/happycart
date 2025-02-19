@@ -9,12 +9,11 @@ import Products from '../../components/products/Products';
 
 const Home = () => {
     return (
-        <div className='shade-parent'>
-            <div className='shade pt-20'>
+        <section className=' '>
                 <Hero />
                 {/* OUR PROMISE */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-screen-2xl mt-8 md:mt-20 mb-32 rounded-xl px-5 md:px-10 md:pb-12 md:pt-5  mx-auto">
-                    <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4 border rounded-lg text-white">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-screen-2xl mb-32 rounded-xl px-5 md:px-10 md:pb-12 md:pt-5  mx-auto ">
+                <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4  rounded-lg text-white bg-black-gradient-2">
                         <span className="md:text-5xl text-[30px] text-white"><MdOutlineContactSupport /></span>
                         <div className="flex flex-col">
                             <h3 className="md:text-lg text-[13px] font-semibold">Support 24/7</h3>
@@ -22,7 +21,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4 border rounded-lg text-white">
+                <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4  rounded-lg text-white bg-black-gradient-2">
                         <span className="md:text-5xl text-[30px] text-white"><PiKeyReturn /></span>
                         <div className="flex flex-col">
                             <h3 className="md:text-lg text-[13px] font-semibold">Easy Returns</h3>
@@ -30,7 +29,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4 border rounded-lg text-white">
+                <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4  rounded-lg text-white bg-black-gradient-2">
                         <span className="md:text-5xl text-[30px] text-white"><BsCreditCard2Front /></span>
                         <div className="flex flex-col">
                             <h3 className="md:text-lg text-[13px] font-semibold">Card Payment</h3>
@@ -38,7 +37,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4 border rounded-lg text-white">
+                <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4  rounded-lg text-white bg-black-gradient-2">
                         <span className="md:text-5xl text-[30px] text-white"><LiaShippingFastSolid /></span>
                         <div className="flex flex-col">
                             <h3 className="md:text-lg text-[13px] font-semibold">Free Shipping</h3>
@@ -50,8 +49,7 @@ const Home = () => {
                 {/* MAIN PRODUCTS */}
                 <Products />
 
-            </div>
-        </div >
+        </section>
     );
 }
 

@@ -5,8 +5,8 @@ import { menuLinks, quickLinks } from './../../utils/menuLinks';
 
 const Footer = ({ setShowLogin }) => {
     return (
-        <footer className="bg-card-color-two text-white" >
-            <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8 mt-10">
+        <footer className=" text-white border-t-[1px] border-t-[#3F3E45]" >
+            <div className="container mx-auto px-6 pt-10 pb-14 grid grid-cols-1 md:grid-cols-4 gap-8 mt-10">
                 {/* ------------- Company Info--------- */}
                 <div>
                     <div className="flex items-center space-x-3">
@@ -70,11 +70,11 @@ const Footer = ({ setShowLogin }) => {
                         <input
                             type="email"
                             placeholder="Enter your email"
-                            className="w-full px-4 py-2 text-sm bg-card-color-one text-white placeholder-gray-400 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary-color"
+                            className="w-full px-4 py-3 text-sm  text-white placeholder-gray-400 border border-blue-400 rounded focus:outline-none focus:ring-2 focus:ring-primary-color"
                         />
                         <button
                             type="submit"
-                            className="w-full mt-3 px-4 py-2 bg-primary-color text-white text-sm font-semibold rounded hover:bg-purple-700 transition duration-300"
+                            className="w-full mt-3 px-4 py-2.5 bg-blue-gradient  text-white text-sm font-semibold rounded hover:bg-purple-700 transition duration-300"
                         >
                             Subscribe
                         </button>
@@ -83,10 +83,8 @@ const Footer = ({ setShowLogin }) => {
             </div>
 
             {/* -------------- Bottom ------------------- */}
-            <div className="bg-card-color-one py-4 text-center text-sm text-gray-400 " style={{
-                background: "linear-gradient(var(--card-color-one), var(--card-color-two))",
-                "--card-color-two": "#150d2b",
-                "--card - color - one": "#412291",
+            <div className="w-full nav-bg-gradient flex justify-center items-center md:flex-row flex-col pt-6  py-7 text-center text-sm text-gray-400 " style={{
+
             }}>
                 &copy; {new Date().getFullYear()} Happy Cart. All rights reserved.
             </div>

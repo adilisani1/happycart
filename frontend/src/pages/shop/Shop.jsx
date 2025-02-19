@@ -5,7 +5,7 @@ import ShopItems from '../../components/ShopItem/ShopItems';
 const Shop = () => {
     const { products, url } = useContext(StoreContext);
     return (
-        <div className="shade-parent min-h-screen pt-20">
+        <div className="shade-parent min-h-screen pt-20 pb-24">
             {/* Banner Section */}
             <div className="w-full relative mb-14">
                 <img
@@ -21,7 +21,7 @@ const Shop = () => {
             </div>
 
             {/* Products Section */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-8 pb-7 pt-5 mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-8 pb-7 pt-5 mx-auto ">
                 {products.length > 0 ? (
                     products.map((product, index) => (
                         <ShopItems
