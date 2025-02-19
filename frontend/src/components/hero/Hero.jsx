@@ -37,7 +37,7 @@ const Hero = () => {
                         </p>
 
                         <div className=' md:px-7'>
-                            <NavLink to="/shop" className="py-4 px-6 font-poppins font-medium md:text-[18px] text-[16px] text-primary bg-blue-gradient hover:bg-light-gradient rounded-[10px] outline-none mt-10 text-white">
+                            <NavLink to="/shop" className="py-4 px-6 font-poppins font-medium md:text-[18px] text-[14px] text-primary bg-blue-gradient hover:bg-light-gradient rounded-[10px] outline-none mt-10 text-white">
                                 Discover more
                             </NavLink>
                         </div>

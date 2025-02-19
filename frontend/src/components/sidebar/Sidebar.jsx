@@ -44,17 +44,17 @@ const Sidebar = () => {
                     </button>
                 </div>
 
-                <ul className="flex flex-col items-center justify-center h-full gap-7">
-                    <li className="md:text-2xl text-lg">
+                <ul className="flex flex-col items-start justify-start h-screen pt-28 px-4 gap-7">
+                    <li className="md:text-2xl text-md">
                         <Link to="/" onClick={() => setOpen(false)}>Home</Link>
                     </li>
-                    <li className="md:text-2xl text-lg">
+                    <li className="md:text-2xl text-md">
                         <Link to="/shop" onClick={() => setOpen(false)}>Shop</Link>
                     </li>
-                    <li className="md:text-2xl text-lg">
+                    <li className="md:text-2xl text-md">
                         <Link to="/about" onClick={() => setOpen(false)}>About</Link>
                     </li>
-                    <li className="md:text-2xl text-lg">
+                    <li className="md:text-2xl text-md">
                         <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
                     </li>
                 </ul>

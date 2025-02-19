@@ -59,7 +59,7 @@ const Navbar = ({ setShowLogin }) => {
                 <div className='flex-1 flex justify-end items-center'>
                     <div className='flex gap-2 items-center'>
 
-                        <NavLink to="/cart" className="xl:relative md:bg-none border border-gray-400 bg-card-color-one p-3.5 shadow-2xl rounded-full fixed bottom-10 right-6 ">
+                        <NavLink to="/cart" className="xl:relative md:bg-none border border-gray-300 bg-black-gradient p-3.5 shadow-3xl rounded-full fixed bottom-10 right-6 ">
                             <span className='text-[20px] md:text-2xl'>
                                 <BsFillHandbagFill /></span>
                             {Object.keys(cartItems).length > 0 ? (

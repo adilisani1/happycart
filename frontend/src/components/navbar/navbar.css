@@ -45,14 +45,6 @@
   cursor: pointer;
   color: #332a6d;
 }
-/* 
-.bag-icon,
-.exit-icon {
-  width: 20px;
-  height: 20px;
-  font-size: 18px;
-  color: #332a6d;
-} */
 
 .bag-icon svg {
   fill: black;

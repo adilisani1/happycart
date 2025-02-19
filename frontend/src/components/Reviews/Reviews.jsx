@@ -38,7 +38,7 @@ const ReviewSection = () => {
     };
 
     return (
-        <section className="text-white md:px-4 py-24 mb-20 review-slider relative ">
+        <section className="text-white md:px-4 py-24 md:mb-20 review-slider relative ">
             <div class="absolute z-[0] w-[60%] h-[70%] -right-[40%] rounded-full blue__gradient bottom-14"></div>
             <div className="container mx-auto">
                 <h2 className="text-2xl font-semibold text-center text-white opacity-80 mb-8">
