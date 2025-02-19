@@ -18,7 +18,7 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                                     transform hover:scale-105
                                     rounded-2xl relative h-full w-full cursor-pointer bg-black-gradient"
                 >
-                    <div className="flex items-center justify-center pt-12">
+                    <div className="flex items-center justify-center pt-4">
                         <img
                             className="
                                             xl:max-w-[350px] xl:h-[270px]
