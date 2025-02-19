@@ -52,7 +52,7 @@ const Navbar = ({ setShowLogin }) => {
                     <NavLink to='/' className='flex items-center gap-1'>
                         <img className='md:w-[43px] w-[32px]' src={logoCart} alt='happy-cart-logo' />
                         <div className='pt-2.5'>
-                            <h4 className='md:text-[20px] text-md font-extrabold'>happycart</h4>
+                            <h4 className='md:text-[20px] text-sm font-extrabold'>happycart</h4>
                         </div>
                     </NavLink>
                 </div>
