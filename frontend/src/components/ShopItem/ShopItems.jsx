@@ -33,8 +33,8 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                         />
                     </div>
                     <div className="flex items-center justify-center text-center flex-col mx-auto py-6 px-4 rounded-b-2xl">
-                        <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-                        <p className="text-price-color text-xl font-bold mb-2">
+                        <h3 className="md:text-lg font-semibold text-white mb-2">{title}</h3>
+                        <p className="text-price-color md:text-xl font-bold mb-2">
                             {`$${price}`}
                         </p>
                         <p className="text-gray-400 text-sm pb-4">Rating: {ratings} / 5</p>
