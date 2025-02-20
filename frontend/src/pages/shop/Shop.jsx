@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StoreContext } from '../../context/StoreContext';
 import ShopItems from '../../components/ShopItem/ShopItems';
 
 const Shop = () => {
-    const { products, url } = useContext(StoreContext);
+    const { products, url, loading } = useContext(StoreContext);
     return (
         <div className="shade-parent min-h-screen pt-20 pb-24">
             {/* Banner Section */}
@@ -21,8 +21,13 @@ const Shop = () => {
             </div>
 
             {/* Products Section */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-8 pb-7 pt-5 mx-auto ">
-                {products.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-8 pb-7 pt-5 mx-auto  ">
+                {loading ? (
+                    <div className="col-span-full flex justify-center items-center h-[200px]">
+                        <div className="animate-spin rounded-full h-14 w-14 border-t-4 border-indigo-500 border-solid"></div>
+                        <p className='ml-3 text-xl' > Loading...</p>
+                    </div>
+                ) : products.length > 0 ? (
                     products.map((product, index) => (
                         <ShopItems
                             key={index}

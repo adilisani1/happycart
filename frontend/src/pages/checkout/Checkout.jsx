@@ -72,6 +72,7 @@ const Checkout = () => {
 
                 <div className="max-w-screen-2xl mx-auto xl:px-10">
                     <form className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-[1]" onSubmit={handleSubmit}>
+
                         {/* -----------------Delivery Information ---------------------- */}
                         <div className="lg:col-span-2 p-8 rounded-lg shadow-lg">
                             <h2 className="text-2xl font-bold mb-6">Delivery Information</h2>
@@ -196,7 +197,7 @@ const Checkout = () => {
                                             Grand Total: ${getTotalCartAmount()}
                                         </h3>
                                         <div className="lg:col-span-3 text-center mt-8">
-                                            <button className="w-full  bg-blue-gradient hover:bg-light-gradient  text-white px-6 py-3 rounded-lg font-semibold"
+                                            <button className="w-full  bg-blue-gradient hover:bg-light-gradient text-white px-6 py-3 rounded-lg font-semibold"
                                                 type="submit">
                                                 Place Order
                                             </button>

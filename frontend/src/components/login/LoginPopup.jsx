@@ -127,9 +127,9 @@ const LoginPopup = ({ setShowLogin }) => {
                         </p>
 
                     )}
-                    {passwordError && (
-                        <p className="text-red-500 text-sm mt-1">{passwordError}</p>
-                    )}
+                    {/* {currentState === "Signup" && passwordError && (
+                        <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+                    )} */}
 
                 </div>
                 <button

@@ -10,6 +10,9 @@ export const StoreProvider = ({ children }) => {
     const [token, setToken] = useState("")
     const url = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
 
+    const [loading, setLoading] = useState(false);
+
+
     const fetchProducts = async () => {
         const response = await axios.get(`${url}/api/products/all`)
         const data = response.data
@@ -68,11 +71,13 @@ export const StoreProvider = ({ children }) => {
 
     useEffect(() => {
         async function loadData() {
+            setLoading(true)
             await fetchProducts();
             if (localStorage.getItem('token')) {
                 setToken(localStorage.getItem('token'));
                 await loadCartData(localStorage.getItem('token'));
             }
+            setLoading(false)
         }
         loadData()
     }, []);
@@ -104,7 +109,9 @@ export const StoreProvider = ({ children }) => {
         removeFromCart,
         getTotalCartAmount,
         token,
-        setToken
+        setToken,
+        loading,
+        setLoading
 
     }
 

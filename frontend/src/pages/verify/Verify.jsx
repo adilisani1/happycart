@@ -14,7 +14,6 @@ const Verify = () => {
 
     const verifyOrder = async () => {
         const response = await axios.post(`${url}/api/order/verify`, { success, orderId });
-        console.log(response.data);
         if (response.data.success) {
             navigate("/myorders")
         }
@@ -32,7 +31,6 @@ const Verify = () => {
     return (
         <div className='verify'>
             <div className="spinner">
-
             </div>
         </div>
     )
