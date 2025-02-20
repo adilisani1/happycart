@@ -9,10 +9,10 @@ import Products from '../../components/products/Products';
 
 const Home = () => {
     return (
-        <section className=' '>
+        <section className=''>
                 <Hero />
                 {/* OUR PROMISE */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-screen-2xl mb-32 rounded-xl px-5 md:px-10 md:pb-12 md:pt-5  mx-auto ">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-screen-2xl mb-32 rounded-xl px-5 md:px-10 md:pb-12 md:pt-5 mx-auto ">
                 <div className="flex gap-2 md:gap-3 items-center p-3 md:p-4  rounded-lg text-white bg-black-gradient-2">
                         <span className="md:text-5xl text-[30px] text-white"><MdOutlineContactSupport /></span>
                         <div className="flex flex-col">

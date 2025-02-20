@@ -40,7 +40,7 @@ const Navbar = ({ setShowLogin }) => {
     };
 
     return (
-        <header className={`h-20 pt-4 md:py-4 px-2 md:px-8 lg:px-16 xl-32 2xl:px-64 shadow-sm header ${scroll > 40 ? 'nav-bg-gradient shadow-2xl' : ''}`}
+        <header className={`h-20 pt-5 md:py-4 px-2.5 md:px-8 lg:px-16 xl-32 2xl:px-64 shadow-sm header transition-all ease-in duration-300 ${scroll > 40 ? 'nav-bg-gradient shadow-2xl ' : ''}`}
 
         >
             {/* SMALL SCREENS */}
@@ -52,7 +52,7 @@ const Navbar = ({ setShowLogin }) => {
                     <NavLink to='/' className='flex items-center gap-1'>
                         <img className='md:w-[43px] w-[32px]' src={logoCart} alt='happy-cart-logo' />
                         <div className='pt-2.5'>
-                            <h4 className='md:text-[20px] text-sm font-extrabold'>happycart</h4>
+                            <h4 className='md:text-[20px] text-xs font-extrabold'>happycart</h4>
                         </div>
                     </NavLink>
                 </div>
@@ -66,7 +66,7 @@ const Navbar = ({ setShowLogin }) => {
                                 <div className="absolute sm:top-[12px] sm:right-[12px] top-[11px] right-[11px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
                             ) : null}
                         </NavLink>
-                        {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium text-sm' onClick={setShowLogin}>Sign in</button>
+                        {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium md:text-sm text-[12px]' onClick={setShowLogin}>Sign in</button>
                             :
                             <div className='navbar-profile '>
                                 <img

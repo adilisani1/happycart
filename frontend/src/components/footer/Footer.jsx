@@ -24,8 +24,8 @@ const Footer = ({ setShowLogin }) => {
 
                 {/* -------------- Quick Links ------------- */}
                 <div>
-                    <h3 className="text-md font-semibold text-white opacity-80">Quick Links</h3>
-                    <ul className="mt-4 space-y-2 text-sm">
+                    <h3 className="text-md font-bold text-white opacity-80">Quick Links</h3>
+                    <ul className="mt-4 space-y-2 text-sm font-light">
                         {quickLinks.map((link, index) => (
                             <li key={index}>
                                 <NavLink to={link.path} className="hover:text-primary-color">
@@ -38,8 +38,8 @@ const Footer = ({ setShowLogin }) => {
 
                 {/* -------------- Menu Links ---------------- */}
                 <div>
-                    <h3 className="text-md font-semibold text-white opacity-80">Menu</h3>
-                    <ul className="mt-4 space-y-2 text-sm">
+                    <h3 className="text-md font-bold text-white opacity-80">Menu</h3>
+                    <ul className="mt-4 space-y-2 text-sm font-light">
                         {menuLinks.map((link, index) => (
                             <li key={index}>
                                 {link.name === "Login" ? (

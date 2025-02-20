@@ -110,7 +110,7 @@ const About = () => {
                             {ourTeam.map((team, index) => (
                                 <div
                                     key={index}
-                                    className="bg-card-color-one flex justify-center items-center flex-col p-8 h-[300px] text-center rounded-2xl shadow-md mx-auto w-full"
+                                    className="bg-black-gradient-2 flex justify-center items-center flex-col p-8 h-[300px] text-center rounded-2xl shadow-md mx-auto w-full"
                                 >
                                     <div
                                         className="rounded-full overflow-hidden mb-4"
