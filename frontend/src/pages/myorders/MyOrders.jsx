@@ -39,7 +39,7 @@ const MyOrders = () => {
                         <p>${order.amount}</p>
                         <p>Items: {order.items.length}</p>
                         <p><span>&#x25cf;</span> <b className='font-medium '>{order.status}</b></p>
-                        <button className="track-order border-none py-3.5 rounded bg-card-color-one text-white hover:bg-opacity-65" onClick={fetchOrders}>Track Order</button>
+                        <button className="track-order border-none py-3.5 rounded bg-blue-gradient hover:bg-light-gradient text-white hover:bg-opacity-65" onClick={fetchOrders}>Track Order</button>
                     </div>
                 ))}
             </div>
