@@ -1,4 +1,5 @@
 # 🛒 HappyCart - E-commerce Application
+<img src="https://raw.githubusercontent.com/adilisani1/happycart/refs/heads/master/hero%20section.png" alt="">
 Welcome to HappyCart, a modern E-commerce application built with React.js. This project offers a seamless shopping experience, including product browsing, cart management, secure checkout with Stripe, and order tracking.
 
 ### 🚀 Features
