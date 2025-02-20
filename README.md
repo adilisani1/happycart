@@ -12,6 +12,6 @@ Welcome to HappyCart, a modern E-commerce application built with React.js. This 
 ### 🖥️ Tech Stack
 *  Frontend: React.js, TailwindCSS
 *  State Management: Context API
-*  Backend: Node.js, Express (if applicable)
-*  Database: MongoDB / Firebase (if applicable)
+*  Backend: Node.js, Express 
+*  Database: MongoDB / Firebase 
 *  Payment Gateway: Stripe API
