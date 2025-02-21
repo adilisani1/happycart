@@ -3,7 +3,7 @@ const User = require("../models/userModel");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const placeOrder = async (req, res) => {
-  const url = process.env.VITE_REACT_APP_FRONTEND_BASEURL?.replace(/\/$/, "");
+  const url = process.env.VITE_REACT_APP_FRONTEND_BASEURL;
   try {
     const { userId, items, amount, address } = req.body;
 
