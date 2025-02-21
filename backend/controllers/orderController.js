@@ -4,8 +4,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // Placing user order for frontend...
 const placeOrder = async (req, res) => {
-
   const url = process.env.FRONT_END_URL;
+  console.log("Frontend URL:", process.env.FRONT_END_URL);
 
   try {
     const { userId, items, amount, address } = req.body;
@@ -56,7 +56,7 @@ const verifyOrder = async (req, res) => {
       await Order.findByIdAndUpdate(orderId, { payment: true });
       res.status(200).json({ success: true, message: "Paid successfully" });
     } else {
-      await Order.findOneAndDelete(orderId);
+      await Order.findByIdAndDelete(orderId);
       res.status(200).json({ success: false, message: "Payment failed" });
     }
   } catch (error) {
