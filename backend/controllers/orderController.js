@@ -4,7 +4,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // Placing user order for frontend...
 const placeOrder = async (req, res) => {
-  console.log("Stripe Secret Key:", process.env.STRIPE_SECRET);
+
+  const url = process.env.FRONT_END_URL;
 
   try {
     const { userId, items, amount, address } = req.body;
@@ -32,8 +33,8 @@ const placeOrder = async (req, res) => {
         payment_method_types: ["card"],
         line_items,
         mode: "payment",
-        success_url: `http://localhost:5174/verify?success=true&orderId=${newOrder._id}`,
-        cancel_url: `http://localhost:5174/verify?success=false&orderId=${newOrder._id}`,
+        success_url: `${url}/verify?success=true&orderId=${newOrder._id}`,
+        cancel_url: `${url}/verify?success=false&orderId=${newOrder._id}`,
       },
       {
         apiKey: process.env.STRIPE_SECRET.trim(),
