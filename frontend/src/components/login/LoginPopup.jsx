@@ -99,6 +99,7 @@ const LoginPopup = ({ setShowLogin }) => {
                             type="text"
                             placeholder="Username"
                             name="name"
+                            required
                             onChange={onChangeHandler}
                             value={data.name}
                         />
@@ -109,6 +110,7 @@ const LoginPopup = ({ setShowLogin }) => {
                         type="email"
                         placeholder="Email"
                         name="email"
+                        required
                         onChange={onChangeHandler}
                         value={data.email}
                     />
@@ -117,6 +119,7 @@ const LoginPopup = ({ setShowLogin }) => {
                         type="password"
                         placeholder="Password"
                         name="password"
+                        required
                         onChange={onChangeHandler}
                         value={data.password}
                     />
