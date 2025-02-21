@@ -16,3 +16,9 @@ Welcome to HappyCart, a modern E-commerce application built with React.js. This 
 *  Backend: Node.js, Express 
 *  Database: MongoDB / Firebase 
 *  Payment Gateway: Stripe API
+<img src="https://raw.githubusercontent.com/adilisani1/happycart/refs/heads/master/loginpop.png" alt="">
+<img src="https://raw.githubusercontent.com/adilisani1/happycart/refs/heads/master/cartitems.png" alt="">
+<img src="https://raw.githubusercontent.com/adilisani1/happycart/refs/heads/master/checkout.png" alt="">
+<img src="https://raw.githubusercontent.com/adilisani1/happycart/refs/heads/master/Stripe%20checkout.png" alt="">
+<img src="https://raw.githubusercontent.com/adilisani1/happycart/refs/heads/master/myorders.png" alt="">
+
