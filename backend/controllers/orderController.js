@@ -2,9 +2,8 @@ const Order = require("../models/orderModel");
 const User = require("../models/userModel");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
-// Placing user order for frontend...
 const placeOrder = async (req, res) => {
-  const url = process.env.FRONT_END_URL?.replace(/\/$/, "");
+  const url = process.env.VITE_REACT_APP_FRONTEND_BASEURL?.replace(/\/$/, "");
   try {
     const { userId, items, amount, address } = req.body;
 
