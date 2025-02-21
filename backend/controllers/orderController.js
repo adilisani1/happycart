@@ -4,9 +4,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // Placing user order for frontend...
 const placeOrder = async (req, res) => {
-  console.log("Stripe Secret Key:", process.env.STRIPE_SECRET);
   const url = process.env.FRONT_END_URL?.replace(/\/$/, "");
-
   try {
     const { userId, items, amount, address } = req.body;
 
