@@ -121,7 +121,7 @@ const Navbar = ({ setShowLogin }) => {
                     <div className='flex  gap-6 items-center'>
                         <form className="flex justify-between gap-4 bg-gray-100 rounded-md p-2 flex-1" onSubmit={handleSearch}>
                             <input className='flex-1 bg-transparent outline-none text-black ml-2' type="text" placeholder='Search your product' name="search" />
-                            <button className='cursor-pointer bg-none' type='submit'>
+                            <button className='cursor-pointer bg-none search-button' type='submit'>
                                 <span className='text-black'><IoSearchOutline /></span>
                             </button>
                         </form>
