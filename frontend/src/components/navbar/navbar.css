@@ -55,5 +55,9 @@
   font-size: 20px;
 }
 
+.search-button svg {
+  fill: black;
+}
+
 @media screen and (max-width: 600px) {
 }
