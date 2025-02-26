@@ -26,7 +26,6 @@ app.use(
   })
 );
 
-
 // Routes Connection
 app.use("/api/products", productRouter);
 app.use("/images", express.static("uploads"));

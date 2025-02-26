@@ -8,7 +8,7 @@ const Trendings = () => {
     const trendyProducts = products.filter(product => product.trendy);
     return (
         <>
-            <div className='pt-20 pb-8'>
+            <div className='md:pt-20 pb-8'>
                 <h1 className='text-center md:text-5xl text-2xl'>Trendy</h1>
             </div>
             <div className="grid grid-cols-1 mt-10 sm:grid-cols-2 lg:grid-cols-2 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-10 pb-7 pt-5 sm:px-20 mb-20 mx-auto ">

@@ -23,21 +23,22 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                             className="
                                             xl:max-w-[350px] xl:h-[270px]
                                             lg:max-w-[300px] lg:h-[200px] 
-                                            md:max-w-[250px] md:h-[200px] 
+                                            md:max-w-[220px] md:h-[170px] 
                                             sm:max-w-[200px] sm:h-[150px] 
-                                            h-[200px]
-                                            overflow-visible object-cover"
+                                            h-[100px] w-[130px]
+                                            md:overflow-visible
+                                            md:object-cover object-contain"
                             // src={url + '/images/' + image}
                             src={image[0]?.startsWith("http") ? image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${image[0]}`}
                             alt={title}
                         />
                     </div>
                     <div className="flex items-center justify-center text-center flex-col mx-auto py-6 px-4 rounded-b-2xl">
-                        <h3 className="md:text-lg font-semibold text-white mb-2">{title}</h3>
-                        <p className="text-price-color md:text-xl font-bold mb-2">
+                        <h3 className="md:text-[17px] text-xs mb-1">{title}</h3>
+                        <p className="text-price-color md:text-md text-sm font-bold mb-2">
                             {`$${price}`}
                         </p>
-                        <p className="text-gray-400 text-sm pb-4">Rating: {ratings} / 5</p>
+                        <p className="text-gray-400 md:text-sm text-xs pb-4">Rating: {ratings} / 5</p>
                     </div>
                 </div>
             </Link>

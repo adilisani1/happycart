@@ -59,17 +59,17 @@ export const Cart = () => {
                                 return (
                                     <div
                                         key={item._id}
-                                        className="cart-items gap-4 p-4 items-center text-gray-200"
+                                        className="cart-items gap-3.5 px-0.5 pb-3 pt-3 items-center text-gray-200"
                                     >
                                         {/* Product Info */}
-                                        <div className="col-span-2 flex items-center gap-4">
+                                        <div className="col-span-2 flex items-center gap-2">
                                             <img
                                                 src={item.image[0]?.startsWith("http") ? item.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
                                                 alt={item.title}
                                                 className="w-14 h-14 sm:w-20 sm:h-20 object-contain rounded-lg"
                                             />
                                             <div>
-                                                <h2 className="sm:text-lg text-[12px] font-bold">{item.title}</h2>
+                                                <h2 className="sm:text-lg text-[11px] font-bold">{item.title}</h2>
                                             </div>
                                         </div>
 

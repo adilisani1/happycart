@@ -21,7 +21,7 @@ const Shop = () => {
             </div>
 
             {/* Products Section */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-8 pb-7 pt-5 mx-auto  ">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4 max-w-screen-2xl rounded-xl px-4 pb-7 pt-5 sm:px-20 mx-auto relative mb-20">
                 {loading ? (
                     <div className="col-span-full flex justify-center items-center h-[200px]">
                         <div className="animate-spin rounded-full h-14 w-14 border-t-4 border-indigo-500 border-solid"></div>
