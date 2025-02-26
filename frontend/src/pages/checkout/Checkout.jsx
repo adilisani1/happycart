@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Checkout = () => {
     const { cartItems, url, token, products, getTotalCartAmount } = useContext(StoreContext);
@@ -58,10 +59,10 @@ const Checkout = () => {
 
     useEffect(() => {
         if (!token) {
-            alert("You need to Login first");
+            toast.error("You need to Login first")
             navigate('/cart')
         } else if (getTotalCartAmount() === 0) {
-            alert("You need to Login first");
+            toast.error("You need to Login first")
             navigate('/cart')
         }
     }, [token])

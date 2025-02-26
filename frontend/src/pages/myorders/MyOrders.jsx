@@ -21,7 +21,7 @@ const MyOrders = () => {
 
     return (
         <div className='my-orders pt-20 mt-12 max-w-screen-2xl mx-auto'>
-            <h2 className='text-2xl font-bold'>My Orders</h2>
+            <h2 className='md:text-2xl text-[20px] font-bold md:text-left text-center'>My Orders</h2>
             <div className='my-orders-container   flex flex-col gap-7 mt-8'>
                 {data.map((order, index) => (
                     <div className='my-orders-order ' key={index}>

@@ -37,7 +37,6 @@
 }
 
 
-
 .bg-primary {
     --tw-bg-opacity: 1;
     background-color: rgb(0 4 15 / var(--tw-bg-opacity));
@@ -82,3 +81,9 @@
   filter: blur(750px);
 }
   
+@media (max-width: 768px) {
+  .Toastify__toast {
+    width: 300px !important;
+}
+
+}
