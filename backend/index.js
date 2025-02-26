@@ -18,13 +18,13 @@ const port = process.env.PORT || 4000;
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: process.env.VITE_REACT_APP_FRONTEND_BASEURL,
-//     credentials: true,
-//   })
-// );
+// app.use(cors());
+app.use(
+  cors({
+    origin: process.env.VITE_REACT_APP_FRONTEND_BASEURL,
+    credentials: true,
+  })
+);
 
 // Routes Connection
 app.use("/api/products", productRouter);
