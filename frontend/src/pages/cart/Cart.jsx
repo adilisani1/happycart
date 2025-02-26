@@ -42,7 +42,7 @@ export const Cart = () => {
                     {Object.values(cartItems).some(quantity => quantity > 0) ? "Your Cart" : "Your Cart is Empty"}
                 </h1>
 
-                <div className="max-w-5xl mx-auto ">
+                <div className="max-w-5xl mx-auto relative z-[1]">
                     {Object.values(cartItems).some(quantity => quantity > 0) && (
                         <div className="hidden md:grid grid-cols-5 gap-4 mb-4 pb-4 border-[1px] border-[#3F3E45] text-gray-300 p-4 rounded-t-lg font-bold">
                             <div className="col-span-2">Product</div>
