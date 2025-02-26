@@ -67,19 +67,20 @@ const Checkout = () => {
     }, [token])
     return (
         <div className="pt-20">
-            <div className="min-h-screen  text-white py-16 px-4 sm:px-8 relative" >
+            <div className="min-h-screen  text-white py-16 px-3 sm:px-8 relative" >
                 <div className="absolute z-[0] w-[60%] h-[100%] -left-[50%] rounded-full blue__gradient top-[-25%]"></div>
 
                 <div className="max-w-screen-2xl mx-auto xl:px-10">
                     <form className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-[1]" onSubmit={handleSubmit}>
 
                         {/* -----------------Delivery Information ---------------------- */}
-                        <div className="lg:col-span-2 p-8 rounded-lg shadow-lg">
-                            <h2 className="text-2xl font-bold mb-6">Delivery Information</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="lg:col-span-2  rounded-lg shadow-lg">
+                            <h2 className="md:text-2xl text-[20px] font-bold mb-7">Delivery Information</h2>
+                            <div className="grid grid-cols-2 gap-3 mb-4">
                                 {/* ----------- First Name -------------- */}
                                 <div className="flex flex-col">
-                                    <label htmlFor="first-name" className="mb-2 text-gray-300">
+                                    <label htmlFor="first-name"
+                                        className="mb-2 text-gray-300 md:text-base text-[14px]">
                                         First Name
                                     </label>
                                     <input
@@ -89,13 +90,14 @@ const Checkout = () => {
                                         required
                                         value={data.firstName}
                                         onChange={handleInputChange}
-                                        placeholder="Enter your first name"
-                                        className=" border ring-amber-950	 border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
+                                        placeholder="Your first name"
+                                        className=" border ring-amber-950 md:text-base text-[13px] border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
                                     />
                                 </div>
                                 {/* --------------  Last Name ------------- */}
                                 <div className="flex flex-col">
-                                    <label htmlFor="last-name" className="mb-2 text-gray-300">
+                                    <label htmlFor="last-name"
+                                        className="mb-2 text-gray-300 md:text-base text-[14px]">
                                         Last Name
                                     </label>
                                     <input
@@ -105,13 +107,16 @@ const Checkout = () => {
                                         name="lastName"
                                         value={data.lastName}
                                         onChange={handleInputChange}
-                                        placeholder="Enter your last name"
-                                        className=" border border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
+                                        placeholder="Your last name"
+                                        className=" border ring-amber-950 md:text-base text-[13px] border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
                                     />
                                 </div>
+                            </div>
+
                                 {/* ---------- Email --------- */}
-                                <div className="flex flex-col sm:col-span-2">
-                                    <label htmlFor="email" className="mb-2 text-gray-300">
+                            <div className="flex flex-col sm:col-span-2 mb-4">
+                                <label htmlFor="email"
+                                    className="mb-2 text-gray-300 md:text-base text-[14px]">
                                         Email
                                     </label>
                                     <input
@@ -121,13 +126,14 @@ const Checkout = () => {
                                         name="email"
                                         value={data.email}
                                         onChange={handleInputChange}
-                                        placeholder="Enter your email"
-                                        className=" border border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
+                                    placeholder="Your email address"
+                                    className=" border ring-amber-950 md:text-base text-[13px] border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
                                     />
                                 </div>
                                 {/* ----------- Street Address ---------------- */}
-                                <div className="flex flex-col sm:col-span-2">
-                                    <label htmlFor="street" className="mb-2 text-gray-300">
+                            <div className="flex flex-col sm:col-span-2 mb-4">
+                                <label htmlFor="street"
+                                    className="mb-2 text-gray-300 md:text-base text-[14px]">
                                         Street Address
                                     </label>
                                     <input
@@ -137,13 +143,14 @@ const Checkout = () => {
                                         name="street"
                                         value={data.street}
                                         onChange={handleInputChange}
-                                        placeholder="Enter your street address"
-                                        className=" border border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
+                                    placeholder="Your street address"
+                                    className=" border ring-amber-950 md:text-base text-[13px] border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
                                     />
                                 </div>
                                 {/* -------------- Phone ----------- */}
                                 <div className="flex flex-col sm:col-span-2">
-                                    <label htmlFor="phone" className="mb-2 text-gray-300">
+                                <label htmlFor="phone"
+                                    className="mb-2 text-gray-300 md:text-base text-[14px]">
                                         Phone Number
                                     </label>
                                     <input
@@ -153,10 +160,9 @@ const Checkout = () => {
                                         required
                                         value={data.phone}
                                         onChange={handleInputChange}
-                                        placeholder="Enter your phone number"
-                                        className=" border border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
-                                    />
-                                </div>
+                                    placeholder="Your phone number"
+                                    className=" border ring-amber-950 md:text-base text-[13px] border-gray-200 text-gray-300 rounded-lg px-4 py-4 outline-none bg-inherit"
+                                />
                             </div>
                         </div>
 

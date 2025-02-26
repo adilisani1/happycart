@@ -34,7 +34,7 @@ export const Cart = () => {
 
     return (
         <div className="min-h-screen flex flex-col  text-white pt-20 ">
-            <main className="flex-grow px-4 sm:px-8 py-16 relative z-[2]">
+            <main className="flex-grow px-3 sm:px-8 py-16 relative z-[2]">
                 <div className="absolute z-[0] w-[45%] h-[100%] -left-[40%] rounded-full blue__gradient top-[-30%]"></div>
                 <div className="absolute z-[1] w-[30%] h-[50%] left-0 rounded-full white__gradient  bottom-40"></div>
 
@@ -59,7 +59,7 @@ export const Cart = () => {
                                 return (
                                     <div
                                         key={item._id}
-                                        className="cart-items gap-3.5 px-0.5 pb-3 pt-3 items-center text-gray-200"
+                                        className="cart-items gap-3.5 px-2 pb-3 pt-3 items-center text-gray-200"
                                     >
                                         {/* Product Info */}
                                         <div className="col-span-2 flex items-center gap-2">
