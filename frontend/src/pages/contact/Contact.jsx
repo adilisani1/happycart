@@ -91,7 +91,7 @@ const ContactUs = () => {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full  bg-card-color-one hover:opacity-90 text-white px-6 py-3 rounded-lg font-semibold"
+                            className="w-full bg-blue-gradient hover:bg-light-gradient text-white px-6 py-3 rounded-lg font-semibold"
                         >
                             Submit
                         </button>
