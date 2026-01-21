@@ -9,6 +9,16 @@ const multer = require("multer");
 const productRouter = express.Router();
 const upload = require("../config/multer"); 
 
+
+
+productRouter.post("/add", upload.single("image"), addProducts);
+productRouter.get("/all", allProducts);
+productRouter.post("/remove", deleteProduct);
+
+module.exports = productRouter;
+
+
+
 // const storage = multer.diskStorage({
 //   destination: "uploads",
 //   filename: function (req, file, cb) {
@@ -17,9 +27,3 @@ const upload = require("../config/multer");
 // });
 
 // const upload = multer({ storage: storage });
-
-productRouter.post("/add", upload.single("image"), addProducts);
-productRouter.get("/all", allProducts);
-productRouter.post("/remove", deleteProduct);
-
-module.exports = productRouter;

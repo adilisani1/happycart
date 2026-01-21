@@ -64,7 +64,7 @@ const verifyOrder = async (req, res) => {
 
 const userOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.body.userId });
+    const orders = await Order.find({ userId: req.body.userId }).sort({ date: -1 });
     res.json({ success: true, data: orders });
   } catch (error) {
     res.status(400).json({ success: false, message: "Error" });

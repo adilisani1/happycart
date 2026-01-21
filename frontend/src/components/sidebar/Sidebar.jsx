@@ -44,7 +44,7 @@ const Sidebar = () => {
                     </button>
                 </div>
 
-                <ul className="flex flex-col items-start justify-start h-screen pt-28 px-4 gap-7">
+                <ul className="flex flex-col items-start justify-start h-screen pt-28 px-4 gap-7 text-white">
                     <li className="md:text-2xl text-md">
                         <Link to="/" onClick={() => setOpen(false)}>Home</Link>
                     </li>

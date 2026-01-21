@@ -52,7 +52,7 @@ const Navbar = ({ setShowLogin }) => {
                     <NavLink to='/' className='flex items-center gap-1'>
                         <img className='md:w-[43px] w-[32px]' src={logoCart} alt='happy-cart-logo' />
                         <div className='pt-2.5'>
-                            <h4 className='md:text-[20px] text-xs font-extrabold'>happycart</h4>
+                            <h4 className='md:text-[20px] text-xs font-extrabold text-white'>happycart</h4>
                         </div>
                     </NavLink>
                 </div>
@@ -102,13 +102,13 @@ const Navbar = ({ setShowLogin }) => {
                     <Link to='/' className='flex items-center  gap-1'>
                         <img className=' md:w-[43px] w-[38px] -mt-2' src={logoCart} alt='happy-cart-logo' />
                         <div className=''>
-                            <h4 className=' md:text-[20px] text-md  font-extrabold leading-6'>happycart</h4>
+                            <h4 className=' md:text-[20px] text-md  font-extrabold leading-6 text-white'>happycart</h4>
                         </div>
                     </Link>
                     <ul className='hidden xl:flex gap-7 '>
                         {navLinks.map((link, index) => (
                             <li key={index}>
-                                <Link to={link.path} className="hover:text-primary-color">
+                                <Link to={link.path} className="hover:text-primary-color text-white">
                                     {link.name}
                                 </Link>
                             </li>
@@ -122,13 +122,13 @@ const Navbar = ({ setShowLogin }) => {
                         <form className="flex justify-between gap-4 bg-gray-100 rounded-md p-2 flex-1" onSubmit={handleSearch}>
                             <input className='flex-1 bg-transparent outline-none text-black ml-2' type="text" placeholder='Search your product' name="search" />
                             <button className='cursor-pointer bg-none search-button' type='submit'>
-                                <span className='text-black'><IoSearchOutline /></span>
+                                <span className='text-black fill-black'><IoSearchOutline className='fill-black' /></span>
                             </button>
                         </form>
                         <div className='flex items-center gap-4 xl:gap-6'>
                             <Link to="/cart" className='relative'>
-                                <span className=' text-lg  md:text-2xl ' >
-                                    <BsFillHandbagFill />
+                                <span className=' text-lg  md:text-2xl fill-white' >
+                                    <BsFillHandbagFill className='fill-white' />
                                 </span>
                                 {Object.keys(cartItems).some((item) => cartItems[item]) > 0 && (
                                     <div className="absolute top-[-2px] right-[-3px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />

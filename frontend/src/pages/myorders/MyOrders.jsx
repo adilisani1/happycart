@@ -9,7 +9,13 @@ const MyOrders = () => {
 
     const fetchOrders = async () => {
         const response = await axios.post(`${url}/api/order/userorders`, {}, { headers: { token } });
-        setData(response.data.data);
+        // Sort orders so the most recent ones appear first (by date)
+        const sorted = [...response.data.data].sort((a, b) => {
+            const aDate = a.date ? new Date(a.date).getTime() : 0;
+            const bDate = b.date ? new Date(b.date).getTime() : 0;
+            return bDate - aDate; // Descending order (newest first)
+        });
+        setData(sorted);
     }
 
     useEffect(() => {
@@ -20,7 +26,7 @@ const MyOrders = () => {
 
 
     return (
-        <div className='my-orders pt-20 mt-12 max-w-screen-2xl mx-auto'>
+        <div className='my-orders pt-20 pb-20 mt-12 max-w-screen-2xl mx-auto'>
             <h2 className='md:text-2xl text-[20px] font-bold md:text-left text-center'>My Orders</h2>
             <div className='my-orders-container   flex flex-col gap-7 mt-8'>
                 {data.map((order, index) => (

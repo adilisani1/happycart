@@ -26,7 +26,7 @@ const Hero = () => {
                     <div className="mr-auto place-self-center lg:col-span-8 lg:order-none order-1 md:text-left text-center ">
 
                         <div className='relative  justify-center items-center flex-1 flex'>
-                            <h1 className="md:max-w-2xl md:text-5xl xl:text-6xl relative z-[1] mb-4 md:mb-9 text-[22px] font-extrabold tracking-tight leading-none  dark:text-white px-7 ">
+                            <h1 className="md:max-w-2xl md:text-5xl text-white xl:text-6xl relative z-[1] mb-4 md:mb-9 text-[22px] font-extrabold tracking-tight leading-none  dark:text-white px-7 ">
                                 Your Hub for Quality Electronics
                             </h1>
 

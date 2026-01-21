@@ -4,12 +4,9 @@ import ProductDetails from '../products/ProductsDetails';
 import { StoreContext } from '../../context/StoreContext';
 
 const ShopItems = ({ id, title, image, price, ratings, url }) => {
-
     return (
 
         <>
-            {/* {!cartItems[id] ? <ProductDetails /> : null} */}
-
             <Link to={`/products/${id}`}>
                 <div
                     className=" shadow-[6px_-2px_12px_-3px_rgba(106,_82,_204,_0.47)]
