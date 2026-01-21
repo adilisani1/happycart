@@ -17,6 +17,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { StoreProvider } from "./context/StoreContext";
 import Verify from "./pages/verify/Verify";
 import MyOrders from "./pages/myorders/MyOrders";
+import ResetPassword from "./pages/resetpassword/ResetPassword";
 function App() {
   const [showLogin, setShowLogin] = useState(false);
 
@@ -53,6 +54,10 @@ function App() {
                 element={
                   <MyOrders />
                 }
+              ></Route>
+              <Route
+                path="/reset-password"
+                element={<ResetPassword />}
               ></Route>
             </Routes>
           </div>

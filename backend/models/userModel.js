@@ -20,6 +20,14 @@ const userSchema = new Schema(
       type: Object,
       default: {},
     },
+    resetToken: {
+      type: String,
+      default: null,
+    },
+    resetTokenExpiry: {
+      type: Date,
+      default: null,
+    },
   },
   { minimize: false }
 );

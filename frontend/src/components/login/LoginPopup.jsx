@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./loginPopup.css";
 import { GrClose } from "react-icons/gr";
 import axios from "axios";
@@ -7,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { StoreContext } from "../../context/StoreContext";
 
 const LoginPopup = ({ setShowLogin }) => {
+    const navigate = useNavigate();
     const [currentState, setCurrentState] = useState("Login");
 
     const { url, setToken } = useContext(StoreContext);
@@ -15,9 +17,12 @@ const LoginPopup = ({ setShowLogin }) => {
         name: "",
         email: "",
         password: "",
+        newPassword: "",
+        confirmPassword: "",
     });
 
     const [passwordError, setPasswordError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const isValidPassword = (password) => {
         const passwordRegex = /^[A-Z][A-Za-z\d@$!%*?&]{5,}$/;
@@ -32,7 +37,7 @@ const LoginPopup = ({ setShowLogin }) => {
             [name]: value,
         }));
 
-        if (name === "password") {
+        if (name === "password" || name === "newPassword") {
             if (!isValidPassword(value)) {
                 setPasswordError("Password must start with a capital letter & include at least 1 special character.");
             } else {
@@ -46,7 +51,51 @@ const LoginPopup = ({ setShowLogin }) => {
     const onLogin = async (e) => {
         e.preventDefault();
 
-        if (!isValidPassword(data.password)) {
+        if (currentState === "Forgot Password") {
+            // Handle forgot password reset
+            if (!data.email) {
+                toast.error("Please enter your email address");
+                return;
+            }
+
+            if (!isValidPassword(data.newPassword)) {
+                toast.error("Password must start with a capital letter and include at least one special character.");
+                return;
+            }
+
+            if (data.newPassword !== data.confirmPassword) {
+                toast.error("Passwords do not match");
+                return;
+            }
+
+            setLoading(true);
+            try {
+                const response = await axios.post(`${url}/api/user/reset-password`, {
+                    email: data.email,
+                    newPassword: data.newPassword,
+                });
+
+                if (response.data.success) {
+                    toast.success("Password reset successfully! You can now login.");
+                    setTimeout(() => {
+                        setCurrentState("Login");
+                        setData({ name: "", email: data.email, password: "", newPassword: "", confirmPassword: "" });
+                    }, 1500);
+                } else {
+                    toast.error(response.data.message || "Failed to reset password");
+                }
+            } catch (error) {
+                toast.error(
+                    error.response?.data?.message || "Failed to reset password"
+                );
+            } finally {
+                setLoading(false);
+            }
+            return;
+        }
+
+        // Only validate password format for registration, not for login
+        if (currentState === "Sign up" && !isValidPassword(data.password)) {
             toast.error("Password must start with a capital letter and include at least one special character.");
             return;
         }
@@ -55,6 +104,7 @@ const LoginPopup = ({ setShowLogin }) => {
             currentState === "Login" ? "/api/user/login" : "/api/user/register";
         const newUrl = `${url}${endpoint}`;
 
+        setLoading(true);
         try {
             const response = await axios.post(newUrl, data);
 
@@ -72,9 +122,11 @@ const LoginPopup = ({ setShowLogin }) => {
                 toast.error(response.data.message || "Action failed!");
             }
         } catch (error) {
-            toast.error(
-                error.response?.data?.message || "Something went wrong. Try again."
-            );
+            const errorMessage = error.response?.data?.message || "Something went wrong. Try again.";
+            toast.error(errorMessage);
+            console.error("Login error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -114,42 +166,99 @@ const LoginPopup = ({ setShowLogin }) => {
                         onChange={onChangeHandler}
                         value={data.email}
                     />
-                    <input
-                        className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        required
-                        onChange={onChangeHandler}
-                        value={data.password}
-                    />
+                    
+                    {currentState !== "Forgot Password" && (
+                        <input
+                            className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            required
+                            onChange={onChangeHandler}
+                            value={data.password}
+                        />
+                    )}
 
-                    {currentState === "Sign up" && (
+                    {currentState === "Forgot Password" && (
+                        <>
+                            <input
+                                className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
+                                type="password"
+                                placeholder="New Password"
+                                name="newPassword"
+                                required
+                                onChange={onChangeHandler}
+                                value={data.newPassword}
+                            />
+                            <input
+                                className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
+                                type="password"
+                                placeholder="Confirm Password"
+                                name="confirmPassword"
+                                required
+                                onChange={onChangeHandler}
+                                value={data.confirmPassword}
+                            />
+                        </>
+                    )}
+
+                    {(currentState === "Sign up" || currentState === "Forgot Password") && (
                         <p className="text-price-color opacity-55 text-xs mt-1">
                             Must start with a capital & include 1 special character.
                         </p>
-
                     )}
-                    {/* {currentState === "Signup" && passwordError && (
+
+                    {currentState === "Forgot Password" && passwordError && (
                         <p className="text-red-500 text-xs mt-1">{passwordError}</p>
-                    )} */}
+                    )}
+
+                    {currentState === "Forgot Password" && data.confirmPassword && data.newPassword !== data.confirmPassword && (
+                        <p className="text-red-500 text-xs mt-1">Passwords do not match</p>
+                    )}
 
                 </div>
                 <button
-                    className="w-full mb-4 mt-2 md:text-lg text-sm bg-blue-gradient hover:bg-light-gradient text-white py-2.5 rounded-md"
+                    className="w-full mb-4 mt-2 md:text-lg text-sm bg-blue-gradient hover:bg-light-gradient text-white py-2.5 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
                     type="submit"
+                    disabled={loading}
                 >
-                    {currentState === "Sign up" ? "Create account" : "Login"}
+                    {loading 
+                        ? "Processing..." 
+                        : currentState === "Sign up" 
+                        ? "Create account" 
+                        : currentState === "Forgot Password"
+                        ? "Reset Password"
+                        : "Login"}
                 </button>
 
                 {currentState === "Login" ? (
+                    <>
+                        <p className="text-gray-500 font-normal md:text-sm text-xs text-right mb-2">
+                            <span
+                                className="cursor-pointer text-primary-color hover:underline font-medium"
+                                onClick={() => setCurrentState("Forgot Password")}
+                            >
+                                Forgot Password?
+                            </span>
+                        </p>
+                        <p className="text-gray-500 font-normal md:text-lg text-[14px]">
+                            Create a new account?{" "}
+                            <span
+                                className="cursor-pointer font-semibold  text-bg-blue-gradient "
+                                onClick={() => setCurrentState("Sign up")}
+                            >
+                                Sign up
+                            </span>
+                        </p>
+                    </>
+                ) : currentState === "Forgot Password" ? (
                     <p className="text-gray-500 font-normal md:text-lg text-[14px]">
-                        Create a new account?{" "}
+                        Remember your password?{" "}
                         <span
-                            className="cursor-pointer font-semibold  text-bg-blue-gradient "
-                            onClick={() => setCurrentState("Sign up")}
+                            className="cursor-pointer font-semibold"
+                            onClick={() => setCurrentState("Login")}
                         >
-                            Sign up
+                            Login
                         </span>
                     </p>
                 ) : (

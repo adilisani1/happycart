@@ -60,13 +60,13 @@ const Navbar = ({ setShowLogin }) => {
                     <div className='flex gap-2 items-center'>
 
                         <NavLink to="/cart" className="xl:relative md:bg-none border border-gray-300 bg-black-gradient p-3.5 shadow-3xl rounded-full fixed bottom-10 right-6 ">
-                            <span className='text-[20px] md:text-2xl'>
-                                <BsFillHandbagFill /></span>
+                            <span className='text-[20px] md:text-2xl fill-white'>
+                                <BsFillHandbagFill className='fill-white' /></span>
                             {Object.keys(cartItems).length > 0 ? (
                                 <div className="absolute sm:top-[12px] sm:right-[12px] top-[11px] right-[11px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
                             ) : null}
                         </NavLink>
-                        {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium md:text-sm text-[12px]' onClick={setShowLogin}>Sign in</button>
+                        {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium md:text-sm text-[12px] text-white' onClick={setShowLogin}>Sign in</button>
                             :
                             <div className='navbar-profile '>
                                 <img
@@ -134,7 +134,7 @@ const Navbar = ({ setShowLogin }) => {
                                     <div className="absolute top-[-2px] right-[-3px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
                                 )}
                             </Link>
-                            {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium' onClick={setShowLogin}>Sign in</button>
+                            {!token ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium text-white' onClick={setShowLogin}>Sign in</button>
                                 :
                                 <div className='navbar-profile '>
                                     <img
