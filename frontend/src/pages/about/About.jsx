@@ -39,9 +39,9 @@ const About = () => {
     return (
         <div>
             {/* Section 1 */}
-            <div className="top pt-20 pb-10">
-                <div className="md:mb-20 mb-0 max-w-screen-2xl mx-auto md:h-[540px] hero-card grid rounded-xl md:px-10 md:pt-2 sm:px-20 lg:gap-8 xl:gap-0 lg:grid-cols-12">
-                    <div className="mr-auto place-self-center lg:col-span-8 lg:order-none order-1 md:text-left text-center md:px-0 px-5 md:py-0 py-12 pb-14">
+            <div className="top pt-24 pb-8">
+                <div className="mb-8 w-full md:h-[700px] hero-card grid md:px-10 md:pt-2 sm:px-20 lg:gap-8 xl:gap-0 lg:grid-cols-12">
+                    <div className="mr-auto place-self-center lg:col-span-8 lg:order-none order-1 md:text-left text-center md:px-10 px-5 md:py-0 py-12 pb-14">
                         <nav className="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
                             <Link to="/" className="hover:text-blue-400 transition-colors">
                                 Home
@@ -56,9 +56,9 @@ const About = () => {
                             Welcome to our Happy Cart electronics store! We are dedicated to delivering the best services and products to our valued customers. Our mission is to innovate and inspire, making a positive impact on everyone we serve.
                         </p>
                     </div>
-                    <div className="lg:mt-0 lg:col-span-4 lg:flex md:mb-0 mb-5 mx-auto hidden">
+                    <div className="lg:mt-0 lg:col-span-4 lg:flex md:mb-0 mb-5 mx-auto hidden items-end justify-end overflow-hidden">
                         <img
-                            className="w-full object-cover overflow-visible transform transition-transform duration-300"
+                            className="w-full h-full object-contain object-bottom transform transition-transform duration-300"
                             src={TopImage}
                             alt="About Us"
                         />

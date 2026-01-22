@@ -1,6 +1,26 @@
 /* Section one */
-    .top{
+    /* .top{
             background: radial-gradient(var(--card-color-one), var(--card-color-two));
+    } */
+    
+    .top .hero-card {
+        background: linear-gradient(135deg, #352c72, #150d2b);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .top .hero-card > div:last-child {
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+    
+    .top .hero-card > div:last-child img {
+        max-height: 100%;
+        width: auto;
+        object-fit: contain;
+        object-position: bottom;
     }
 .max-w-sm {
     max-width: 24rem; /* Tailwind's default value */
@@ -12,7 +32,6 @@
         padding-left: 20rem;
 
     }
-
 
     .top .left h1{
         color: white;
