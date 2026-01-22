@@ -31,7 +31,7 @@ const ShopItems = ({ id, title, image, price, ratings, url }) => {
                         />
                     </div>
                     <div className="flex items-center justify-center text-center flex-col mx-auto py-6 px-4 rounded-b-2xl">
-                        <h3 className="md:text-[17px] text-xs mb-1">{title}</h3>
+                        <h3 className="md:text-[17px] text-white text-xs mb-1">{title}</h3>
                         <p className="text-price-color md:text-md text-sm font-bold mb-2">
                             {`$${price}`}
                         </p>
