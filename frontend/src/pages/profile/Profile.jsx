@@ -8,12 +8,13 @@ import {
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const DefaultAvatar = ({ name, size = 112 }) => {
-    const initials = name
-        ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
-        : '?';
+const DefaultAvatar = ({ name, email, size = 112 }) => {
+    const displayName = name || email;
+    const initials = displayName
+        ? displayName.split(/[\s@]/).map(w => w[0]).join('').toUpperCase().slice(0, 2)
+        : 'HC';
     const colors = ['#7824f6','#536dff','#55a9ff','#9da6f0','#7a76f7'];
-    const color = colors[(name?.charCodeAt(0) || 0) % colors.length];
+    const color = colors[(displayName?.charCodeAt(0) || 0) % colors.length];
     return (
         <svg width={size} height={size} viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg"
             className="rounded-full shadow-lg border-2 border-white/20">
@@ -148,7 +149,7 @@ const Profile = () => {
 
                     {/* Avatar */}
                     <div className="relative shrink-0">
-                        <DefaultAvatar name={userData?.name} size={112} />
+                        <DefaultAvatar name={userData?.name} email={userData?.email} size={112} />
                         <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-[#00040F]" title="Online" />
                     </div>
 

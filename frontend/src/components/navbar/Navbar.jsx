@@ -13,12 +13,12 @@ import navLinks from '../../utils/menuLinks';
 import { StoreContext } from './../../context/StoreContext';
 
 const ProfileAvatar = ({ userData, className }) => {
-    const name = userData?.name;
-    const initials = name
-        ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
-        : '?';
+    const display = userData?.name || userData?.email;
+    const initials = display
+        ? display.split(/[\s@]/).map(w => w[0]).join('').toUpperCase().slice(0, 2)
+        : 'HC';
     const colors = ['#7824f6', '#536dff', '#55a9ff', '#9da6f0', '#7a76f7'];
-    const bg = colors[(name?.charCodeAt(0) || 0) % colors.length];
+    const bg = colors[(display?.charCodeAt(0) || 0) % colors.length];
 
     return (
         <div
