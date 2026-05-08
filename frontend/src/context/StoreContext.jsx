@@ -15,7 +15,7 @@ export const StoreProvider = ({ children }) => {
 
     const fetchUserProfile = async (authToken) => {
         try {
-            const response = await axios.get(`${url}/api/user/profile`, {
+            const response = await axios.post(`${url}/api/user/profile`, {}, {
                 headers: { token: authToken }
             });
             if (response.data.success) {

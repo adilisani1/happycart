@@ -8,6 +8,31 @@ import {
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
+const DefaultAvatar = ({ name, size = 112 }) => {
+    const initials = name
+        ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
+        : '?';
+    const colors = ['#7824f6','#536dff','#55a9ff','#9da6f0','#7a76f7'];
+    const color = colors[(name?.charCodeAt(0) || 0) % colors.length];
+    return (
+        <svg width={size} height={size} viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg"
+            className="rounded-full shadow-lg border-2 border-white/20">
+            <circle cx="56" cy="56" r="56" fill="url(#avatarGrad)" />
+            <defs>
+                <radialGradient id="avatarGrad" cx="30%" cy="30%" r="80%">
+                    <stop offset="0%" stopColor={color} stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#150d2b" />
+                </radialGradient>
+            </defs>
+            <text x="56" y="56" dominantBaseline="central" textAnchor="middle"
+                fill="white" fontSize={initials.length > 1 ? '30' : '36'} fontWeight="700"
+                fontFamily="Poppins, sans-serif">
+                {initials}
+            </text>
+        </svg>
+    );
+};
+
 const StatCard = ({ icon, label, value, color }) => (
     <div className="flex flex-col items-center justify-center gap-2 bg-black-gradient-2 border border-white/10 rounded-2xl p-5">
         <span className={`text-2xl ${color}`}>{icon}</span>
@@ -123,18 +148,7 @@ const Profile = () => {
 
                     {/* Avatar */}
                     <div className="relative shrink-0">
-                        {imgError || !userData ? (
-                            <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-blue-gradient flex items-center justify-center text-white text-4xl font-bold shadow-lg">
-                                {initial}
-                            </div>
-                        ) : (
-                            <img
-                                src='/assets/images/profile_image.png'
-                                alt="Profile"
-                                onError={() => setImgError(true)}
-                                className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover shadow-lg border-2 border-white/20"
-                            />
-                        )}
+                        <DefaultAvatar name={userData?.name} size={112} />
                         <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-[#00040F]" title="Online" />
                     </div>
 

@@ -8,6 +8,6 @@ userRouter.post("/login", loginUser);
 userRouter.post("/register", registerUser);
 userRouter.post("/forgot-password", forgotPassword);
 userRouter.post("/reset-password", resetPassword);
-userRouter.get("/profile", authMiddleware, getProfile);
+userRouter.post("/profile", authMiddleware, getProfile);
 
 module.exports = userRouter;

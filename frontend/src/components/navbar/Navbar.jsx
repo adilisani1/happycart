@@ -13,26 +13,20 @@ import navLinks from '../../utils/menuLinks';
 import { StoreContext } from './../../context/StoreContext';
 
 const ProfileAvatar = ({ userData, className }) => {
-    const [imgError, setImgError] = useState(false);
-    const initial = userData?.name?.[0]?.toUpperCase() || 'U';
-
-    if (imgError || !userData) {
-        return (
-            <div
-                className={`rounded-full bg-blue-gradient flex items-center justify-center text-white font-bold cursor-pointer select-none ${className}`}
-            >
-                {initial}
-            </div>
-        );
-    }
+    const name = userData?.name;
+    const initials = name
+        ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
+        : '?';
+    const colors = ['#7824f6', '#536dff', '#55a9ff', '#9da6f0', '#7a76f7'];
+    const bg = colors[(name?.charCodeAt(0) || 0) % colors.length];
 
     return (
-        <img
-            src='/assets/images/profile_image.png'
-            alt="Profile"
-            className={`navbar-profile-image cursor-pointer rounded-full object-cover ${className}`}
-            onError={() => setImgError(true)}
-        />
+        <div
+            className={`rounded-full flex items-center justify-center text-white font-bold cursor-pointer select-none shrink-0 ${className}`}
+            style={{ background: `radial-gradient(circle at 30% 30%, ${bg}cc, #150d2b)` }}
+        >
+            <span className="text-sm leading-none">{initials}</span>
+        </div>
     );
 };
 
