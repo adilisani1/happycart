@@ -110,13 +110,18 @@ const LoginPopup = ({ setShowLogin }) => {
 
             if (response.data.success) {
                 if (currentState === "Sign up") {
+                    // Pre-store name+email so they're ready right after login
+                    if (data.name) localStorage.setItem("userName", data.name);
+                    localStorage.setItem("userEmail", data.email);
                     toast.success("Registration successful! Please log in.");
                     setTimeout(() => setCurrentState("Login"), 100);
                 } else {
                     setToken(response.data.token);
                     localStorage.setItem("token", response.data.token);
+                    // Store from backend response if available (after backend deployment)
                     if (response.data.name) localStorage.setItem("userName", response.data.name);
-                    if (response.data.email) localStorage.setItem("userEmail", response.data.email);
+                    // Always store email from form — available even without backend change
+                    localStorage.setItem("userEmail", data.email);
                     toast.success("Login successful!");
                     setShowLogin(false);
                 }
