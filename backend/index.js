@@ -18,7 +18,7 @@ const port = process.env.PORT || 4000;
 
 // Middlewares
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 app.use(
   cors({
     origin: process.env.VITE_REACT_APP_FRONTEND_BASEURL,

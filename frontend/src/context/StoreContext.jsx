@@ -8,9 +8,23 @@ export const StoreProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState({});
     const [token, setToken] = useState("")
+    const [userData, setUserData] = useState(null);
     const url = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
 
     const [loading, setLoading] = useState(false);
+
+    const fetchUserProfile = async (authToken) => {
+        try {
+            const response = await axios.get(`${url}/api/user/profile`, {
+                headers: { token: authToken }
+            });
+            if (response.data.success) {
+                setUserData(response.data.user);
+            }
+        } catch (error) {
+            console.error("Error fetching user profile:", error);
+        }
+    };
 
 
     const fetchProducts = async () => {
@@ -73,9 +87,11 @@ export const StoreProvider = ({ children }) => {
         async function loadData() {
             setLoading(true)
             await fetchProducts();
-            if (localStorage.getItem('token')) {
-                setToken(localStorage.getItem('token'));
-                await loadCartData(localStorage.getItem('token'));
+            const savedToken = localStorage.getItem('token');
+            if (savedToken) {
+                setToken(savedToken);
+                await loadCartData(savedToken);
+                await fetchUserProfile(savedToken);
             }
             setLoading(false)
         }
@@ -111,8 +127,10 @@ export const StoreProvider = ({ children }) => {
         token,
         setToken,
         loading,
-        setLoading
-
+        setLoading,
+        userData,
+        setUserData,
+        fetchUserProfile,
     }
 
     return (

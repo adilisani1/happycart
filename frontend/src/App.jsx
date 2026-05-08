@@ -18,6 +18,7 @@ import { StoreProvider } from "./context/StoreContext";
 import Verify from "./pages/verify/Verify";
 import MyOrders from "./pages/myorders/MyOrders";
 import ResetPassword from "./pages/resetpassword/ResetPassword";
+import Profile from "./pages/profile/Profile";
 function App() {
   const [showLogin, setShowLogin] = useState(false);
 
@@ -58,6 +59,10 @@ function App() {
               <Route
                 path="/reset-password"
                 element={<ResetPassword />}
+              ></Route>
+              <Route
+                path="/profile"
+                element={<Profile />}
               ></Route>
             </Routes>
           </div>
