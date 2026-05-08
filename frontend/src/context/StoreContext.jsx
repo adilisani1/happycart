@@ -19,11 +19,20 @@ export const StoreProvider = ({ children }) => {
                 headers: { token: authToken }
             });
             if (response.data.success) {
-                setUserData(response.data.user);
+                const user = response.data.user;
+                setUserData(user);
+                if (user.name) localStorage.setItem("userName", user.name);
+                if (user.email) localStorage.setItem("userEmail", user.email);
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
         }
+    };
+
+    const loadUserFromStorage = () => {
+        const name = localStorage.getItem("userName");
+        const email = localStorage.getItem("userEmail");
+        if (name || email) setUserData({ name, email });
     };
 
 
@@ -90,8 +99,9 @@ export const StoreProvider = ({ children }) => {
             const savedToken = localStorage.getItem('token');
             if (savedToken) {
                 setToken(savedToken);
+                loadUserFromStorage();
                 await loadCartData(savedToken);
-                await fetchUserProfile(savedToken);
+                fetchUserProfile(savedToken);
             }
             setLoading(false)
         }
@@ -131,6 +141,7 @@ export const StoreProvider = ({ children }) => {
         userData,
         setUserData,
         fetchUserProfile,
+        loadUserFromStorage,
     }
 
     return (

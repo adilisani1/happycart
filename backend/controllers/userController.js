@@ -23,9 +23,13 @@ const loginUser = async (req, res) => {
         .json({ success: false, message: "Invalid password" });
     }
     const token = createToken(user._id);
-    res
-      .status(200)
-      .json({ success: true, message: "Logged in successfully", token });
+    res.status(200).json({
+      success: true,
+      message: "Logged in successfully",
+      token,
+      name: user.name,
+      email: user.email,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to login user" });
   }
