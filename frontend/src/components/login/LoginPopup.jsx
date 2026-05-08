@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./loginPopup.css";
 import { GrClose } from "react-icons/gr";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,6 +24,11 @@ const LoginPopup = ({ setShowLogin }) => {
 
     const [passwordError, setPasswordError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    // Show/hide toggles
+    const [showPassword, setShowPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const isValidPassword = (password) => {
         const passwordRegex = /^[A-Z][A-Za-z\d@$!%*?&]{5,}$/;
@@ -46,13 +52,10 @@ const LoginPopup = ({ setShowLogin }) => {
         }
     };
 
-
-
     const onLogin = async (e) => {
         e.preventDefault();
 
         if (currentState === "Forgot Password") {
-            // Handle forgot password reset
             if (!data.email) {
                 toast.error("Please enter your email address");
                 return;
@@ -94,7 +97,6 @@ const LoginPopup = ({ setShowLogin }) => {
             return;
         }
 
-        // Only validate password format for registration, not for login
         if (currentState === "Sign up" && !isValidPassword(data.password)) {
             toast.error("Password must start with a capital letter and include at least one special character.");
             return;
@@ -110,7 +112,6 @@ const LoginPopup = ({ setShowLogin }) => {
 
             if (response.data.success) {
                 if (currentState === "Sign up") {
-                    // Pre-store name+email so they're ready right after login
                     if (data.name) localStorage.setItem("userName", data.name);
                     localStorage.setItem("userEmail", data.email);
                     toast.success("Registration successful! Please log in.");
@@ -118,9 +119,7 @@ const LoginPopup = ({ setShowLogin }) => {
                 } else {
                     setToken(response.data.token);
                     localStorage.setItem("token", response.data.token);
-                    // Store from backend response if available (after backend deployment)
                     if (response.data.name) localStorage.setItem("userName", response.data.name);
-                    // Always store email from form — available even without backend change
                     localStorage.setItem("userEmail", data.email);
                     toast.success("Login successful!");
                     setShowLogin(false);
@@ -137,13 +136,11 @@ const LoginPopup = ({ setShowLogin }) => {
         }
     };
 
-
     return (
-        <div className="login-popup pt-20 ">
-            <form className="login-popup-container bg-black-gradient border shadow-2xl" onSubmit={onLogin} >
-                <div className=" flex items-center justify-between mb-2 mt-2">
+        <div className="login-popup pt-20">
+            <form className="login-popup-container bg-black-gradient border shadow-2xl" onSubmit={onLogin}>
+                <div className="flex items-center justify-between mb-2 mt-2">
                     <h2 className="login-popup-title">{currentState}</h2>
-
                     <GrClose
                         className="cursor-pointer"
                         onClick={() => setShowLogin(false)}
@@ -165,7 +162,7 @@ const LoginPopup = ({ setShowLogin }) => {
                     )}
 
                     <input
-                        className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
+                        className="input-name border mb-2 mt-2 md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
                         type="email"
                         placeholder="Email"
                         name="email"
@@ -173,39 +170,77 @@ const LoginPopup = ({ setShowLogin }) => {
                         onChange={onChangeHandler}
                         value={data.email}
                     />
-                    
+
+                    {/* Password field (Login & Sign up) */}
                     {currentState !== "Forgot Password" && (
-                        <input
-                            className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            required
-                            onChange={onChangeHandler}
-                            value={data.password}
-                        />
+                        <div className="relative mb-2 mt-2">
+                            <input
+                                className="input-name border md:text-lg text-[14px] border-gray-300 py-2.5 px-3 pr-10 rounded-md w-full"
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Password"
+                                name="password"
+                                required
+                                onChange={onChangeHandler}
+                                value={data.password}
+                            />
+                            <span
+                                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                            >
+                                {showPassword
+                                    ? <AiOutlineEyeInvisible size={20} />
+                                    : <AiOutlineEye size={20} />
+                                }
+                            </span>
+                        </div>
                     )}
 
+                    {/* Forgot Password fields */}
                     {currentState === "Forgot Password" && (
                         <>
-                            <input
-                                className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
-                                type="password"
-                                placeholder="New Password"
-                                name="newPassword"
-                                required
-                                onChange={onChangeHandler}
-                                value={data.newPassword}
-                            />
-                            <input
-                                className="input-name border mb-2 mt-2  md:text-lg text-[14px] border-gray-300 py-2.5 px-3 rounded-md w-full"
-                                type="password"
-                                placeholder="Confirm Password"
-                                name="confirmPassword"
-                                required
-                                onChange={onChangeHandler}
-                                value={data.confirmPassword}
-                            />
+                            {/* New Password */}
+                            <div className="relative mb-2 mt-2">
+                                <input
+                                    className="input-name border md:text-lg text-[14px] border-gray-300 py-2.5 px-3 pr-10 rounded-md w-full"
+                                    type={showNewPassword ? "text" : "password"}
+                                    placeholder="New Password"
+                                    name="newPassword"
+                                    required
+                                    onChange={onChangeHandler}
+                                    value={data.newPassword}
+                                />
+                                <span
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                                    onClick={() => setShowNewPassword((prev) => !prev)}
+                                >
+                                    {showNewPassword
+                                        ? <AiOutlineEyeInvisible size={20} />
+                                        : <AiOutlineEye size={20} />
+                                    }
+                                </span>
+                            </div>
+
+                            {/* Confirm Password */}
+                            <div className="relative mb-2 mt-2">
+                                <input
+                                    className="input-name border md:text-lg text-[14px] border-gray-300 py-2.5 px-3 pr-10 rounded-md w-full"
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    placeholder="Confirm Password"
+                                    name="confirmPassword"
+                                    required
+                                    onChange={onChangeHandler}
+                                    value={data.confirmPassword}
+                                />
+                                <span
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                                >
+                                    {showConfirmPassword
+                                        ? <AiOutlineEyeInvisible size={20} />
+                                        : <AiOutlineEye size={20} />
+                                    }
+                                </span>
+                            </div>
                         </>
                     )}
 
@@ -224,18 +259,19 @@ const LoginPopup = ({ setShowLogin }) => {
                     )}
 
                 </div>
+
                 <button
                     className="w-full mb-4 mt-2 md:text-lg text-sm bg-blue-gradient hover:bg-light-gradient text-white py-2.5 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
                     type="submit"
                     disabled={loading}
                 >
-                    {loading 
-                        ? "Processing..." 
-                        : currentState === "Sign up" 
-                        ? "Create account" 
-                        : currentState === "Forgot Password"
-                        ? "Reset Password"
-                        : "Login"}
+                    {loading
+                        ? "Processing..."
+                        : currentState === "Sign up"
+                            ? "Create account"
+                            : currentState === "Forgot Password"
+                                ? "Reset Password"
+                                : "Login"}
                 </button>
 
                 {currentState === "Login" ? (
@@ -251,7 +287,7 @@ const LoginPopup = ({ setShowLogin }) => {
                         <p className="text-gray-500 font-normal md:text-lg text-[14px]">
                             Create a new account?{" "}
                             <span
-                                className="cursor-pointer font-semibold  text-bg-blue-gradient "
+                                className="cursor-pointer font-semibold text-bg-blue-gradient"
                                 onClick={() => setCurrentState("Sign up")}
                             >
                                 Sign up
@@ -269,10 +305,10 @@ const LoginPopup = ({ setShowLogin }) => {
                         </span>
                     </p>
                 ) : (
-                    <p className="text-gray-500 font-normal  md:text-lg text-[14px]">
+                            <p className="text-gray-500 font-normal md:text-lg text-[14px]">
                         Already have an account?{" "}
                         <span
-                                className="cursor-pointer font-semibold"
+                                    className="cursor-pointer font-semibold"
                             onClick={() => setCurrentState("Login")}
                         >
                             Login
