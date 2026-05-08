@@ -190,7 +190,11 @@ const Search = () => {
                                     className="flex items-center gap-4 bg-black-gradient-2 rounded-xl p-4 hover:bg-white/5 border border-white/10 transition-all"
                                 >
                                     <img
-                                        src={`${url}/images/${product.image}`}
+                                        src={
+                                            product.image?.[0]?.startsWith("http")
+                                                ? product.image[0]
+                                                : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image?.[0]}`
+                                        }
                                         alt={product.title}
                                         className="w-20 h-20 object-cover rounded-lg shrink-0"
                                         onError={(e) => { e.target.src = '/assets/images/placeholder.png'; }}

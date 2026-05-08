@@ -52,7 +52,7 @@ const Profile = () => {
         }
         const init = async () => {
             setPageLoading(true);
-            if (!userData) await fetchUserProfile(token);
+            await fetchUserProfile(token);
             try {
                 const res = await axios.post(`${url}/api/order/userorders`, {}, { headers: { token } });
                 setOrderCount(res.data.data?.length || 0);
