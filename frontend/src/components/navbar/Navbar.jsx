@@ -130,7 +130,7 @@ const Navbar = ({ setShowLogin }) => {
     };
 
     return (
-        <header className={`h-[90px] pt-5 px-8 container mx-auto shadow-sm  transition-all ease-in duration-300 ${scroll > 40 ? 'nav-bg-gradient shadow-2xl ' : ''}`}>
+        <header className={`h-[90px] pt-5 px-8 container mx-auto shadow-sm border-b border-solid border-white/10 transition-all ease-in duration-300 ${scroll > 40 ? 'nav-bg-gradient shadow-2xl ' : ''}`}>
 
             {/* ── SMALL SCREENS ── */}
             <div className='flex xl:hidden items-center justify-between'>
@@ -147,7 +147,7 @@ const Navbar = ({ setShowLogin }) => {
                 </div>
                 <div className='flex-1 flex justify-end items-center'>
                     <div className='flex gap-2 items-center'>
-                        <NavLink to="/cart" className="xl:relative md:bg-none border border-gray-300 bg-black-gradient p-3.5 shadow-3xl rounded-full fixed bottom-10 right-6">
+                        <NavLink to="/cart" className="z-[9995] xl:relative md:bg-none border border-gray-300 bg-black-gradient p-3.5 shadow-3xl rounded-full fixed bottom-10 right-6">
                             <span className='text-[20px] md:text-2xl fill-white'>
                                 <BsFillHandbagFill className='fill-white' />
                             </span>

@@ -201,6 +201,13 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
+    /* ── Page ── */
+.contact-page {
+   
+    padding-top: 40px;
+  
+}
+
     .contact-grid {
         grid-template-columns: 1fr;
     }
