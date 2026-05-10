@@ -241,6 +241,12 @@
 
 /* ── Responsive ── */
 @media (max-width: 1024px) {
+    /* ── Page ── */
+.checkout-page {
+    padding-top: 20px;
+    
+}
+
     .checkout-grid {
         grid-template-columns: 1fr;
     }

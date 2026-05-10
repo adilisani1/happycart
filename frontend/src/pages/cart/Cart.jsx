@@ -51,7 +51,7 @@ export const Cart = ({ setShowLogin = () => {} }) => {
                     <>
                         {/* Table header */}
                         <div className="cart-table-head hidden md:grid">
-                            <div className="col-span-2">Product</div>
+                            <div className="">Product</div>
                             <div>Price</div>
                             <div>Quantity</div>
                             <div>Remove</div>
@@ -64,7 +64,7 @@ export const Cart = ({ setShowLogin = () => {} }) => {
                                     return (
                                         <div key={item._id} className="cart-row">
                                             {/* Product */}
-                                            <div className="cart-product col-span-2">
+                                            <div className="cart-product ">
                                                 <img
                                                     src={item.image[0]?.startsWith("http")
                                                         ? item.image[0]

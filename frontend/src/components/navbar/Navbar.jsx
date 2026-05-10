@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logoCart from '/assets/images/logo/happy-cart-logo2.png';
 import { BsFillHandbagFill } from "react-icons/bs";
@@ -26,6 +26,77 @@ const ProfileAvatar = ({ userData, className }) => {
             style={{ background: `radial-gradient(circle at 30% 30%, ${bg}cc, #150d2b)` }}
         >
             <span className="text-sm leading-none">{initials}</span>
+        </div>
+    );
+};
+
+const ProfileDropdown = ({ userData, avatarClassName, navigate, handleLogout }) => {
+    const [open, setOpen] = useState(false);
+    const rootRef = useRef(null);
+
+    useEffect(() => {
+        if (!open) return;
+        const onDoc = (e) => {
+            if (rootRef.current && !rootRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', onDoc);
+        return () => document.removeEventListener('mousedown', onDoc);
+    }, [open]);
+
+    return (
+        <div ref={rootRef} className={`navbar-profile ${open ? 'is-open' : ''}`}>
+            <button
+                type="button"
+                className="navbar-profile-trigger"
+                aria-expanded={open}
+                aria-haspopup="true"
+                aria-label="Account menu"
+                onClick={() => setOpen((v) => !v)}
+            >
+                <ProfileAvatar userData={userData} className={avatarClassName} />
+            </button>
+            <ul className="navbar-profile-list">
+                {userData?.name && (
+                    <li className="pointer-events-none">
+                        <p className="text-gray-500 text-xs font-medium truncate max-w-[200px] m-0">
+                            Hi, {userData.name}
+                        </p>
+                    </li>
+                )}
+                {userData?.name && <hr />}
+                <li
+                    onClick={() => {
+                        setOpen(false);
+                        navigate('/profile');
+                    }}
+                >
+                    <span className="bag-icon"><FiUser /></span>
+                    <p className="text-black m-0">Profile</p>
+                </li>
+                <hr />
+                <li
+                    className="mb-0"
+                    onClick={() => {
+                        setOpen(false);
+                        navigate('/myorders');
+                    }}
+                >
+                    <span className="bag-icon"><RiShoppingBag3Line /></span>
+                    <p className="text-black m-0">Orders</p>
+                </li>
+                <hr />
+                <li
+                    onClick={() => {
+                        setOpen(false);
+                        handleLogout();
+                    }}
+                >
+                    <span className="exit-icon"><IoMdExit /></span>
+                    <p className="text-black m-0">Logout</p>
+                </li>
+            </ul>
         </div>
     );
 };
@@ -88,25 +159,12 @@ const Navbar = ({ setShowLogin }) => {
                         {!token
                             ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium md:text-sm text-[12px] text-white' onClick={setShowLogin}>Sign in</button>
                             : (
-                                <div className='navbar-profile'>
-                                    <ProfileAvatar userData={userData} className="md:w-10 md:h-10 w-8 h-8" />
-                                    <ul className='navbar-profile-list'>
-                                        <li onClick={() => navigate('/profile')}>
-                                            <span className='bag-icon'><FiUser /></span>
-                                            <p className='text-black'>Profile</p>
-                                        </li>
-                                        <hr />
-                                        <li className='mb-2' onClick={() => navigate('/myorders')}>
-                                            <span className='bag-icon'><RiShoppingBag3Line /></span>
-                                            <p className='text-black'>Orders</p>
-                                        </li>
-                                        <hr />
-                                        <li>
-                                            <span className='exit-icon'><IoMdExit /></span>
-                                            <button onClick={handleLogout}>Logout</button>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <ProfileDropdown
+                                    userData={userData}
+                                    avatarClassName="md:w-10 md:h-10 w-8 h-8"
+                                    navigate={navigate}
+                                    handleLogout={handleLogout}
+                                />
                             )
                         }
                     </div>
@@ -155,31 +213,12 @@ const Navbar = ({ setShowLogin }) => {
                             {!token
                                 ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium text-white' onClick={setShowLogin}>Sign in</button>
                                 : (
-                                    <div className='navbar-profile'>
-                                        <ProfileAvatar userData={userData} className="w-10 h-10" />
-                                        <ul className='navbar-profile-list'>
-                                            {userData?.name && (
-                                                <li className='pointer-events-none pb-1'>
-                                                    <p className='text-gray-500 text-xs font-medium truncate max-w-[120px]'>Hi, {userData.name}</p>
-                                                </li>
-                                            )}
-                                            {userData?.name && <hr />}
-                                            <li className='mt-1' onClick={() => navigate('/profile')}>
-                                                <span className='bag-icon'><FiUser /></span>
-                                                <p className='text-black'>Profile</p>
-                                            </li>
-                                            <hr />
-                                            <li className='mb-2' onClick={() => navigate('/myorders')}>
-                                                <span className='bag-icon'><RiShoppingBag3Line /></span>
-                                                <p className='text-black'>Orders</p>
-                                            </li>
-                                            <hr />
-                                            <li>
-                                                <span className='exit-icon'><IoMdExit /></span>
-                                                <button onClick={handleLogout}>Logout</button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <ProfileDropdown
+                                        userData={userData}
+                                        avatarClassName="w-10 h-10"
+                                        navigate={navigate}
+                                        handleLogout={handleLogout}
+                                    />
                                 )
                             }
                         </div>

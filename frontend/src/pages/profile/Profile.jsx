@@ -136,7 +136,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="min-h-screen pt-28 pb-20 px-4 sm:px-8 max-w-screen-lg mx-auto">
+        <div className="min-h-screen lg:pt-20 pb-20 px-4 sm:px-8 max-w-screen-lg mx-auto">
 
             {/* ── Back link ── */}
             <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-8 transition-colors">

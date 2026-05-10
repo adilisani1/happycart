@@ -5,7 +5,7 @@ import ShopItems from '../../components/ShopItem/ShopItems';
 const Shop = () => {
     const { products, url, loading } = useContext(StoreContext);
     return (
-        <div className="shade-parent min-h-screen pt-20 pb-24">
+        <div className="shade-parent min-h-screen pb-24">
             {/* Banner Section */}
             <div className="w-full relative mb-14">
                 <img
