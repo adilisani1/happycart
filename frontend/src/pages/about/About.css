@@ -5,7 +5,7 @@
 
 /* ── Shared Utilities ── */
 .gradient-text {
-    background: linear-gradient(90deg, #7824f6, #a697ff);
+    background: linear-gradient(157.81deg, #7a76f7 -43.27%, #bec7f5 -21.24%, #9da6f0 12.19%, #7da0eb 29.82%, #536dff 51.94%, #55a9ff 90.29%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -35,9 +35,8 @@
     border-color: rgba(166, 151, 255, 0.35);
 }
 
-.btn-primary {
-    background: var(--primary-color);
-    color: #fff;
+/* Buttons */
+.about-btn-primary {
     padding: 12px 28px;
     border: none;
     border-radius: 8px;
@@ -45,16 +44,16 @@
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 24px rgba(120, 36, 246, 0.35);
+    box-shadow: 0 4px 24px rgba(83, 109, 255, 0.35);
 }
 
-.btn-primary:hover {
-    opacity: 0.88;
+.about-btn-primary:hover {
+    opacity: 0.9;
     transform: translateY(-1px);
-    box-shadow: 0 8px 32px rgba(120, 36, 246, 0.5);
+    box-shadow: 0 8px 32px rgba(83, 109, 255, 0.5);
 }
 
-.btn-outline {
+.about-btn-outline {
     background: transparent;
     color: #fff;
     padding: 12px 28px;
@@ -66,7 +65,7 @@
     transition: background 0.2s, border-color 0.2s;
 }
 
-.btn-outline:hover {
+.about-btn-outline:hover {
     background: rgba(120, 36, 246, 0.12);
     border-color: rgba(166, 151, 255, 0.8);
 }
@@ -86,7 +85,7 @@
 .about-hero-bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(72.04% 72.04% at 50% 3.99%, #7824F6 0%, rgba(166, 151, 255, 0) 60%), #00040F;
+    /* background: radial-gradient(72.04% 72.04% at 50% 3.99%, #7824F6 0%, rgba(166, 151, 255, 0) 60%), #00040F; */
     z-index: 0;
 }
 
@@ -526,18 +525,6 @@
 }
 
 @media (max-width: 768px) {
-    /* ── Hero ── */
-.about-hero {
-    position: relative;
-    padding-top: 96px;
-    padding-bottom: 0;
-    min-height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-}
-
     .about-hero-inner {
         grid-template-columns: 1fr;
         padding: 20px 20px 0;

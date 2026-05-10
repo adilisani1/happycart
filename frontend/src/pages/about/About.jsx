@@ -39,7 +39,7 @@ const About = () => {
             {/* ── Hero Section ── */}
             <section className="about-hero">
                 <div className="about-hero-bg" />
-                <div className="about-hero-inner">
+                <div className="about-hero-inner container mx-auto">
                     <div className="about-hero-text">
                         <nav className="about-breadcrumb" aria-label="Breadcrumb">
                             <Link to="/">Home</Link>
@@ -55,10 +55,10 @@ const About = () => {
                         </p>
                         <div className="about-hero-actions">
                             <Link to="/shop">
-                                <button className="btn-primary">Explore Products</button>
+                                <button className="bg-blue-gradient hover:bg-light-gradient text-white about-btn-primary">Explore Products</button>
                             </Link>
                             <Link to="/contact">
-                                <button className="btn-outline">Contact Us</button>
+                                <button className="about-btn-outline">Contact Us</button>
                             </Link>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ const About = () => {
                             <li><span className="check-icon">✓</span> Fast & secure delivery</li>
                         </ul>
                         <Link to="/shop">
-                            <button className="btn-primary">View Products</button>
+                            <button className="bg-blue-gradient hover:bg-light-gradient text-white about-btn-primary">View Products</button>
                         </Link>
                     </div>
                 </div>

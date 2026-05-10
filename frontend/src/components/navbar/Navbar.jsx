@@ -59,7 +59,7 @@ const Navbar = ({ setShowLogin }) => {
     };
 
     return (
-        <header className={`h-[90px] pt-5 md:py-4 px-2.5 md:px-8 lg:px-16 xl:32 2xl:px-64 shadow-sm header transition-all ease-in duration-300 ${scroll > 40 ? 'nav-bg-gradient shadow-2xl ' : ''}`}>
+        <header className={`h-[90px] pt-5 px-8 container mx-auto shadow-sm  transition-all ease-in duration-300 ${scroll > 40 ? 'nav-bg-gradient shadow-2xl ' : ''}`}>
 
             {/* ── SMALL SCREENS ── */}
             <div className='flex xl:hidden items-center justify-between'>
@@ -114,7 +114,7 @@ const Navbar = ({ setShowLogin }) => {
             </div>
 
             {/* ── BIGGER SCREENS ── */}
-            <nav className='hidden xl:flex justify-between items-center gap-8 h-full'>
+            <nav className='hidden  xl:flex justify-between items-center gap-8 h-full'>
                 {/* LEFT */}
                 <div className='w-1/3 xl:w-1/2 flex items-center gap-12'>
                     <Link to='/' className='flex items-center gap-1'>

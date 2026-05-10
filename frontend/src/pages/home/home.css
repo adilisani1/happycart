@@ -1,0 +1,71 @@
+/* ── Promise Strip ── */
+.promise-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    padding-bottom: 12px;
+}
+
+.promise-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(120, 36, 246, 0.15);
+    color: #fff;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+}
+
+.promise-card:hover {
+    border-color: rgba(120, 36, 246, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(120, 36, 246, 0.2);
+}
+
+.promise-icon {
+    font-size: 2.4rem;
+    color: #a697ff;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.promise-text h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.promise-text p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .promise-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .promise-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .promise-icon {
+        font-size: 1.8rem;
+    }
+
+    .promise-text h3 {
+        font-size: 13px;
+    }
+
+    .promise-text p {
+        display: none;
+    }
+}
