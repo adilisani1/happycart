@@ -35,7 +35,7 @@ function App() {
           <div className=" min-h-screen">
             <Routes>
               <Route path="/" element={<Home />}></Route>
-              <Route path="/cart" element={<Cart />}></Route>
+              <Route path="/cart" element={<Cart setShowLogin={setShowLogin} />}></Route>
               <Route path="/checkout" element={<Checkout />}></Route>
               <Route path="/shop" element={<Shop />}></Route>
               <Route path="/about" element={<About />}></Route>

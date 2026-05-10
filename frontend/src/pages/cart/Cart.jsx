@@ -1,122 +1,133 @@
 import React, { useContext } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
-import { BsCartXFill } from "react-icons/bs";
 import { IoMdClose } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 import './cart.css';
 
-export const Cart = () => {
+export const Cart = ({ setShowLogin = () => {} }) => {
     const navigate = useNavigate();
-    const { cartItems, removeFromCart, products, setCartItems, getTotalCartAmount, url } = useContext(StoreContext);
+    const { cartItems, removeFromCart, products, setCartItems, getTotalCartAmount, token } = useContext(StoreContext);
 
-    const handleQuantityChange = (id, increment) => {
-        setCartItems((prevCartItems) => {
-            const updatedCart = { ...prevCartItems };
-
-            if (updatedCart[id]) {
-                updatedCart[id] += increment;
-
-                if (updatedCart[id] <= 0) {
-                    delete updatedCart[id];
-                }
-            } else if (increment > 0) {
-                updatedCart[id] = 1;
-            }
-
-            return updatedCart;
-        });
-    };
-
-    const handleCheckout = () => {
+    const handleProceedToCheckout = () => {
+        if (!token) {
+            setShowLogin(true);
+            return;
+        }
         navigate('/checkout');
     };
 
+    const hasItems = Object.values(cartItems).some(q => q > 0);
+
+    const handleQuantityChange = (id, increment) => {
+        setCartItems(prev => {
+            const updated = { ...prev };
+            if (updated[id]) {
+                updated[id] += increment;
+                if (updated[id] <= 0) delete updated[id];
+            } else if (increment > 0) {
+                updated[id] = 1;
+            }
+            return updated;
+        });
+    };
+
     return (
-        <div className="min-h-screen flex flex-col  text-white pt-20 ">
-            <main className="flex-grow px-3 sm:px-8 py-16 relative z-[2]">
-                <div className="absolute z-[0] w-[45%] h-[100%] -left-[40%] rounded-full blue__gradient top-[-30%]"></div>
-                <div className="absolute z-[1] w-[30%] h-[50%] left-0 rounded-full white__gradient  bottom-40"></div>
+        <div className="cart-page">
+            {/* Background blobs */}
+            <div className="absolute z-[0] w-[45%] h-[100%] -left-[40%] rounded-full blue__gradient top-[-30%] pointer-events-none" />
+            <div className="absolute z-[1] w-[30%] h-[50%] left-0 rounded-full white__gradient bottom-40 pointer-events-none" />
 
-                <h1 className="text-2xl sm:text-4xl font-bold mb-8 text-center">
-                    {Object.values(cartItems).some(quantity => quantity > 0) ? "Your Cart" : "Your Cart is Empty"}
-                </h1>
+            <div className="cart-inner max-w-5xl mx-auto relative z-[2]">
+                <div className="cart-header">
+                    <span className="cart-tag">{hasItems ? `${Object.values(cartItems).reduce((a, b) => a + b, 0)} Items` : "Empty"}</span>
+                    <h1 className="cart-title">{hasItems ? "Your Cart" : "Your Cart is Empty"}</h1>
+                    {!hasItems && (
+                        <p className="cart-empty-sub">Looks like you haven't added anything yet.</p>
+                    )}
+                </div>
 
-                <div className="max-w-5xl mx-auto relative z-[1]">
-                    {Object.values(cartItems).some(quantity => quantity > 0) && (
-                        <div className="hidden md:grid grid-cols-5 gap-4 mb-4 pb-4 border-[1px] border-[#3F3E45] text-gray-300 p-4 rounded-t-lg font-bold">
+                {hasItems && (
+                    <>
+                        {/* Table header */}
+                        <div className="cart-table-head hidden md:grid">
                             <div className="col-span-2">Product</div>
                             <div>Price</div>
                             <div>Quantity</div>
                             <div>Remove</div>
                         </div>
-                    )}
 
-                    {/* Table Body */}
-                    <div className="nav-bg-gradient rounded-lg divide-y divide-gray-700">
-                        {products.map((item) => {
-                            if (cartItems[item._id] > 0) {
-                                return (
-                                    <div
-                                        key={item._id}
-                                        className="cart-items gap-3.5 px-2 pb-3 pt-3 items-center text-gray-200"
-                                    >
-                                        {/* Product Info */}
-                                        <div className="col-span-2 flex items-center gap-2">
-                                            <img
-                                                src={item.image[0]?.startsWith("http") ? item.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
-                                                alt={item.title}
-                                                className="w-14 h-14 sm:w-20 sm:h-20 object-contain rounded-lg"
-                                            />
-                                            <div>
-                                                <h2 className="sm:text-lg text-[11px] font-bold">{item.title}</h2>
+                        {/* Table body */}
+                        <div className="cart-table-body nav-bg-gradient">
+                            {products.map((item) => {
+                                if (cartItems[item._id] > 0) {
+                                    return (
+                                        <div key={item._id} className="cart-row">
+                                            {/* Product */}
+                                            <div className="cart-product col-span-2">
+                                                <img
+                                                    src={item.image[0]?.startsWith("http")
+                                                        ? item.image[0]
+                                                        : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${item.image[0]}`}
+                                                    alt={item.title}
+                                                    className="cart-img"
+                                                />
+                                                <h2 className="cart-item-name">{item.title}</h2>
+                                            </div>
+
+                                            {/* Price */}
+                                            <div className="cart-cell">
+                                                <span className="cart-cell-label">Price</span>
+                                                <span className="text-price-color font-semibold">${item.price}</span>
+                                            </div>
+
+                                            {/* Quantity */}
+                                            <div className="cart-cell">
+                                                <span className="cart-cell-label">Qty</span>
+                                                <div className="cart-qty">
+                                                    <button className="cart-qty-btn" onClick={() => handleQuantityChange(item._id, -1)}>
+                                                        <AiOutlineMinus />
+                                                    </button>
+                                                    <span className="cart-qty-val">{cartItems[item._id]}</span>
+                                                    <button className="cart-qty-btn" onClick={() => handleQuantityChange(item._id, 1)}>
+                                                        <AiOutlinePlus />
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/* Remove */}
+                                            <div className="cart-cell">
+                                                <button
+                                                    className="cart-remove"
+                                                    onClick={() => removeFromCart(item._id)}
+                                                    aria-label="Remove item"
+                                                >
+                                                    <IoMdClose />
+                                                </button>
                                             </div>
                                         </div>
+                                    );
+                                }
+                                return null;
+                            })}
+                        </div>
 
-                                        {/* Price */}
-                                        <div className='sm:text-[16px] text-[12px]'>${item.price}</div>
-
-                                        {/* Quantity Controls */}
-                                        <div className="flex items-center gap-2">
-                                            <button className='sm:text-[16px] text-[12px]' onClick={() => handleQuantityChange(item._id, -1)}>
-                                                <AiOutlineMinus />
-                                            </button>
-                                            <span className='sm:text-[16px] text-[12px]'>{cartItems[item._id]}</span>
-                                            <button className='sm:text-[16px] text-[12px]' onClick={() => handleQuantityChange(item._id, 1)}>
-                                                <AiOutlinePlus />
-                                            </button>
-                                        </div>
-
-                                        {/* Remove */}
-                                        <div>
-                                            <IoMdClose
-                                                onClick={() => removeFromCart(item._id)}
-                                                className="cursor-pointer sm:text-[16px] text-[12px]"
-                                            />
-                                        </div>
-                                    </div>
-                                );
-                            }
-                            return null;
-                        })}
-                    </div>
-
-                    {/* Cart Total - Now hides when cart is empty */}
-                    {Object.values(cartItems).some(quantity => quantity > 0) ? (
-                        <div className="mt-8 text-right">
-                            <h2 className="text-md sm:text-2xl font-normal">
-                                Grand Total: <span className="text-md sm:text-2xl font-bold text-price-color">${getTotalCartAmount()}</span>
-                            </h2>
+                        {/* Total + CTA */}
+                        <div className="cart-footer">
+                            <div className="cart-total">
+                                Grand Total:
+                                <span className="cart-total-amount text-price-color">${getTotalCartAmount()}</span>
+                            </div>
                             <button
-                                className="mt-4 py-4 px-6 font-poppins font-medium sm:text-[18px] text-[14px] text-primary bg-blue-gradient hover:bg-light-gradient outline-none   text-white  rounded-lg"
-                                onClick={handleCheckout}
+                                className="bg-blue-gradient hover:bg-light-gradient text-white cart-checkout-btn"
+                                onClick={handleProceedToCheckout}
                             >
                                 Proceed to Checkout
                             </button>
                         </div>
-                    ) : null}
-                </div>
-            </main>
+                    </>
+                )}
+            </div>
         </div>
     );
 };
