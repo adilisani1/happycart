@@ -17,20 +17,26 @@ const port = process.env.PORT || 4000;
 
 // Middlewares
 app.use(express.json());
+const normalizeOrigin = (value) =>
+  typeof value === "string" ? value.trim().replace(/\/+$/, "") : value;
+
 const allowedOrigins = [
   process.env.VITE_REACT_APP_FRONTEND_BASEURL,
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:5175",
   "http://localhost:5176",
-  "https://happycart-ashen.vercel.app/",
-].filter(Boolean);
+  "https://happycart-ashen.vercel.app",
+]
+  .map(normalizeOrigin)
+  .filter(Boolean);
 
 app.use(
   cors({
     origin(origin, callback) {
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
+      const normalized = normalizeOrigin(origin);
+      if (allowedOrigins.includes(normalized)) return callback(null, true);
       return callback(new Error(`CORS blocked for origin: ${origin}`));
     },
     credentials: true,
