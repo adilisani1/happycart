@@ -2,7 +2,7 @@
 .pd-page {
     position: relative;
     min-height: 100vh;
-    padding-top: 80px;
+    /* padding-top: 80px; */
     padding-bottom: 80px;
     overflow: hidden;
     background: var(--bg-color);
