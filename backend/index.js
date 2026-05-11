@@ -43,7 +43,6 @@ app.use(
   })
 );
 
-// Ensure DB is connected for every request (cached after first connect)
 app.use(async (_req, res, next) => {
   try {
     await connectDB();

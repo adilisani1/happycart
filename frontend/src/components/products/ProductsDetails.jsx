@@ -1,73 +1,182 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
+import './ProductDetails.css';
+
+const StarRating = ({ rating }) => (
+    <div className="pd-stars">
+        {[1, 2, 3, 4, 5].map(i => (
+            <span key={i} className={i <= Math.round(rating) ? 'pd-star filled' : 'pd-star'}>★</span>
+        ))}
+        <span className="pd-star-val">{rating} / 5</span>
+    </div>
+);
 
 const ProductDetails = () => {
     const { id } = useParams();
-    const { products, url, addToCart } = useContext(StoreContext);
+    const { products, addToCart } = useContext(StoreContext);
     const [product, setProduct] = useState(null);
+    const [added, setAdded] = useState(false);
+    const [activeImg, setActiveImg] = useState(0);
 
     useEffect(() => {
-        const selectedProduct = products.find((item) => item._id === id);
-        setProduct(selectedProduct);
+        const found = products.find(item => item._id === id);
+        setProduct(found);
+        setActiveImg(0);
     }, [id, products]);
 
-    if (!product) {
-        return <div className="text-center py-10 text-white">Loading product details...</div>;
+    const handleAddToCart = () => {
+        addToCart(product._id);
+        setAdded(true);
+        setTimeout(() => setAdded(false), 2000);
+    };
 
+    const getImgSrc = (img) =>
+        img?.startsWith("http")
+            ? img
+            : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${img}`;
+
+    if (!product) {
+        return (
+            <div className="pd-loading">
+                <div className="pd-spinner" />
+                <p>Loading product details...</p>
+            </div>
+        );
     }
 
+    const images = Array.isArray(product.image) ? product.image : [product.image];
+
     return (
-        <div className="max-w-screen-2xl flex flex-col mx-auto pt-12">
-            <main className="flex-grow px-4 sm:px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative" >
-                    <div className="absolute z-[0] w-[60%] h-[70%] -right-[40%] rounded-full blue__gradient top-[-10%]"></div>
+        <div className="pd-page">
+            {/* Background blobs */}
+            <div className="absolute z-[0] w-[50%] h-[60%] -right-[30%] rounded-full blue__gradient top-[-10%] pointer-events-none" />
+            <div className="absolute z-[0] w-[40%] h-[40%] -left-[20%] rounded-full pink__gradient bottom-[10%] pointer-events-none" />
 
-                    <div className="flex justify-center">
-                        <img
-                            className="w-[250px] max-w-[400px] md:max-w-2xl object-cover rounded-lg"
-                            src={product.image[0]?.startsWith("http") ? product.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
-                            alt={product.title}
-                        />
+            <div className="pd-inner max-w-screen-2xl mx-auto px-5 md:px-10 relative z-[1]">
+
+                {/* Breadcrumb */}
+                <nav className="pd-breadcrumb">
+                    <Link to="/">Home</Link>
+                    <span>/</span>
+                    <Link to="/shop">Shop</Link>
+                    <span>/</span>
+                    <span className="active">{product.title}</span>
+                </nav>
+
+                {/* ── Main Grid ── */}
+                <div className="pd-grid">
+
+                    {/* Image Column */}
+                    <div className="pd-img-col">
+                        <div className="pd-main-img-wrap">
+                            <div className="pd-main-img-glow" />
+                            <img
+                                className="pd-main-img"
+                                src={getImgSrc(images[activeImg])}
+                                alt={product.title}
+                            />
+                        </div>
+                        {/* Thumbnails — only if multiple images */}
+                        {images.length > 1 && (
+                            <div className="pd-thumbs">
+                                {images.map((img, i) => (
+                                    <button
+                                        key={i}
+                                        className={`pd-thumb ${i === activeImg ? 'active' : ''}`}
+                                        onClick={() => setActiveImg(i)}
+                                    >
+                                        <img src={getImgSrc(img)} alt={`view-${i}`} />
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    {/* ---------- Product Details Section ---------- */}
-                    <div className="flex flex-col justify-center text-left px-2">
-                        <div className='md:block flex justify-between items-center'>
-                            <h1 className="sm:text-3xl text-[16px] font-bold mb-4 text-white">{product.title}</h1>
-                            <p className="md:text-xl text-price-color font-semibold mb-4">${product.price}</p>
-                        </div>
-                        <div className='md:block flex justify-between items-center'>
-                            <p className="text-gray-300 mb-4">{product.category}</p>
-                            <p className="text-sm text-gray-300 mb-4">Rating: {product.ratings} / 5</p>
-                        </div>
-                        <p className="text-gray-300 mb-6">Trendy: {product.trendy ? 'Yes' : 'No'}</p>
-                        <button
-                            className="md:py-4 md:px-6 py-3 px-4 font-poppins font-medium md:text-[18px] text-[15px] text-primary bg-blue-gradient hover:bg-light-gradient rounded-[10px] outline-none mt-10 text-white w-[200px]"
-                            onClick={() => addToCart(product._id)}
-                        >
-                            Add to Cart
-                        </button>
-                    </div>
-                </div>
+                    {/* Info Column */}
+                    <div className="pd-info-col">
+                        {/* Category pill */}
+                        {product.category && (
+                            <span className="pd-category-tag">{product.category}</span>
+                        )}
 
-                {/* ----------- Additional Information ---------- */}
-                <div className="md:mt-20 mt-10">
-                    <h2 className="md:text-2xl font-bold mb-4 text-white">Product Description</h2>
-                    <p className="text-gray-300 md:text-base text-sm mb-6 leading-relaxed">{product.description || 'No description available for this product.'}</p>
+                        <h1 className="pd-title">{product.title}</h1>
 
-                    {product.keyFeatures && product.keyFeatures.length > 0 && (
-                        <>
-                            <h2 className="md:text-2xl font-bold mb-4 text-white">Key Features</h2>
-                            <ul className="list-disc list-inside text-gray-300 mb-6 space-y-2">
-                                {product.keyFeatures.map((feature, index) => (
-                                    <li key={index}>{feature}</li>
+                        <StarRating rating={product.ratings} />
+
+                        <div className="pd-price-row">
+                            <span className="pd-price">${product.price}</span>
+                            {product.trendy && (
+                                <span className="pd-trendy-badge">🔥 Trending</span>
+                            )}
+                        </div>
+
+                        <p className="pd-desc-short">
+                            {product.description
+                                ? product.description.slice(0, 180) + (product.description.length > 180 ? '…' : '')
+                                : 'No description available for this product.'}
+                        </p>
+
+                        {/* Key features preview */}
+                        {product.keyFeatures?.length > 0 && (
+                            <ul className="pd-features-preview">
+                                {product.keyFeatures.slice(0, 3).map((f, i) => (
+                                    <li key={i}>
+                                        <span className="pd-feature-check">✓</span>
+                                        {f}
+                                    </li>
                                 ))}
                             </ul>
-                        </>
+                        )}
+
+                        <button
+                            className={`pd-add-btn bg-blue-gradient hover:bg-light-gradient text-white ${added ? 'added' : ''}`}
+                            onClick={handleAddToCart}
+                        >
+                            {added ? '✓ Added to Cart!' : 'Add to Cart'}
+                        </button>
+
+                        {/* Trust badges */}
+                        <div className="pd-badges">
+                            {[
+                                { icon: '🔒', text: 'Secure Payment' },
+                                { icon: '🚚', text: 'Free Shipping' },
+                                { icon: '↩️', text: 'Easy Returns' },
+                            ].map((b, i) => (
+                                <div key={i} className="pd-badge">
+                                    <span>{b.icon}</span>
+                                    <span>{b.text}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* ── Description & Features ── */}
+                <div className="pd-details-section">
+                    <div className="pd-details-card bg-black-gradient">
+                        <h2 className="pd-details-title">Product Description</h2>
+                        <p className="pd-details-text">
+                            {product.description || 'No description available for this product.'}
+                        </p>
+                    </div>
+
+                    {product.keyFeatures?.length > 0 && (
+                        <div className="pd-details-card bg-black-gradient">
+                            <h2 className="pd-details-title">Key Features</h2>
+                            <ul className="pd-features-list">
+                                {product.keyFeatures.map((feature, i) => (
+                                    <li key={i}>
+                                        <span className="pd-feature-check">✓</span>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     )}
                 </div>
-            </main>
+
+            </div>
         </div>
     );
 };
