@@ -72,7 +72,7 @@ const Checkout = () => {
                 <form className="checkout-grid" onSubmit={handleSubmit}>
 
                     {/* ── Delivery Info ── */}
-                    <div className="checkout-card bg-black-gradient lg:col-span-2">
+                    <div className="checkout-card bg-black-gradient">
                         <h2 className="checkout-card-title">Delivery Information</h2>
 
                         <div className="checkout-row">

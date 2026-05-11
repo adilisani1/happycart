@@ -22,7 +22,7 @@ const Hero = () => {
         <Slider {...settings}>
             <section className=" sm:py-2 py-6 ">
 
-                <div className=" grid max-w-screen-2xl md:mt-[90px] mt-[20px] rounded-xl md:px-10 pb-12 pt-5 sm:px-20 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+                <div className=" grid max-w-screen-2xl md:mt-[90px] mt-[20px] rounded-xl md:px-10 pb-12 pt-5 sm:px-20 mx-auto lg:gap-8 xl:gap-0 lg:py-10 lg:grid-cols-12">
                     <div className="mr-auto place-self-center lg:col-span-8 lg:order-none order-1 md:text-left text-center ">
 
                         <div className='relative  justify-center items-center flex-1 flex'>
