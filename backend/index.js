@@ -23,7 +23,7 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5175",
   "http://localhost:5176",
-  "https://happycart-five.vercel.app",
+  "https://happycart-ashen.vercel.app/",
 ].filter(Boolean);
 
 app.use(
