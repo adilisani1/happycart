@@ -40,12 +40,14 @@ const About = () => {
             <section className="about-hero">
                 <div className="about-hero-bg" />
                 <div className="about-hero-inner container mx-auto">
+
                     <div className="about-hero-text">
                         <nav className="about-breadcrumb" aria-label="Breadcrumb">
                             <Link to="/">Home</Link>
                             <span>/</span>
                             <span className="active">About Us</span>
                         </nav>
+
                         <h1 className="about-hero-title">
                             We're Building the <br />
                             <span className="gradient-text">Future of Tech</span>

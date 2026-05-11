@@ -1,36 +1,85 @@
 import React, { useContext, useState } from 'react';
 import { StoreContext } from '../../context/StoreContext';
 import ShopItems from '../../components/ShopItem/ShopItems';
+import './shop.css';
 
 const Shop = () => {
     const { products, url, loading } = useContext(StoreContext);
+    const [search, setSearch] = useState('');
+    const [sortBy, setSortBy] = useState('default');
+
+    const filtered = products
+        .filter(p => p.title.toLowerCase().includes(search.toLowerCase()))
+        .sort((a, b) => {
+            if (sortBy === 'price-asc') return parseFloat(a.price) - parseFloat(b.price);
+            if (sortBy === 'price-desc') return parseFloat(b.price) - parseFloat(a.price);
+            if (sortBy === 'rating') return b.ratings - a.ratings;
+            return 0;
+        });
+
     return (
-        <div className="shade-parent min-h-screen pb-24">
-            {/* Banner Section */}
-            <div className="w-full relative mb-14">
+        <div className="shop-page">
+
+            {/* ── Banner ── */}
+            <div className="shop-banner">
                 <img
-                    className="w-full xl:h-[550px] lg:h-[500px] md:h-[380px] sm:h-[300px] h-[220px] object-cover opacity-35"
+                    className="shop-banner-img"
                     src="/assets/images/shop-banner-now.png"
                     alt="Shop Banner"
                     style={{ objectPosition: "center 35%" }}
                 />
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
-                    <h1 className="lg:text-4xl md:text-3xl sm:text-2xl text-[20px] font-bold mb-2 text-white">Welcome to Our Shop</h1>
-                    <p className="lg:text-lg md:text-base sm:text-sm text-[12px] text-gray-200">Find the best products just for you!</p>
+                <div className="shop-banner-overlay" />
+                <div className="shop-banner-content">
+                    <span className="shop-tag">Happy Cart Store</span>
+                    <h1 className="shop-banner-title">Welcome to Our Shop</h1>
+                    <p className="shop-banner-sub">Find the best electronics, just for you.</p>
                 </div>
             </div>
 
-            {/* Products Section */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4 max-w-screen-2xl rounded-xl px-4 pb-7 pt-5 sm:px-20 mx-auto relative mb-20 text-white">
+            {/* ── Controls ── */}
+            <div className="shop-controls max-w-screen-2xl mx-auto px-4 sm:px-10">
+                <div className="shop-search-wrap">
+                    <span className="shop-search-icon">🔍</span>
+                    <input
+                        className="shop-search"
+                        type="text"
+                        placeholder="Search products..."
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                </div>
+                <div className="shop-sort-wrap">
+                    <select
+                        className="shop-sort"
+                        value={sortBy}
+                        onChange={e => setSortBy(e.target.value)}
+                    >
+                        <option value="default">Sort: Default</option>
+                        <option value="price-asc">Price: Low → High</option>
+                        <option value="price-desc">Price: High → Low</option>
+                        <option value="rating">Top Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            {/* ── Results count ── */}
+            {!loading && (
+                <p className="shop-count max-w-screen-2xl mx-auto px-4 sm:px-10">
+                    {filtered.length} product{filtered.length !== 1 ? 's' : ''} found
+                </p>
+            )}
+
+            {/* ── Grid ── */}
+            <div className="shop-grid max-w-screen-2xl mx-auto px-4 sm:px-10 pb-24">
                 {loading ? (
-                    <div className="col-span-full flex justify-center items-center h-[200px]">
-                        <div className="animate-spin rounded-full h-14 w-14 border-t-4 border-indigo-500 border-solid"></div>
-                        <p className='ml-3 text-xl text-white' > Loading...</p>
+                    <div className="shop-loader col-span-full">
+                        <div className="shop-spinner" />
+                        <p>Loading products...</p>
                     </div>
-                ) : products.length > 0 ? (
-                    products.map((product, index) => (
+                ) : filtered.length > 0 ? (
+                    filtered.map((product, i) => (
                         <ShopItems
-                            key={index}
+                            key={i}
                             id={product._id}
                             title={product.title}
                             image={product.image}
@@ -40,8 +89,10 @@ const Shop = () => {
                         />
                     ))
                 ) : (
-                    <div className="text-center py-10">
-                        <h2 className="text-lg font-semibold text-gray-500">No products available at the moment.</h2>
+                            <div className="shop-empty col-span-full">
+                                <span>😕</span>
+                                <h2>No products found</h2>
+                                <p>Try adjusting your search or filters.</p>
                     </div>
                 )}
             </div>

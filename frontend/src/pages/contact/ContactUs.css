@@ -2,7 +2,7 @@
 .contact-page {
     position: relative;
     min-height: 100vh;
-    padding-top: 80px;
+    padding-top: 20px;
     padding-bottom: 80px;
     overflow: hidden;
     background: var(--bg-color);
@@ -204,7 +204,7 @@
     /* ── Page ── */
 .contact-page {
    
-    padding-top: 40px;
+    padding-top: 30px;
   
 }
 
