@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
 export const StoreContext = createContext();
 
@@ -23,10 +23,12 @@ export const StoreProvider = ({ children }) => {
                 setUserData(user);
                 if (user.name) localStorage.setItem("userName", user.name);
                 if (user.email) localStorage.setItem("userEmail", user.email);
+                return user;
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
         }
+        return null;
     };
 
     const loadUserFromStorage = () => {
@@ -91,6 +93,14 @@ export const StoreProvider = ({ children }) => {
 
     };
 
+    const lastHydratedTokenRef = useRef("");
+
+    const hydrateForToken = async (authToken) => {
+        if (!authToken) return;
+        loadUserFromStorage(); // show something immediately
+        await loadCartData(authToken);
+        await fetchUserProfile(authToken); // fetch full user object
+    };
 
     useEffect(() => {
         async function loadData() {
@@ -99,14 +109,21 @@ export const StoreProvider = ({ children }) => {
             const savedToken = localStorage.getItem('token');
             if (savedToken) {
                 setToken(savedToken);
-                loadUserFromStorage();
-                await loadCartData(savedToken);
-                fetchUserProfile(savedToken);
+                lastHydratedTokenRef.current = savedToken;
+                await hydrateForToken(savedToken);
             }
             setLoading(false)
         }
         loadData()
     }, []);
+
+    // When user logs in (token changes), hydrate immediately without a refresh
+    useEffect(() => {
+        if (!token) return;
+        if (lastHydratedTokenRef.current === token) return;
+        lastHydratedTokenRef.current = token;
+        hydrateForToken(token);
+    }, [token]);
 
 
     const getTotalCartAmount = () => {
