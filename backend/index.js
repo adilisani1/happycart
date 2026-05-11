@@ -17,20 +17,26 @@ const port = process.env.PORT || 4000;
 
 // Middlewares
 app.use(express.json());
-// app.use(cors());
+const allowedOrigins = [
+  process.env.VITE_REACT_APP_FRONTEND_BASEURL,
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:5175",
+  "http://localhost:5176",
+  "https://happycart-five.vercel.app",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.VITE_REACT_APP_FRONTEND_BASEURL,
+    origin(origin, callback) {
+      // Allow server-to-server/no-origin requests
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     credentials: true,
   })
 );
-
-// Routes Connection
-app.use("/api/products", productRouter);
-app.use("/images", express.static("uploads"));
-app.use("/api/user", userRouter);
-app.use("/api/cart", cartRouter);
-app.use("/api/order", orderRouter);
 
 // Ensure DB is connected for every request (cached after first connect)
 app.use(async (_req, res, next) => {
@@ -42,6 +48,13 @@ app.use(async (_req, res, next) => {
     res.status(500).json({ message: "Database connection failed" });
   }
 });
+
+// Routes Connection
+app.use("/api/products", productRouter);
+app.use("/images", express.static("uploads"));
+app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 
 // Health check
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
