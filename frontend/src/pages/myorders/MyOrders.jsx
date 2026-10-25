@@ -3,13 +3,11 @@ import './myorders.css';
 import { StoreContext } from './../../context/StoreContext';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { BsFillHandbagFill } from 'react-icons/bs';
-import { LiaShippingFastSolid } from 'react-icons/lia';
 
 const MyOrders = () => {
-
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshingId, setRefreshingId] = useState(null);
     const { url, token } = useContext(StoreContext);
 
     const fetchOrders = async () => {
@@ -25,71 +23,134 @@ const MyOrders = () => {
             setData([]);
         } finally {
             setLoading(false);
+            setRefreshingId(null);
         }
     };
 
     useEffect(() => {
         if (token) {
             fetchOrders();
+        } else {
+            setLoading(false);
         }
     }, [token]);
 
-    return (
-        <div className='my-orders pt-20 pb-20 mt-12 max-w-screen-2xl mx-auto px-4 sm:px-8'>
-            <h2 className='md:text-2xl text-[20px] font-bold md:text-left text-center'>My Orders</h2>
+    const handleTrack = async (orderId) => {
+        setRefreshingId(orderId);
+        await fetchOrders();
+    };
 
-            {loading ? (
-                <div className='flex justify-center items-center mt-24'>
-                    <div className='animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-500 border-solid' />
-                </div>
-            ) : data.length === 0 ? (
-                /* ── Empty State ── */
-                <div className='flex flex-col items-center justify-center mt-20 text-center gap-5'>
-                    <div className='relative'>
-                        <div className='w-28 h-28 rounded-full bg-black-gradient-2 border border-white/10 flex items-center justify-center'>
-                            <BsFillHandbagFill className='text-5xl text-gray-500' />
-                        </div>
-                        <span className='absolute -bottom-1 -right-1 text-3xl'>📦</span>
-                    </div>
-                    <h3 className='text-xl font-semibold text-white mt-2'>No orders yet</h3>
-                    <p className='text-gray-400 text-sm max-w-xs'>
-                        Looks like you haven&apos;t placed any orders yet. Start shopping and your orders will appear here.
+    const formatDate = (dateStr) => {
+        if (!dateStr) return null;
+        return new Date(dateStr).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        });
+    };
+
+    const statusClass = (status = '') => {
+        const s = status.toLowerCase();
+        if (s.includes('deliver')) return 'is-delivered';
+        if (s.includes('out') || s.includes('ship')) return 'is-shipping';
+        if (s.includes('cancel')) return 'is-cancelled';
+        return 'is-processing';
+    };
+
+    return (
+        <div className="orders-page">
+            <div className="orders-inner">
+                <div className="orders-header">
+                    <p className="orders-kicker">HappyCart</p>
+                    <h1 className="orders-title">My orders</h1>
+                    <p className="orders-sub">
+                        {loading
+                            ? 'Loading your orders…'
+                            : data.length
+                                ? `${data.length} order${data.length !== 1 ? 's' : ''} on record`
+                                : 'Track deliveries and past purchases here'}
                     </p>
-                    <div className='flex gap-3 mt-2'>
-                        <Link
-                            to='/shop'
-                            className='bg-blue-gradient hover:bg-light-gradient text-white px-6 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2'
-                        >
-                            <LiaShippingFastSolid className='text-lg' />
-                            Start Shopping
-                        </Link>
+                </div>
+
+                {loading ? (
+                    <div className="orders-loader">
+                        <div className="orders-spinner" />
+                        <p>Fetching orders…</p>
                     </div>
-                </div>
-            ) : (
-                <div className='my-orders-container flex flex-col gap-7 mt-8'>
-                    {data.map((order, index) => (
-                        <div className='my-orders-order' key={index}>
-                            <img src='/assets/images/parcel_icon.png' alt='order-icon' />
-                            <p className='flex flex-wrap'>
-                                {order.items.map((item, i) => (
-                                    i === order.items.length - 1
-                                        ? item.title + " (" + item.quantity + ")"
-                                        : item.title + " (" + item.quantity + "), "
-                                ))}
-                            </p>
-                            <p>${order.amount}</p>
-                            <p>Items: {order.items.length}</p>
-                            <p><span>&#x25cf;</span> <b className='font-medium'>{order.status}</b></p>
-                            <button
-                                className="track-order border-none py-3.5 rounded bg-blue-gradient hover:bg-light-gradient text-white hover:bg-opacity-65"
-                                onClick={fetchOrders}
-                            >
-                                Track Order
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            )}
+                ) : !token ? (
+                    <div className="orders-empty">
+                        <h3>Sign in to view orders</h3>
+                        <p>Your order history appears here after you log in.</p>
+                        <Link to="/" className="btn-primary">Go home</Link>
+                    </div>
+                ) : data.length === 0 ? (
+                    <div className="orders-empty">
+                        <h3>No orders yet</h3>
+                        <p>When you place an order, it will show up here with live status.</p>
+                        <Link to="/shop" className="btn-primary">Start shopping</Link>
+                    </div>
+                ) : (
+                    <div className="orders-list">
+                        {data.map((order, index) => (
+                            <article className="order-card" key={order._id || index}>
+                                <div className="order-card-top">
+                                    <div>
+                                        <p className="order-id">
+                                            Order {order._id ? `#${String(order._id).slice(-6).toUpperCase()}` : `#${index + 1}`}
+                                        </p>
+                                        {formatDate(order.date) && (
+                                            <p className="order-date">{formatDate(order.date)}</p>
+                                        )}
+                                    </div>
+                                    <span className={`order-status ${statusClass(order.status)}`}>
+                                        {order.status || 'Processing'}
+                                    </span>
+                                </div>
+
+                                <div className="order-card-body">
+                                    <div className="order-items">
+                                        {order.items.map((item, i) => (
+                                            <div className="order-item" key={`${order._id}-${i}`}>
+                                                {item.image?.[0] && (
+                                                    <img
+                                                        src={item.image[0]?.startsWith('http')
+                                                            ? item.image[0]
+                                                            : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${item.image[0]}`}
+                                                        alt={item.title}
+                                                    />
+                                                )}
+                                                <div>
+                                                    <h3>{item.title}</h3>
+                                                    <p>Qty {item.quantity}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="order-meta">
+                                        <div className="order-meta-row">
+                                            <span>Items</span>
+                                            <span>{order.items.length}</span>
+                                        </div>
+                                        <div className="order-meta-row order-amount">
+                                            <span>Total</span>
+                                            <span>${order.amount}</span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            className="order-track-btn"
+                                            onClick={() => handleTrack(order._id)}
+                                            disabled={refreshingId === order._id}
+                                        >
+                                            {refreshingId === order._id ? 'Updating…' : 'Refresh status'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-/* ── Page ── */
+/* -- Page -- */
 .pd-page {
     position: relative;
     min-height: 100vh;
@@ -6,14 +6,14 @@
     padding-bottom: 80px;
     overflow: hidden;
     background: var(--bg-color);
-    color: #fff;
+    color: var(--ink);
 }
 
 .pd-inner {
     padding-top: 40px;
 }
 
-/* ── Loading ── */
+/* -- Loading -- */
 .pd-loading {
     min-height: 100vh;
     display: flex;
@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-    color: rgba(255,255,255,0.5);
+    color: var(--ink-muted);
     font-size: 15px;
     background: var(--bg-color);
 }
@@ -29,8 +29,8 @@
 .pd-spinner {
     width: 52px;
     height: 52px;
-    border: 4px solid rgba(120, 36, 246, 0.2);
-    border-top-color: #7824f6;
+    border: 4px solid rgba(255, 92, 53, 0.2);
+    border-top-color: var(--accent);
     border-radius: 50%;
     animation: pd-spin 0.8s linear infinite;
 }
@@ -39,29 +39,29 @@
     to { transform: rotate(360deg); }
 }
 
-/* ── Breadcrumb ── */
+/* -- Breadcrumb -- */
 .pd-breadcrumb {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(255,255,255,0.4);
+    color: var(--ink-muted);
     margin-bottom: 36px;
     flex-wrap: wrap;
 }
 
 .pd-breadcrumb a {
-    color: rgba(255,255,255,0.4);
+    color: var(--ink-muted);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .pd-breadcrumb a:hover {
-    color: #a697ff;
+    color: var(--teal);
 }
 
 .pd-breadcrumb .active {
-    color: #a697ff;
+    color: var(--teal);
     font-weight: 600;
     max-width: 260px;
     white-space: nowrap;
@@ -69,7 +69,7 @@
     text-overflow: ellipsis;
 }
 
-/* ── Main Grid ── */
+/* -- Main Grid -- */
 .pd-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -78,7 +78,7 @@
     margin-bottom: 60px;
 }
 
-/* ── Image column ── */
+/* -- Image column -- */
 .pd-img-col {
     display: flex;
     flex-direction: column;
@@ -90,9 +90,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(120, 36, 246, 0.15);
-    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255, 92, 53, 0.2);
+    border-radius: 8px;
     padding: 32px;
     overflow: hidden;
 }
@@ -100,7 +100,7 @@
 .pd-main-img-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 60%, rgba(120,36,246,0.2) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 60%, rgba(255, 92, 53, 0.2) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -127,9 +127,9 @@
 .pd-thumb {
     width: 68px;
     height: 68px;
-    border-radius: 10px;
-    border: 2px solid rgba(120,36,246,0.15);
-    background: rgba(255,255,255,0.03);
+    border-radius: 4px;
+    border: 2px solid rgba(255, 92, 53, 0.2);
+    background: rgba(255,255,255,0.04);
     overflow: hidden;
     cursor: pointer;
     padding: 4px;
@@ -144,10 +144,10 @@
 
 .pd-thumb.active,
 .pd-thumb:hover {
-    border-color: rgba(120,36,246,0.7);
+    border-color: rgba(255, 92, 53, 0.2);
 }
 
-/* ── Info column ── */
+/* -- Info column -- */
 .pd-info-col {
     display: flex;
     flex-direction: column;
@@ -156,22 +156,22 @@
 
 .pd-category-tag {
     display: inline-block;
-    background: rgba(120, 36, 246, 0.15);
-    color: #a697ff;
+    background: rgba(255, 92, 53, 0.2);
+    color: var(--teal);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 1.2px;
     text-transform: uppercase;
     padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(120, 36, 246, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 92, 53, 0.2);
     align-self: flex-start;
 }
 
 .pd-title {
     font-size: clamp(1.3rem, 3vw, 2.2rem);
     font-weight: 800;
-    color: #fff;
+    color: var(--ink);
     line-height: 1.25;
 }
 
@@ -194,7 +194,7 @@
 
 .pd-star-val {
     font-size: 13px;
-    color: rgba(255,255,255,0.4);
+    color: var(--ink-muted);
     margin-left: 8px;
 }
 
@@ -208,7 +208,7 @@
 .pd-price {
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 800;
-    color: #95a5f0;
+    color: var(--teal);
 }
 
 .pd-trendy-badge {
@@ -221,12 +221,12 @@
     font-size: 12px;
     font-weight: 600;
     padding: 4px 12px;
-    border-radius: 20px;
+    border-radius: 8px;
 }
 
 .pd-desc-short {
     font-size: 14px;
-    color: rgba(255,255,255,0.55);
+    color: var(--ink-muted);
     line-height: 1.75;
 }
 
@@ -256,24 +256,24 @@
     height: 20px;
     background: var(--primary-color);
     border-radius: 50%;
-    color: #fff;
+    color: var(--ink);
     font-size: 11px;
     font-weight: 700;
     flex-shrink: 0;
     margin-top: 1px;
-    box-shadow: 0 0 10px rgba(120,36,246,0.4);
+    box-shadow: 0 0 10px rgba(255, 92, 53, 0.2);
 }
 
 /* Add to Cart button */
 .pd-add-btn {
     padding: 14px 32px;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.25s, transform 0.25s, box-shadow 0.25s;
-    box-shadow: 0 4px 24px rgba(83,109,255,0.3);
+    box-shadow: 0 4px 24px rgba(255, 92, 53, 0.25);
     font-family: var(--font-family);
     align-self: flex-start;
 }
@@ -281,7 +281,7 @@
 .pd-add-btn:hover {
     opacity: 0.9;
     transform: translateY(-1px);
-    box-shadow: 0 8px 32px rgba(83,109,255,0.45);
+    box-shadow: 0 8px 32px rgba(255, 92, 53, 0.25);
 }
 
 .pd-add-btn.added {
@@ -297,7 +297,7 @@
     gap: 12px;
     flex-wrap: wrap;
     padding-top: 8px;
-    border-top: 1px solid rgba(120,36,246,0.12);
+    border-top: 1px solid rgba(255, 92, 53, 0.2);
 }
 
 .pd-badge {
@@ -305,14 +305,14 @@
     align-items: center;
     gap: 6px;
     font-size: 12px;
-    color: rgba(255,255,255,0.45);
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(120,36,246,0.12);
+    color: var(--ink-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255, 92, 53, 0.2);
     border-radius: 8px;
     padding: 6px 12px;
 }
 
-/* ── Description & Features section ── */
+/* -- Description & Features section -- */
 .pd-details-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -323,21 +323,21 @@
 .pd-details-card {
     border-radius: 18px;
     padding: 28px 32px;
-    border: 1px solid rgba(120,36,246,0.15);
+    border: 1px solid rgba(255, 92, 53, 0.2);
 }
 
 .pd-details-title {
     font-size: clamp(1rem, 2vw, 1.3rem);
     font-weight: 700;
-    color: #fff;
+    color: var(--ink);
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 1px solid rgba(120,36,246,0.15);
+    border-bottom: 1px solid rgba(255, 92, 53, 0.2);
 }
 
 .pd-details-text {
     font-size: 14px;
-    color: rgba(255,255,255,0.55);
+    color: var(--ink-muted);
     line-height: 1.8;
 }
 
@@ -355,11 +355,11 @@
     align-items: flex-start;
     gap: 12px;
     font-size: 14px;
-    color: rgba(255,255,255,0.65);
+    color: var(--ink-muted);
     line-height: 1.5;
 }
 
-/* ── Responsive ── */
+/* -- Responsive -- */
 @media (max-width: 900px) {
     .pd-grid {
         grid-template-columns: 1fr;

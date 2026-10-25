@@ -30,16 +30,16 @@ const Shop = () => {
                 />
                 <div className="shop-banner-overlay" />
                 <div className="shop-banner-content">
-                    <span className="shop-tag">Happy Cart Store</span>
-                    <h1 className="shop-banner-title">Welcome to Our Shop</h1>
-                    <p className="shop-banner-sub">Find the best electronics, just for you.</p>
+                    <span className="shop-tag">HappyCart</span>
+                    <h1 className="shop-banner-title">Shop</h1>
+                    <p className="shop-banner-sub">Electronics chosen for everyday use — clear prices, no clutter.</p>
                 </div>
             </div>
 
             {/* ── Controls ── */}
             <div className="shop-controls max-w-screen-2xl mx-auto px-4 sm:px-10">
                 <div className="shop-search-wrap">
-                    <span className="shop-search-icon">🔍</span>
+                    <span className="shop-search-icon" aria-hidden="true">⌕</span>
                     <input
                         className="shop-search"
                         type="text"

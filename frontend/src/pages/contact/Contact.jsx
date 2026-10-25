@@ -32,16 +32,12 @@ const ContactUs = () => {
 
     return (
         <div className="contact-page">
-            {/* Background blobs */}
-            <div className="absolute z-[0] w-[50%] h-[60%] -left-[20%] rounded-full blue__gradient top-[-10%] pointer-events-none" />
-            <div className="absolute z-[0] w-[40%] h-[40%] -right-[10%] rounded-full pink__gradient bottom-[10%] pointer-events-none" />
-
             <div className="contact-inner relative z-[1] max-w-screen-2xl mx-auto px-5 md:px-10">
 
                 {/* Header */}
                 <div className="contact-header">
-                    <span className="contact-tag">Get In Touch</span>
-                    <h1 className="contact-title">Contact <span className="contact-gradient-text">Us</span></h1>
+                    <span className="contact-tag">Get in touch</span>
+                    <h1 className="contact-title">Contact <span className="contact-gradient-text">HappyCart</span></h1>
                     <p className="contact-subtitle">
                         Have a question or feedback? Fill out the form below and we'll get back to you as soon as possible.
                     </p>
@@ -51,12 +47,12 @@ const ContactUs = () => {
                     {/* Info Cards */}
                     <div className="contact-info">
                         {[
-                            { emoji: "📧", title: "Email Us", desc: "support@happycart.com", sub: "We reply within 24 hours" },
-                            { emoji: "📞", title: "Call Us", desc: "+1 (800) 123-4567", sub: "Mon–Fri, 9am – 6pm" },
-                            { emoji: "📍", title: "Visit Us", desc: "123 Tech Avenue", sub: "San Francisco, CA 94107" },
+                            { label: "Email", title: "Email us", desc: "support@happycart.com", sub: "We reply within 24 hours" },
+                            { label: "Phone", title: "Call us", desc: "+1 (800) 123-4567", sub: "Mon–Fri, 9am – 6pm" },
+                            { label: "HQ", title: "Visit us", desc: "123 Tech Avenue", sub: "San Francisco, CA 94107" },
                         ].map((card, i) => (
-                            <div key={i} className="contact-info-card bg-black-gradient-2">
-                                <span className="contact-info-icon">{card.emoji}</span>
+                            <div key={i} className="contact-info-card">
+                                <span className="contact-info-icon">{card.label}</span>
                                 <div>
                                     <h3>{card.title}</h3>
                                     <p className="contact-info-main">{card.desc}</p>

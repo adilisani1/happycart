@@ -3,19 +3,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "card-color-one": "#352c72",
-        "card-color-two": "#150d2b",
-        "primary-color": "#7824f6",
-        "price-color": "#95a5f0",
+        ink: "#F2F4F7",
+        muted: "#9AA3AD",
+        coral: "#FF5C35",
+        "coral-dark": "#E84A24",
+        teal: "#3DD6C6",
+        mist: "#151A22",
+        "price-color": "#3DD6C6",
+        "primary-color": "#FF5C35",
+        "card-color-one": "#1C2430",
+        "card-color-two": "#12171F",
+      },
+      fontFamily: {
+        display: ["Syne", "sans-serif"],
+        body: ["DM Sans", "sans-serif"],
       },
       backgroundImage: {
         "blue-gradient":
-          "linear-gradient(157.81deg, #7a76f7 -43.27%, #bec7f5 -21.24%, #9da6f0 12.19%, #7da0eb 29.82%, #536dff 51.94%, #55a9ff 90.29%)",
+          "linear-gradient(135deg, #FF5C35 0%, #FF8A5C 100%)",
         "light-gradient":
-          "linear-gradient(326deg, #7a76f7 -43.27%, #bec7f5 -21.24%, #9da6f0 12.19%, #7da0eb 29.82%, #536dff 51.94%, #55a9ff 90.29%)",
+          "linear-gradient(135deg, #E84A24 0%, #FF5C35 100%)",
+        "accent-gradient":
+          "linear-gradient(135deg, #FF5C35 0%, #FF8A5C 55%, #FFB088 100%)",
       },
     },
   },
-
   plugins: [],
 };

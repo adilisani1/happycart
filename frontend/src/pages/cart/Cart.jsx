@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 import './cart.css';
 
@@ -17,7 +17,10 @@ export const Cart = ({ setShowLogin = () => {} }) => {
         navigate('/checkout');
     };
 
-    const hasItems = Object.values(cartItems).some(q => q > 0);
+    const itemCount = Object.values(cartItems).reduce((a, b) => a + b, 0);
+    const hasItems = itemCount > 0;
+    const cartProducts = products.filter((item) => cartItems[item._id] > 0);
+    const grandTotal = getTotalCartAmount();
 
     const handleQuantityChange = (id, increment) => {
         setCartItems(prev => {
@@ -34,98 +37,110 @@ export const Cart = ({ setShowLogin = () => {} }) => {
 
     return (
         <div className="cart-page">
-            {/* Background blobs */}
-            <div className="absolute z-[0] w-[45%] h-[100%] -left-[40%] rounded-full blue__gradient top-[-30%] pointer-events-none" />
-            <div className="absolute z-[1] w-[30%] h-[50%] left-0 rounded-full white__gradient bottom-40 pointer-events-none" />
-
-            <div className="cart-inner max-w-5xl mx-auto relative z-[2]">
+            <div className="cart-inner">
                 <div className="cart-header">
-                    <span className="cart-tag">{hasItems ? `${Object.values(cartItems).reduce((a, b) => a + b, 0)} Items` : "Empty"}</span>
-                    <h1 className="cart-title">{hasItems ? "Your Cart" : "Your Cart is Empty"}</h1>
-                    {!hasItems && (
-                        <p className="cart-empty-sub">Looks like you haven't added anything yet.</p>
+                    <p className="cart-kicker">HappyCart</p>
+                    <h1 className="cart-title">
+                        {hasItems ? "Your cart" : "Your cart is empty"}
+                    </h1>
+                    {hasItems ? (
+                        <p className="cart-sub">{itemCount} item{itemCount !== 1 ? "s" : ""} ready to checkout</p>
+                    ) : (
+                        <p className="cart-sub">Looks like you haven&apos;t added anything yet.</p>
                     )}
                 </div>
 
-                {hasItems && (
-                    <>
-                        {/* Table header */}
-                        <div className="cart-table-head hidden md:grid">
-                            <div className="">Product</div>
-                            <div>Price</div>
-                            <div>Quantity</div>
-                            <div>Remove</div>
-                        </div>
+                {!hasItems ? (
+                    <div className="cart-empty">
+                        <Link to="/shop" className="btn-primary">Browse shop</Link>
+                    </div>
+                ) : (
+                    <div className="cart-layout">
+                        <div className="cart-list">
+                            {cartProducts.map((item) => {
+                                const qty = cartItems[item._id];
+                                const lineTotal = (parseFloat(item.price) * qty).toFixed(2);
+                                const imgSrc = item.image[0]?.startsWith("http")
+                                    ? item.image[0]
+                                    : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${item.image[0]}`;
 
-                        {/* Table body */}
-                        <div className="cart-table-body nav-bg-gradient">
-                            {products.map((item) => {
-                                if (cartItems[item._id] > 0) {
-                                    return (
-                                        <div key={item._id} className="cart-row">
-                                            {/* Product */}
-                                            <div className="cart-product ">
-                                                <img
-                                                    src={item.image[0]?.startsWith("http")
-                                                        ? item.image[0]
-                                                        : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${item.image[0]}`}
-                                                    alt={item.title}
-                                                    className="cart-img"
-                                                />
-                                                <h2 className="cart-item-name">{item.title}</h2>
-                                            </div>
+                                return (
+                                    <article key={item._id} className="cart-card">
+                                        <div className="cart-card-media">
+                                            <img src={imgSrc} alt={item.title} />
+                                        </div>
 
-                                            {/* Price */}
-                                            <div className="cart-cell">
-                                                <span className="cart-cell-label">Price</span>
-                                                <span className="text-price-color font-semibold">${item.price}</span>
-                                            </div>
-
-                                            {/* Quantity */}
-                                            <div className="cart-cell">
-                                                <span className="cart-cell-label">Qty</span>
-                                                <div className="cart-qty">
-                                                    <button className="cart-qty-btn" onClick={() => handleQuantityChange(item._id, -1)}>
-                                                        <AiOutlineMinus />
-                                                    </button>
-                                                    <span className="cart-qty-val">{cartItems[item._id]}</span>
-                                                    <button className="cart-qty-btn" onClick={() => handleQuantityChange(item._id, 1)}>
-                                                        <AiOutlinePlus />
-                                                    </button>
+                                        <div className="cart-card-body">
+                                            <div className="cart-card-top">
+                                                <div>
+                                                    <span className="cart-card-cat">{item.category}</span>
+                                                    <h2 className="cart-card-title">{item.title}</h2>
+                                                    <p className="cart-card-unit">${item.price} each</p>
                                                 </div>
-                                            </div>
-
-                                            {/* Remove */}
-                                            <div className="cart-cell">
                                                 <button
+                                                    type="button"
                                                     className="cart-remove"
                                                     onClick={() => removeFromCart(item._id)}
-                                                    aria-label="Remove item"
+                                                    aria-label={`Remove ${item.title}`}
                                                 >
                                                     <IoMdClose />
                                                 </button>
                                             </div>
+
+                                            <div className="cart-card-bottom">
+                                                <div className="cart-qty">
+                                                    <button
+                                                        type="button"
+                                                        className="cart-qty-btn"
+                                                        onClick={() => handleQuantityChange(item._id, -1)}
+                                                        aria-label="Decrease quantity"
+                                                    >
+                                                        <AiOutlineMinus />
+                                                    </button>
+                                                    <span className="cart-qty-val">{qty}</span>
+                                                    <button
+                                                        type="button"
+                                                        className="cart-qty-btn"
+                                                        onClick={() => handleQuantityChange(item._id, 1)}
+                                                        aria-label="Increase quantity"
+                                                    >
+                                                        <AiOutlinePlus />
+                                                    </button>
+                                                </div>
+                                                <p className="cart-card-line">${lineTotal}</p>
+                                            </div>
                                         </div>
-                                    );
-                                }
-                                return null;
+                                    </article>
+                                );
                             })}
                         </div>
 
-                        {/* Total + CTA */}
-                        <div className="cart-footer">
-                            <div className="cart-total">
-                                Grand Total:
-                                <span className="cart-total-amount text-price-color">${getTotalCartAmount()}</span>
+                        <aside className="cart-summary">
+                            <h3>Order summary</h3>
+                            <div className="cart-summary-row">
+                                <span>Subtotal</span>
+                                <span>${grandTotal}</span>
+                            </div>
+                            <div className="cart-summary-row">
+                                <span>Shipping</span>
+                                <span className="cart-summary-note">Calculated at checkout</span>
+                            </div>
+                            <div className="cart-summary-total">
+                                <span>Total</span>
+                                <span>${grandTotal}</span>
                             </div>
                             <button
-                                className="bg-blue-gradient hover:bg-light-gradient text-white cart-checkout-btn"
+                                type="button"
+                                className="cart-checkout-btn"
                                 onClick={handleProceedToCheckout}
                             >
-                                Proceed to Checkout
+                                Proceed to checkout
                             </button>
-                        </div>
-                    </>
+                            <Link to="/shop" className="cart-continue">
+                                Continue shopping
+                            </Link>
+                        </aside>
+                    </div>
                 )}
             </div>
         </div>

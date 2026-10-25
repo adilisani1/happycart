@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { StoreContext } from "../../context/StoreContext";
 import './checkout.css';
-
-const inputClass = "checkout-input";
-const labelClass = "checkout-label";
 
 const Checkout = () => {
     const { cartItems, url, token, products, getTotalCartAmount } = useContext(StoreContext);
@@ -17,6 +14,7 @@ const Checkout = () => {
         street: "",
         phone: ""
     });
+    const [submitting, setSubmitting] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -32,6 +30,7 @@ const Checkout = () => {
             }
         });
 
+        setSubmitting(true);
         try {
             const response = await axios.post(
                 `${url}/api/order/place`,
@@ -42,9 +41,11 @@ const Checkout = () => {
                 window.location.replace(response.data.session_url);
             } else {
                 toast.error("Failed to place order. Please try again.");
+                setSubmitting(false);
             }
         } catch {
             toast.error("Failed to place order. Please try again.");
+            setSubmitting(false);
         }
     };
 
@@ -59,30 +60,36 @@ const Checkout = () => {
         }
     }, [token, getTotalCartAmount, navigate]);
 
+    const cartProducts = products.filter((item) => cartItems[item._id] > 0);
+    const itemCount = Object.values(cartItems).reduce((a, b) => a + b, 0);
+    const grandTotal = getTotalCartAmount();
+
     return (
         <div className="checkout-page">
-            <div className="absolute z-[0] w-[60%] h-[100%] -left-[50%] rounded-full blue__gradient top-[-25%] pointer-events-none" />
-
-            <div className="checkout-inner max-w-screen-2xl mx-auto px-5 md:px-10 relative z-[1]">
+            <div className="checkout-inner">
                 <div className="checkout-header">
-                    <span className="checkout-tag">Almost There</span>
+                    <p className="checkout-kicker">Almost there</p>
                     <h1 className="checkout-title">Checkout</h1>
+                    <p className="checkout-sub">
+                        {itemCount} item{itemCount !== 1 ? "s" : ""} · confirm delivery details to continue
+                    </p>
                 </div>
 
-                <form className="checkout-grid" onSubmit={handleSubmit}>
-
-                    {/* ── Delivery Info ── */}
-                    <div className="checkout-card bg-black-gradient">
-                        <h2 className="checkout-card-title">Delivery Information</h2>
+                <form className="checkout-layout" onSubmit={handleSubmit}>
+                    <div className="checkout-form-card">
+                        <div className="checkout-section-head">
+                            <h2>Delivery information</h2>
+                            <Link to="/cart" className="checkout-back-link">Back to cart</Link>
+                        </div>
 
                         <div className="checkout-row">
                             {[
-                                { id: "firstName", label: "First Name", placeholder: "John" },
-                                { id: "lastName", label: "Last Name", placeholder: "Doe" },
+                                { id: "firstName", label: "First name", placeholder: "John" },
+                                { id: "lastName", label: "Last name", placeholder: "Doe" },
                             ].map(({ id, label, placeholder }) => (
                                 <div key={id} className="checkout-field">
-                                    <label htmlFor={id} className={labelClass}>
-                                        {label} <span className="text-red-400">*</span>
+                                    <label htmlFor={id}>
+                                        {label} <span>*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -92,20 +99,20 @@ const Checkout = () => {
                                         value={data[id]}
                                         onChange={handleInputChange}
                                         placeholder={placeholder}
-                                        className={inputClass}
+                                        autoComplete={id === "firstName" ? "given-name" : "family-name"}
                                     />
                                 </div>
                             ))}
                         </div>
 
                         {[
-                            { id: "email", label: "Email Address", type: "email", placeholder: "john@example.com" },
-                            { id: "street", label: "Street Address", type: "text", placeholder: "123 Main Street, City, State" },
-                            { id: "phone", label: "Phone Number", type: "tel", placeholder: "+1 (555) 123-4567" },
-                        ].map(({ id, label, type, placeholder }) => (
+                            { id: "email", label: "Email address", type: "email", placeholder: "john@example.com", autoComplete: "email" },
+                            { id: "street", label: "Street address", type: "text", placeholder: "123 Main Street, City, State", autoComplete: "street-address" },
+                            { id: "phone", label: "Phone number", type: "tel", placeholder: "+1 (555) 123-4567", autoComplete: "tel" },
+                        ].map(({ id, label, type, placeholder, autoComplete }) => (
                             <div key={id} className="checkout-field">
-                                <label htmlFor={id} className={labelClass}>
-                                    {label} <span className="text-red-400">*</span>
+                                <label htmlFor={id}>
+                                    {label} <span>*</span>
                                 </label>
                                 <input
                                     type={type}
@@ -115,65 +122,62 @@ const Checkout = () => {
                                     value={data[id]}
                                     onChange={handleInputChange}
                                     placeholder={placeholder}
-                                    className={inputClass}
+                                    autoComplete={autoComplete}
                                 />
                             </div>
                         ))}
                     </div>
 
-                    {/* ── Order Summary ── */}
-                    <div className="checkout-card bg-black-gradient checkout-summary">
-                        <h2 className="checkout-card-title">Order Summary</h2>
+                    <aside className="checkout-summary">
+                        <h2>Order summary</h2>
 
                         <div className="checkout-items">
-                            {products.map((item) => {
-                                if (cartItems[item._id] > 0) {
-                                    const qty = cartItems[item._id];
-                                    const total = (parseFloat(item.price) * qty).toFixed(2);
-                                    return (
-                                        <div key={item._id} className="checkout-item">
-                                            <img
-                                                src={item.image[0]?.startsWith("http")
-                                                    ? item.image[0]
-                                                    : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${item.image[0]}`}
-                                                alt={item.title}
-                                                className="checkout-item-img"
-                                            />
-                                            <div className="checkout-item-info">
-                                                <h3>{item.title}</h3>
-                                                <p className="checkout-item-qty">Qty: {qty} × ${parseFloat(item.price).toFixed(2)}</p>
-                                                <p className="checkout-item-total">${total}</p>
-                                            </div>
+                            {cartProducts.map((item) => {
+                                const qty = cartItems[item._id];
+                                const total = (parseFloat(item.price) * qty).toFixed(2);
+                                const imgSrc = item.image[0]?.startsWith("http")
+                                    ? item.image[0]
+                                    : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${item.image[0]}`;
+
+                                return (
+                                    <div key={item._id} className="checkout-item">
+                                        <div className="checkout-item-media">
+                                            <img src={imgSrc} alt={item.title} />
                                         </div>
-                                    );
-                                }
-                                return null;
+                                        <div className="checkout-item-info">
+                                            <h3>{item.title}</h3>
+                                            <p>Qty {qty} × ${parseFloat(item.price).toFixed(2)}</p>
+                                        </div>
+                                        <p className="checkout-item-total">${total}</p>
+                                    </div>
+                                );
                             })}
                         </div>
 
-                        {Object.values(cartItems).some(q => q > 0) ? (
-                            <div className="checkout-totals">
-                                <div className="checkout-total-row">
-                                    <span>Subtotal</span>
-                                    <span>${getTotalCartAmount()}</span>
-                                </div>
-                                <div className="checkout-total-row grand">
-                                    <span>Total</span>
-                                    <span className="text-primary-color">${getTotalCartAmount()}</span>
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="checkout-submit bg-blue-gradient hover:bg-light-gradient text-white"
-                                >
-                                    Proceed to Payment
-                                </button>
-                                <p className="checkout-secure-note">🔒 You'll be redirected to secure payment</p>
+                        <div className="checkout-totals">
+                            <div className="checkout-total-row">
+                                <span>Subtotal</span>
+                                <span>${grandTotal}</span>
                             </div>
-                        ) : (
-                            <p className="text-center text-gray-400 mt-6">Your cart is empty</p>
-                        )}
-                    </div>
+                            <div className="checkout-total-row">
+                                <span>Shipping</span>
+                                <span className="checkout-muted">At payment</span>
+                            </div>
+                            <div className="checkout-total-row grand">
+                                <span>Total</span>
+                                <span>${grandTotal}</span>
+                            </div>
+                        </div>
 
+                        <button
+                            type="submit"
+                            className="checkout-submit"
+                            disabled={submitting}
+                        >
+                            {submitting ? "Redirecting…" : "Proceed to payment"}
+                        </button>
+                        <p className="checkout-secure-note">Secure payment · Stripe checkout</p>
+                    </aside>
                 </form>
             </div>
         </div>

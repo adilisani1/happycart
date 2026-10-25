@@ -17,7 +17,7 @@ const ReviewSection = () => {
         centerMode: true,
         centerPadding: "0px",
         afterChange: (currentIndex) => {
-            setActiveSlide(currentIndex + Math.floor(3 / 2)); // Calculate center-most slide
+            setActiveSlide(currentIndex + Math.floor(3 / 2));
         },
         responsive: [
             {
@@ -38,44 +38,31 @@ const ReviewSection = () => {
     };
 
     return (
-        <section className="text-white md:px-4 py-24 md:mb-20 review-slider relative ">
-            <div class="absolute z-[0] w-[60%] h-[70%] -right-[40%] rounded-full blue__gradient bottom-14"></div>
-            <div className="container mx-auto">
-                <h2 className="text-2xl font-semibold text-center text-white opacity-80 mb-8">
-                    What Our Customers Say
-                </h2>
+        <section className="hc-reviews review-slider relative">
+            <div className="hc-section-head">
+                <span className="section-kicker">Social proof</span>
+                <h2 className="section-heading">What customers say</h2>
+            </div>
+            <div className="container mx-auto px-2">
                 <Slider {...sliderSettings}>
                     {reviews.map((review, index) => (
                         <div
                             key={index}
-                            className={`bg-black-gradient flex justify-center items-center flex-col p-8 h-[300px] text-center rounded-2xl shadow-md mx-auto w-full transition-all duration-300`}
+                            className="hc-review"
                             style={{
-                                transform: index === activeSlide ? "scale(1.1)" : "scale(1)",
+                                transform: index === activeSlide ? "scale(1.03)" : "scale(1)",
                                 transition: "transform 0.3s ease-in-out",
                             }}
                         >
-                            <div
-                                className="rounded-full overflow-hidden mb-4"
-                                style={{
-                                    width: '100px',
-                                    height: '100px',
-                                    display: 'flex',
-                                    margin: '0 auto',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    border: '2px solid #fff',
-                                }}
-                            >
+                            <div className="hc-review-avatar">
                                 <img
                                     src={review.icon}
                                     alt={`${review.name}'s Icon`}
-                                    className="w-full h-full object-cover"
                                 />
                             </div>
-
-                            <h3 className="text-lg font-semibold mb-3 mt-3">{review.name}</h3>
-                            <p className="text-gray-400 mb-4">"{review.review}"</p>
-                            <div className="flex text-center justify-center text-primary-color text-lg space-x-1">
+                            <h3>{review.name}</h3>
+                            <p>"{review.review}"</p>
+                            <div className="hc-review-stars">
                                 {review.stars}
                             </div>
                         </div>

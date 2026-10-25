@@ -1,0 +1,67 @@
+.hc-follow {
+  width: 100%;
+  padding: 3rem 0 5rem;
+}
+
+.hc-follow-head {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.hc-follow-icon {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: 0 auto 0.75rem;
+  color: var(--accent);
+}
+
+.hc-follow-head p {
+  margin-top: 0.5rem;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.hc-follow-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding: 0 clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.hc-follow-shot {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.hc-follow-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.hc-follow-shot:hover img {
+  transform: scale(1.06);
+}
+
+@media (max-width: 900px) {
+  .hc-follow-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hc-follow-shot:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hc-follow-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hc-follow-shot:nth-child(n + 3) {
+    display: none;
+  }
+}

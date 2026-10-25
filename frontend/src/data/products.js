@@ -29,7 +29,7 @@ const products = [
     price: "399.99",
     category: "Smart Watch",
     ratings: 4.7,
-    trendy: false,
+    trendy: true,
     featured: true,
     description:
       "Stay connected, monitor your health, and track your fitness with the Apple Watch Series 6. Featuring an always-on display and cutting-edge sensors.",

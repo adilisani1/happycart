@@ -9,36 +9,35 @@ import Products from '../../components/products/Products';
 
 const promiseItems = [
     {
-        icon: <MdOutlineContactSupport />,
-        title: "Support 24/7",
-        subtitle: "Dedicated 24/7 Support",
+        icon: <LiaShippingFastSolid />,
+        title: "Free shipping",
+        subtitle: "On orders over $50",
     },
     {
         icon: <PiKeyReturn />,
-        title: "Easy Returns",
-        subtitle: "Shop With Confidence",
+        title: "Easy returns",
+        subtitle: "30-day peace of mind",
     },
     {
         icon: <BsCreditCard2Front />,
-        title: "Card Payment",
-        subtitle: "12 Months Installments",
+        title: "Secure pay",
+        subtitle: "Cards & installments",
     },
     {
-        icon: <LiaShippingFastSolid />,
-        title: "Free Shipping",
-        subtitle: "Capped at $50 per order",
+        icon: <MdOutlineContactSupport />,
+        title: "Support 24/7",
+        subtitle: "Real humans, always",
     },
 ];
 
 const Home = () => {
     return (
-        <section>
+        <section className="home-page">
             <Hero />
 
-            {/* OUR PROMISE */}
-            <div className="promise-strip max-w-screen-2xl mx-auto px-5 md:px-10 mb-32">
+            <div className="promise-strip max-w-screen-2xl mx-auto px-5 md:px-10">
                 {promiseItems.map((item, i) => (
-                    <div key={i} className="promise-card bg-black-gradient-2">
+                    <div key={i} className="promise-item">
                         <span className="promise-icon">{item.icon}</span>
                         <div className="promise-text">
                             <h3>{item.title}</h3>
@@ -48,7 +47,6 @@ const Home = () => {
                 ))}
             </div>
 
-            {/* MAIN PRODUCTS */}
             <Products />
         </section>
     );

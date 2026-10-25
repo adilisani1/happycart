@@ -1,36 +1,37 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { StoreContext } from '../context/StoreContext';
+import './trendings.css';
 
 const Trendings = () => {
-
-    const { products, url } = useContext(StoreContext);
-
+    const { products } = useContext(StoreContext);
     const trendyProducts = products.filter(product => product.trendy);
+
     return (
-        <>
-            <div className='md:pt-20 pb-8'>
-                <h1 className='text-center md:text-5xl text-2xl'>Trendy</h1>
+        <section className="hc-trendy">
+            <div className="hc-section-head">
+                <span className="section-kicker">Moving fast</span>
+                <h2 className="section-heading">Trendy</h2>
             </div>
-            <div className="grid grid-cols-1 mt-10 sm:grid-cols-2 lg:grid-cols-2 md:gap-7 gap-10 max-w-screen-2xl rounded-xl px-10 pb-7 pt-5 sm:px-20 mb-20 mx-auto ">
+            <div className="hc-trendy-grid max-w-screen-2xl mx-auto px-5 sm:px-10 lg:px-20 mb-24">
                 {trendyProducts.map((product) => (
-                    <div key={product._id} className="w-full py-5 rounded-2xl flex flex-col sm:flex-row items-center justify-center transition-all duration-300 ease-in-out blue__gradient_bg
-                transform hover:scale-95 shadow-[0px_4px_6px_0px_rgba(236,_72,_153,_0.5)] cursor-pointer hover:shadow-[0px_4px_6px_0px_rgba(34,_197,_94,_0.5)] h-full text-center">
+                    <Link
+                        to={`/products/${product._id}`}
+                        key={product._id}
+                        className="hc-trendy-item"
+                    >
                         <img
-                            className="md:max-w-[300px] sm:w-[250px] w-[200px]"
                             src={product.image[0]?.startsWith("http") ? product.image[0] : `https://res.cloudinary.com/dawa2cnxk/image/upload/products/${product.image[0]}`}
-
-                            alt="Wireless Headphones" />
-
-                        <div className="mt-5 sm:mt-0 sm:mb-0 sm:ml-5 mb-10">
-                            <p className="price text-cyan-500">{`${product.category}`}</p>
-                            <h3 className="text-lg font-semibold text-white">{product.title}</h3>
+                            alt={product.title}
+                        />
+                        <div className="hc-trendy-meta">
+                            <span>{product.category}</span>
+                            <h3>{product.title}</h3>
                         </div>
-                    </div>
+                    </Link>
                 ))}
-
             </div>
-        </>
-
+        </section>
     );
 };
 

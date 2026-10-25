@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import './sidebar.css';
 import { MenuContext } from '../../context/MenuProvider/MenuProvider';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { IoSearchOutline } from 'react-icons/io5';
 
 const Sidebar = () => {
     const { open, setOpen } = useContext(MenuContext);
     const menuRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleClickOutside = (event) => {
         if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -26,14 +27,59 @@ const Sidebar = () => {
         };
     }, [open]);
 
+    useEffect(() => {
+        if (!open) return;
+
+        const scrollY = window.scrollY;
+        const { style } = document.body;
+        const prev = {
+            overflow: style.overflow,
+            position: style.position,
+            top: style.top,
+            width: style.width,
+        };
+
+        style.overflow = 'hidden';
+        style.position = 'fixed';
+        style.top = `-${scrollY}px`;
+        style.width = '100%';
+        document.documentElement.style.overflow = 'hidden';
+
+        return () => {
+            style.overflow = prev.overflow;
+            style.position = prev.position;
+            style.top = prev.top;
+            style.width = prev.width;
+            document.documentElement.style.overflow = '';
+            window.scrollTo(0, scrollY);
+        };
+    }, [open]);
+
     const handleMenuToggle = () => {
         setOpen(!open);
     };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const searchValue = e.target.search.value.trim();
+        if (searchValue) {
+            setOpen(false);
+            navigate(`/search/${searchValue}`);
+        }
+    };
+
     return (
         <>
             <div className={`button ${open ? 'open' : ''}`} onClick={handleMenuToggle}>
                 <span className="burger-icon"></span>
             </div>
+            {open && (
+                <div
+                    className="menu-overlay"
+                    onClick={() => setOpen(false)}
+                    aria-hidden="true"
+                />
+            )}
             <div
                 ref={menuRef}
                 className={`menu-sidebar ${open ? 'menu-open' : ''}`}
@@ -44,20 +90,37 @@ const Sidebar = () => {
                     </button>
                 </div>
 
-                <ul className="flex flex-col items-start justify-start h-screen pt-28 px-4 gap-7 text-white">
-                    <li className="md:text-2xl text-md">
-                        <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-                    </li>
-                    <li className="md:text-2xl text-md">
-                        <Link to="/shop" onClick={() => setOpen(false)}>Shop</Link>
-                    </li>
-                    <li className="md:text-2xl text-md">
-                        <Link to="/about" onClick={() => setOpen(false)}>About</Link>
-                    </li>
-                    <li className="md:text-2xl text-md">
-                        <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
-                    </li>
-                </ul>
+                <div className="sidebar-content">
+                    <p className="sidebar-search-title">Search products</p>
+                    <form className="sidebar-search" onSubmit={handleSearch}>
+                        <input
+                            type="search"
+                            name="search"
+                            placeholder="Try Apple, headphones…"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            spellCheck="false"
+                        />
+                        <button type="submit" aria-label="Search">
+                            <IoSearchOutline />
+                        </button>
+                    </form>
+
+                    <ul>
+                        <li>
+                            <Link to="/" onClick={() => setOpen(false)}>Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/shop" onClick={() => setOpen(false)}>Shop</Link>
+                        </li>
+                        <li>
+                            <Link to="/about" onClick={() => setOpen(false)}>About</Link>
+                        </li>
+                        <li>
+                            <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </>
     )

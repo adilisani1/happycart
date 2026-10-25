@@ -23,7 +23,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <div className="bg-primary w-full overflow-hidden">
+    <div className="site-shell w-full overflow-hidden">
       <ToastContainer />
 
       <MenuProvider>

@@ -21,7 +21,7 @@ const ShopItems = ({ id, title, image, price, ratings }) => {
 
     return (
         <Link to={`/products/${id}`} className="shop-item-link">
-            <div className="shop-item bg-black-gradient">
+            <div className="shop-item">
 
                 {/* Image area */}
                 <div className="shop-item-img-wrap">

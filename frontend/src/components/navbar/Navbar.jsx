@@ -17,13 +17,13 @@ const ProfileAvatar = ({ userData, className }) => {
     const initials = display
         ? display.split(/[\s@]/).map(w => w[0]).join('').toUpperCase().slice(0, 2)
         : 'HC';
-    const colors = ['#7824f6', '#536dff', '#55a9ff', '#9da6f0', '#7a76f7'];
+    const colors = ['#FF5C35', '#0D7377', '#E84A24', '#2A9D8F', '#F4A261'];
     const bg = colors[(display?.charCodeAt(0) || 0) % colors.length];
 
     return (
         <div
             className={`rounded-full flex items-center justify-center text-white font-bold cursor-pointer select-none shrink-0 ${className}`}
-            style={{ background: `radial-gradient(circle at 30% 30%, ${bg}cc, #150d2b)` }}
+            style={{ background: bg }}
         >
             <span className="text-sm leading-none">{initials}</span>
         </div>
@@ -73,7 +73,7 @@ const ProfileDropdown = ({ userData, avatarClassName, navigate, handleLogout }) 
                     }}
                 >
                     <span className="bag-icon"><FiUser /></span>
-                    <p className="text-black m-0">Profile</p>
+                    <p className="m-0">Profile</p>
                 </li>
                 <hr />
                 <li
@@ -84,7 +84,7 @@ const ProfileDropdown = ({ userData, avatarClassName, navigate, handleLogout }) 
                     }}
                 >
                     <span className="bag-icon"><RiShoppingBag3Line /></span>
-                    <p className="text-black m-0">Orders</p>
+                    <p className="m-0">Orders</p>
                 </li>
                 <hr />
                 <li
@@ -94,7 +94,7 @@ const ProfileDropdown = ({ userData, avatarClassName, navigate, handleLogout }) 
                     }}
                 >
                     <span className="exit-icon"><IoMdExit /></span>
-                    <p className="text-black m-0">Logout</p>
+                    <p className="m-0">Logout</p>
                 </li>
             </ul>
         </div>
@@ -105,6 +105,8 @@ const Navbar = ({ setShowLogin }) => {
     const navigate = useNavigate();
     const { cartItems, token, setToken, userData, setUserData } = useContext(StoreContext);
     const [scroll, setScroll] = React.useState(0);
+    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+    const mobileSearchRef = useRef(null);
 
     React.useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -112,10 +114,17 @@ const Navbar = ({ setShowLogin }) => {
         });
     }, []);
 
+    useEffect(() => {
+        if (mobileSearchOpen && mobileSearchRef.current) {
+            mobileSearchRef.current.focus();
+        }
+    }, [mobileSearchOpen]);
+
     const handleSearch = (e) => {
         e.preventDefault();
-        const searchValue = e.target.search.value;
+        const searchValue = e.target.search.value.trim();
         if (searchValue) {
+            setMobileSearchOpen(false);
             navigate(`/search/${searchValue}`);
         }
     };
@@ -129,89 +138,95 @@ const Navbar = ({ setShowLogin }) => {
         navigate('/');
     };
 
+    const cartHasItems = Object.keys(cartItems).some((item) => cartItems[item]);
+
     return (
-        <header className={`h-[90px] pt-5 px-8 container mx-auto shadow-sm border-b border-solid border-white/10 transition-all ease-in duration-300 ${scroll > 40 ? 'nav-bg-gradient shadow-2xl ' : ''}`}>
-
-            {/* ── SMALL SCREENS ── */}
-            <div className='flex xl:hidden items-center justify-between'>
-                <div className='flex-1'>
-                    <Menu />
-                </div>
-                <div className='flex-1 flex justify-center'>
-                    <NavLink to='/' className='flex items-center gap-1'>
-                        <img className='md:w-[43px] w-[32px]' src={logoCart} alt='happy-cart-logo' />
-                        <div className='pt-2.5'>
-                            <h4 className='md:text-[20px] text-xs font-extrabold text-white'>happycart</h4>
-                        </div>
-                    </NavLink>
-                </div>
-                <div className='flex-1 flex justify-end items-center'>
-                    <div className='flex gap-2 items-center'>
-                        <NavLink to="/cart" className="z-[9995] xl:relative md:bg-none border border-gray-300 bg-black-gradient p-3.5 shadow-3xl rounded-full fixed bottom-10 right-6">
-                            <span className='text-[20px] md:text-2xl fill-white'>
-                                <BsFillHandbagFill className='fill-white' />
-                            </span>
-                            {Object.keys(cartItems).length > 0 && (
-                                <div className="absolute sm:top-[12px] sm:right-[12px] top-[11px] right-[11px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
-                            )}
+        <header className={`hc-header ${scroll > 40 || mobileSearchOpen ? 'is-scrolled' : ''} ${mobileSearchOpen ? 'search-open' : ''}`}>
+            <div className="hc-header-inner">
+                {/* ── SMALL SCREENS ── */}
+                <div className='flex xl:hidden items-center justify-between w-full'>
+                    <div className='flex-1'>
+                        <Menu />
+                    </div>
+                    <div className='flex-1 flex justify-center'>
+                        <NavLink to='/' className='hc-logo'>
+                            <img src={logoCart} alt='happy-cart-logo' />
+                            <span>HappyCart</span>
                         </NavLink>
+                    </div>
+                    <div className='flex-1 flex justify-end items-center'>
+                        <div className='flex gap-2 items-center'>
+                            <button
+                                type="button"
+                                className="hc-mobile-search-btn"
+                                aria-label="Search"
+                                aria-expanded={mobileSearchOpen}
+                                onClick={() => setMobileSearchOpen((v) => !v)}
+                            >
+                                <IoSearchOutline />
+                            </button>
 
-                        {!token
-                            ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium md:text-sm text-[12px] text-white' onClick={setShowLogin}>Sign in</button>
-                            : (
-                                <ProfileDropdown
-                                    userData={userData}
-                                    avatarClassName="md:w-10 md:h-10 w-8 h-8"
-                                    navigate={navigate}
-                                    handleLogout={handleLogout}
-                                />
-                            )
-                        }
+                            <NavLink to="/cart" className="hc-cart-link hc-cart-link--mobile" aria-label="Cart">
+                                <BsFillHandbagFill />
+                                {cartHasItems && <span className="hc-cart-dot" />}
+                            </NavLink>
+
+                            {!token
+                                ? <button className='hc-signin' onClick={setShowLogin}>Sign in</button>
+                                : (
+                                    <ProfileDropdown
+                                        userData={userData}
+                                        avatarClassName="md:w-10 md:h-10 w-8 h-8"
+                                        navigate={navigate}
+                                        handleLogout={handleLogout}
+                                    />
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* ── BIGGER SCREENS ── */}
-            <nav className='hidden  xl:flex justify-between items-center gap-8 h-full'>
-                {/* LEFT */}
-                <div className='w-1/3 xl:w-1/2 flex items-center gap-12'>
-                    <Link to='/' className='flex items-center gap-1'>
-                        <img className='md:w-[43px] w-[38px] -mt-2' src={logoCart} alt='happy-cart-logo' />
-                        <div className=''>
-                            <h4 className='md:text-[20px] text-md font-extrabold leading-6 text-white'>happycart</h4>
-                        </div>
-                    </Link>
-                    <ul className='hidden xl:flex gap-7'>
-                        {navLinks.map((link, index) => (
-                            <li key={index}>
-                                <Link to={link.path} className="hover:text-primary-color text-white">
-                                    {link.name}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                {/* ── BIGGER SCREENS ── */}
+                <nav className='hidden xl:flex justify-between items-center gap-8 w-full h-full'>
+                    <div className='flex items-center gap-10'>
+                        <Link to='/' className='hc-logo'>
+                            <img src={logoCart} alt='happy-cart-logo' />
+                            <span>HappyCart</span>
+                        </Link>
+                        <ul className='flex gap-7'>
+                            {navLinks.map((link, index) => (
+                                <li key={index}>
+                                    <Link to={link.path} className="hc-nav-link">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-                {/* RIGHT */}
-                <div className='w-1/3 xl:w-1/2'>
-                    <div className='flex gap-6 items-center'>
-                        <form className="flex justify-between gap-4 bg-gray-100 rounded-md p-2 flex-1" onSubmit={handleSearch}>
-                            <input className='flex-1 bg-transparent outline-none text-black ml-2' type="text" placeholder='Search your product' name="search" />
-                            <button className='cursor-pointer bg-none search-button' type='submit'>
-                                <IoSearchOutline className='fill-black text-black' />
+                    <div className='flex gap-5 items-center flex-1 max-w-xl justify-end'>
+                        <form className="hc-search" onSubmit={handleSearch}>
+                            <input
+                                type="search"
+                                placeholder="Search products"
+                                name="search"
+                                autoComplete="off"
+                                autoCorrect="off"
+                                spellCheck="false"
+                            />
+                            <button type='submit' aria-label="Search">
+                                <IoSearchOutline />
                             </button>
                         </form>
 
-                        <div className='flex items-center gap-4 xl:gap-6'>
-                            <Link to="/cart" className='relative'>
-                                <BsFillHandbagFill className='fill-white text-lg md:text-2xl' />
-                                {Object.keys(cartItems).some((item) => cartItems[item]) > 0 && (
-                                    <div className="absolute top-[-2px] right-[-3px] bg-red-500 text-white rounded-full w-2 h-2 flex items-center justify-center" />
-                                )}
+                        <div className='flex items-center gap-4'>
+                            <Link to="/cart" className='hc-cart-link relative'>
+                                <BsFillHandbagFill />
+                                {cartHasItems && <span className="hc-cart-dot" />}
                             </Link>
 
                             {!token
-                                ? <button className='bg-blue-gradient hover:bg-light-gradient py-2 px-5 rounded-full font-poppins font-medium text-white' onClick={setShowLogin}>Sign in</button>
+                                ? <button className='hc-signin' onClick={setShowLogin}>Sign in</button>
                                 : (
                                     <ProfileDropdown
                                         userData={userData}
@@ -223,8 +238,28 @@ const Navbar = ({ setShowLogin }) => {
                             }
                         </div>
                     </div>
+                </nav>
+            </div>
+
+            {mobileSearchOpen && (
+                <div className="hc-mobile-search-panel xl:hidden">
+                    <p className="hc-mobile-search-title">Search products</p>
+                    <form className="hc-search hc-search--mobile" onSubmit={handleSearch}>
+                        <input
+                            ref={mobileSearchRef}
+                            type="search"
+                            placeholder="Try Apple, headphones…"
+                            name="search"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            spellCheck="false"
+                        />
+                        <button type="submit" aria-label="Search">
+                            <IoSearchOutline />
+                        </button>
+                    </form>
                 </div>
-            </nav>
+            )}
         </header>
     );
 };

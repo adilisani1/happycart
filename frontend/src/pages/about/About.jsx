@@ -27,50 +27,41 @@ const About = () => {
     };
 
     const stats = [
-        { value: '10K+', label: 'Happy Customers' },
+        { value: '10K+', label: 'Happy customers' },
         { value: '500+', label: 'Products' },
-        { value: '98%', label: 'Satisfaction Rate' },
+        { value: '98%', label: 'Satisfaction' },
         { value: '24/7', label: 'Support' },
     ];
 
     return (
         <div className="about-page">
 
-            {/* ── Hero Section ── */}
-            <section className="about-hero">
-                <div className="about-hero-bg" />
-                <div className="about-hero-inner container mx-auto">
+            <section className="about-intro">
+                <div className="about-intro-inner">
+                    <nav className="about-breadcrumb" aria-label="Breadcrumb">
+                        <Link to="/">Home</Link>
+                        <span>/</span>
+                        <span className="active">About</span>
+                    </nav>
 
-                    <div className="about-hero-text">
-                        <nav className="about-breadcrumb" aria-label="Breadcrumb">
-                            <Link to="/">Home</Link>
-                            <span>/</span>
-                            <span className="active">About Us</span>
-                        </nav>
-
-                        <h1 className="about-hero-title">
-                            We're Building the <br />
-                            <span className="gradient-text">Future of Tech</span>
-                        </h1>
-                        <p className="about-hero-desc">
-                            Welcome to Happy Cart — your destination for cutting-edge electronics. We're dedicated to delivering the best products and experiences to our valued customers.
-                        </p>
-                        <div className="about-hero-actions">
-                            <Link to="/shop">
-                                <button className="bg-blue-gradient hover:bg-light-gradient text-white about-btn-primary">Explore Products</button>
-                            </Link>
-                            <Link to="/contact">
-                                <button className="about-btn-outline">Contact Us</button>
-                            </Link>
+                    <div className="about-intro-grid">
+                        <div className="about-intro-copy">
+                            <p className="about-kicker">Our story</p>
+                            <h1 className="about-intro-title">About HappyCart</h1>
+                            <p className="about-intro-lead">
+                                We started HappyCart for people who want good electronics without the loud sales pitch.
+                            </p>
+                            <p className="about-intro-body">
+                                Every product we stock is chosen for everyday use — solid build, clear pricing, and support that answers when you need it. No clutter. No gimmicks. Just tech that feels considered.
+                            </p>
                         </div>
-                    </div>
-                    <div className="about-hero-image">
-                        <div className="hero-img-glow" />
-                        <img src={TopImage} alt="About Us" />
+
+                        <div className="about-intro-media">
+                            <img src={TopImage} alt="HappyCart about" />
+                        </div>
                     </div>
                 </div>
 
-                {/* Stats Bar */}
                 <div className="stats-bar">
                     {stats.map((s, i) => (
                         <div className="stat-item" key={i}>
@@ -81,67 +72,58 @@ const About = () => {
                 </div>
             </section>
 
-            {/* ── Craft Section ── */}
             <section className="about-craft">
                 <div className="about-craft-inner">
                     <div className="craft-image-wrap">
                         <div className="craft-img-card">
-                            <img src={SectionTwoImage} alt="Our Products" />
+                            <img src={SectionTwoImage} alt="Our products" />
                         </div>
                         <div className="craft-badge">
-                            <span>🏆</span>
                             <div>
-                                <strong>Award Winning</strong>
-                                <p>Best Tech Store 2024</p>
+                                <strong>Since 2024</strong>
+                                <p>Built for everyday tech</p>
                             </div>
                         </div>
                     </div>
                     <div className="craft-content">
-                        <span className="section-tag">Our Story</span>
+                        <span className="section-tag">How we work</span>
                         <h2 className="craft-title">
-                            We Craft Awesome <br />
-                            <span className="gradient-text">With Great Experience</span>
+                            Curated gear, <span className="gradient-text">honest service</span>
                         </h2>
                         <p className="craft-desc">
-                            Our company is a leading provider of cutting-edge technology. We are dedicated to providing the best experience to our customers, with a team of experts constantly innovating to improve our products and services.
+                            We partner with makers we trust and keep the buying path simple — browse, compare, and check out without noise. Our team keeps refining the catalog so what you see is what you can rely on.
                         </p>
                         <ul className="craft-features">
                             <li><span className="check-icon">✓</span> Premium quality products</li>
                             <li><span className="check-icon">✓</span> Expert customer support</li>
-                            <li><span className="check-icon">✓</span> Fast & secure delivery</li>
+                            <li><span className="check-icon">✓</span> Fast &amp; secure delivery</li>
                         </ul>
-                        <Link to="/shop">
-                            <button className="bg-blue-gradient hover:bg-light-gradient text-white about-btn-primary">View Products</button>
-                        </Link>
+                        <Link to="/shop" className="about-text-link">Browse the shop →</Link>
                     </div>
                 </div>
             </section>
 
-            {/* ── Smart Fashion Banner ── */}
             <section className="about-banner">
                 <div className="banner-img-wrap">
-                    <img src={SectionThreeImage} alt="Smart Fashion" />
+                    <img src={SectionThreeImage} alt="Smart devices" />
                     <div className="banner-overlay" />
                 </div>
                 <div className="banner-content">
-                    <span className="section-tag light">Featured</span>
+                    <span className="section-tag light">What we believe</span>
                     <h2 className="banner-title">
-                        Smart Fashion <br />
-                        <span className="orange-text">With Smart Devices</span>
+                        Tech should feel <span className="orange-text">personal</span>
                     </h2>
-                    <p className="banner-desc">Where style meets technology in perfect harmony.</p>
-                    <Link to="/shop">
-                        <button className="btn-primary">Shop Now</button>
-                    </Link>
+                    <p className="banner-desc">
+                        From phones to wearables, we focus on pieces that fit real routines — not just feature lists.
+                    </p>
                 </div>
             </section>
 
-            {/* ── Team Section ── */}
             <section className="about-team">
                 <div className="team-header">
-                    <span className="section-tag">The People</span>
-                    <h2 className="team-title">Meet Our <span className="gradient-text">Dream Team</span></h2>
-                    <p className="team-subtitle">Talented individuals passionate about technology and customer excellence.</p>
+                    <span className="section-tag">The people</span>
+                    <h2 className="team-title">Meet the <span className="gradient-text">team</span></h2>
+                    <p className="team-subtitle">The people behind the catalog, support, and day-to-day experience.</p>
                 </div>
                 <div className="team-slider-wrap">
                     <Slider {...sliderSettings}>
