@@ -144,45 +144,42 @@ const Navbar = ({ setShowLogin }) => {
         <header className={`hc-header ${scroll > 40 || mobileSearchOpen ? 'is-scrolled' : ''} ${mobileSearchOpen ? 'search-open' : ''}`}>
             <div className="hc-header-inner">
                 {/* ── SMALL SCREENS ── */}
-                <div className='flex xl:hidden items-center justify-between w-full'>
-                    <div className='flex-1'>
+                <div className="hc-mobile-bar xl:hidden">
+                    <div className="hc-mobile-bar-left">
                         <Menu />
-                    </div>
-                    <div className='flex-1 flex justify-center'>
-                        <NavLink to='/' className='hc-logo'>
-                            <img src={logoCart} alt='happy-cart-logo' />
+                        <NavLink to="/" className="hc-logo hc-logo--mobile">
+                            <img src={logoCart} alt="happy-cart-logo" />
                             <span>HappyCart</span>
                         </NavLink>
                     </div>
-                    <div className='flex-1 flex justify-end items-center'>
-                        <div className='flex gap-2 items-center'>
-                            <button
-                                type="button"
-                                className="hc-mobile-search-btn"
-                                aria-label="Search"
-                                aria-expanded={mobileSearchOpen}
-                                onClick={() => setMobileSearchOpen((v) => !v)}
-                            >
-                                <IoSearchOutline />
-                            </button>
 
-                            <NavLink to="/cart" className="hc-cart-link hc-cart-link--mobile" aria-label="Cart">
-                                <BsFillHandbagFill />
-                                {cartHasItems && <span className="hc-cart-dot" />}
-                            </NavLink>
+                    <div className="hc-mobile-bar-right">
+                        <button
+                            type="button"
+                            className="hc-mobile-search-btn"
+                            aria-label="Search"
+                            aria-expanded={mobileSearchOpen}
+                            onClick={() => setMobileSearchOpen((v) => !v)}
+                        >
+                            <IoSearchOutline />
+                        </button>
 
-                            {!token
-                                ? <button className='hc-signin' onClick={setShowLogin}>Sign in</button>
-                                : (
-                                    <ProfileDropdown
-                                        userData={userData}
-                                        avatarClassName="md:w-10 md:h-10 w-8 h-8"
-                                        navigate={navigate}
-                                        handleLogout={handleLogout}
-                                    />
-                                )
-                            }
-                        </div>
+                        <NavLink to="/cart" className="hc-cart-fab" aria-label="Cart">
+                            <BsFillHandbagFill />
+                            {cartHasItems && <span className="hc-cart-dot" />}
+                        </NavLink>
+
+                        {!token
+                            ? <button type="button" className="hc-signin hc-signin--mobile" onClick={setShowLogin}>Sign in</button>
+                            : (
+                                <ProfileDropdown
+                                    userData={userData}
+                                    avatarClassName="w-8 h-8"
+                                    navigate={navigate}
+                                    handleLogout={handleLogout}
+                                />
+                            )
+                        }
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react'
 import './sidebar.css';
 import { MenuContext } from '../../context/MenuProvider/MenuProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoSearchOutline } from 'react-icons/io5';
+import { IoSearchOutline, IoMenu, IoClose } from 'react-icons/io5';
 
 const Sidebar = () => {
     const { open, setOpen } = useContext(MenuContext);
@@ -69,10 +69,16 @@ const Sidebar = () => {
     };
 
     return (
-        <>
-            <div className={`button ${open ? 'open' : ''}`} onClick={handleMenuToggle}>
-                <span className="burger-icon"></span>
-            </div>
+        <div className="menu-root">
+            <button
+                type="button"
+                className={`menu-toggle ${open ? 'open' : ''}`}
+                onClick={handleMenuToggle}
+                aria-label={open ? 'Close menu' : 'Open menu'}
+                aria-expanded={open}
+            >
+                {open ? <IoClose /> : <IoMenu />}
+            </button>
             {open && (
                 <div
                     className="menu-overlay"
@@ -122,7 +128,7 @@ const Sidebar = () => {
                     </ul>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
