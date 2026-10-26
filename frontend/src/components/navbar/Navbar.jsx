@@ -164,13 +164,22 @@ const Navbar = ({ setShowLogin }) => {
                             <IoSearchOutline />
                         </button>
 
-                        <NavLink to="/cart" className="hc-cart-fab" aria-label="Cart">
+                        <NavLink to="/cart" className="hc-cart-link hc-cart-link--mobile" aria-label="Cart">
                             <BsFillHandbagFill />
                             {cartHasItems && <span className="hc-cart-dot" />}
                         </NavLink>
 
                         {!token
-                            ? <button type="button" className="hc-signin hc-signin--mobile" onClick={setShowLogin}>Sign in</button>
+                            ? (
+                                <button
+                                    type="button"
+                                    className="hc-signin-icon"
+                                    onClick={setShowLogin}
+                                    aria-label="Sign in"
+                                >
+                                    <FiUser />
+                                </button>
+                            )
                             : (
                                 <ProfileDropdown
                                     userData={userData}

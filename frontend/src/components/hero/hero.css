@@ -129,11 +129,13 @@
         min-height: auto;
         align-items: stretch;
         flex-direction: column;
+        background: #0b0e13;
     }
 
     .hc-hero-media {
         position: relative;
         min-height: 42vh;
+        background: #0b0e13;
     }
 
     .hc-hero-glow--pink {
@@ -161,16 +163,19 @@
         background: linear-gradient(
             to top,
             #0b0e13 0%,
-            rgba(11, 14, 19, 0.45) 35%,
-            transparent 70%
+            rgba(11, 14, 19, 0.55) 12%,
+            transparent 40%
         );
     }
 
     .hc-hero-content {
-        margin-top: -2rem;
+        margin-top: -1.5rem;
         padding-top: 0;
         padding-bottom: 2rem;
         text-align: left;
+        background: #0b0e13;
+        position: relative;
+        z-index: 3;
     }
 
     .hc-hero-brand {
